@@ -1,0 +1,18 @@
+body{
+    background-color: #eeeeee;
+}
+div nav{
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+div nav a{
+    color: #ff8000;
+}
+.carousel-item img{
+    height: 550px !important;
+    position: relative;
+   
+}
+#rest{
+    background-color: white;
+}
