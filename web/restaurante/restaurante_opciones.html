@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración restaurante</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="restaurante.css">
+</head>
+<body>
+    <h3>Tipo de cocina</h3>
+
+    <ul id="food-options"></ul>
+
+    <div class="separator"></div>
+
+    <h3>¿Qué paquetes ofreces?</h3>
+
+    <ul id="package-options"></ul>
+
+    <div class="separator"></div>
+
+    <h3>Bebidas</h3>
+
+    <div class="row">
+        <div class="col-12 col-md-6 mx-auto">
+            <p style="text-align: center;">Bebidas no añadidas</p>
+            <ul id="drinks-not-added" class="list-group"></ul>
+        </div>
+        <div class="col-12 col-md-6 mx-auto">
+            <p style="text-align: center;">Bebidas añadidas</p>
+            <ul id="drinks-added" class="list-group"></ul>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <h3>Tipos/Modalidades de entrega</h3>
+
+    <ul id="delivery-options"></ul>
+
+    <div class="separator"></div>
+
+    <h3>Visiblidad</h3>
+
+    <ul id="visibility-options">
+        <li id="visible"
+            class="list-group-item list-group-item-action"
+            onclick="javascript:toggleVisibilityOption(this);"
+        >
+            Visible
+        </li>
+        <li id="no-visible"
+            class="list-group-item list-group-item-action red"
+            onclick="javascript:toggleVisibilityOption(this);"
+        >
+            No visible
+        </li>
+    </ul>
+    
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Guardar</button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¡Cambios guardados!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                Se verán reflejados instantáneamente o en breve o algo
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button> -->
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <script src="restaurante.js"></script>
+</body>
+</html>
