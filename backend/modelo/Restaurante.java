@@ -2,18 +2,31 @@ package backend.modelo;
 
 public class Restaurante {
     private int idRestaurante;
-    private String iban;
-
     private int usuarioIdUsuario;
+    private String cif;
+    private String iban;
+    private String nombreRestaurante;
+    private String nombrePropietario;
+
 
     public Restaurante() {
 
     }
 
-    public Restaurante(int idRestaurante, String iban, int usuarioIdUsuario) {
+    public Restaurante(
+        int idRestaurante,
+        int usuarioIdUsuario,
+        String cif,
+        String iban,
+        String nombreRestaurante,
+        String nombrePropietario
+    ) {
         this.idRestaurante = idRestaurante;
-        this.iban = iban;
         this.usuarioIdUsuario = usuarioIdUsuario;
+        this.cif = cif;
+        this.iban = iban;
+        this.nombreRestaurante = nombreRestaurante;
+        this.nombrePropietario = nombrePropietario;
     }
 
     public int getIdRestaurante() {
@@ -24,6 +37,22 @@ public class Restaurante {
         this.idRestaurante = idRestaurante;
     }
 
+    public int getUsuarioIdUsuario() {
+        return this.usuarioIdUsuario;
+    }
+
+    public void setUsuarioIdUsuario(int usuarioIdUsuario) {
+        this.usuarioIdUsuario = usuarioIdUsuario;
+    }
+
+    public String getCif() {
+        return this.cif;
+    }
+
+    public void setCif(String cif) {
+        this.cif = cif;
+    }
+
     public String getIban() {
         return this.iban;
     }
@@ -32,11 +61,19 @@ public class Restaurante {
         this.iban = iban;
     }
 
-    public int getUsuarioIdUsuario() {
-        return this.usuarioIdUsuario;
+    public String getNombreRestaurante() {
+        return this.nombreRestaurante;
     }
 
-    public void setUsuarioIdUsuario(int usuarioIdUsuario) {
-        this.usuarioIdUsuario = usuarioIdUsuario;
+    public void setNombreRestaurante(String nombreRestaurante) {
+        this.nombreRestaurante = nombreRestaurante;
+    }
+
+    public String getNombrePropietario() {
+        return this.nombrePropietario;
+    }
+
+    public void setNombrePropietario(String nombrePropietario) {
+        this.nombrePropietario = nombrePropietario;
     }
 }

@@ -11,10 +11,10 @@ import backend.DBConn;
 import backend.modelo.Cliente;
 
 public class ClienteController {
-    private static final String TABLE = "usuario";
+    private static final String TABLE = "cliente";
     private static final String KEY = "id_cliente";
-
     private static final String USUARIO_ID_USUARIO = "usuario_id_usuario";
+    private static final String NOMBRE_COMPLETO = "nombre_completo";
 
     private static final String SELECT_ALL = String.format(
         "SELECT * FROM %s", TABLE
@@ -32,7 +32,8 @@ public class ClienteController {
             while (resultSet.next()) {
                 listaCliente.add(new Cliente(
                     resultSet.getInt(KEY),
-                    resultSet.getInt(USUARIO_ID_USUARIO)
+                    resultSet.getInt(USUARIO_ID_USUARIO),
+                    resultSet.getString(NOMBRE_COMPLETO)
                 ));
             }
         } catch (SQLException e) {

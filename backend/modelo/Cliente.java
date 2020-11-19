@@ -3,14 +3,16 @@ package backend.modelo;
 public class Cliente {
     private int idCliente;
     private int usuarioIdUsuario;
+    private String nombreCompleto;
 
     public Cliente() {
 
     }
 
-    public Cliente(int idCliente, int usuarioIdUsuario) {
+    public Cliente(int idCliente, int usuarioIdUsuario, String nombreCompleto) {
         this.idCliente = idCliente;
         this.usuarioIdUsuario = usuarioIdUsuario;
+        this.nombreCompleto = nombreCompleto;
     }
 
     public int getIdCliente() {
@@ -27,5 +29,13 @@ public class Cliente {
 
     public void setUsuarioIdUsuario(int usuarioIdUsuario) {
         this.usuarioIdUsuario = usuarioIdUsuario;
+    }
+
+    public String getNombreCompleto() {
+        return this.nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 }

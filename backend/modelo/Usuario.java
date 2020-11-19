@@ -4,9 +4,9 @@ public class Usuario {
     private int idUsuario;
     private String correoElectronico;
     private String contrasena;
-    private String nombre;
     private String telefono;
     private String poblacion;
+    private String codigoPostal;
     private String direccion;
 
     public Usuario() {
@@ -17,17 +17,17 @@ public class Usuario {
         int idUsuario,
         String correoElectronico,
         String contrasena,
-        String nombre,
         String telefono,
         String poblacion,
+        String codigoPostal,
         String direccion
     ) {
         this.idUsuario = idUsuario;
         this.correoElectronico = correoElectronico;
         this.contrasena = contrasena;
-        this.nombre = nombre;
         this.telefono = telefono;
         this.poblacion = poblacion;
+        this.codigoPostal = codigoPostal;
         this.direccion = direccion;
     }
 
@@ -55,14 +55,6 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public String getNombre() {
-        return this.nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getTelefono() {
         return this.telefono;
     }
@@ -77,6 +69,14 @@ public class Usuario {
 
     public void setPoblacion(String poblacion) {
         this.poblacion = poblacion;
+    }
+
+    public String getCodigoPostal() {
+        return this.codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
     public String getDireccion() {
