@@ -3,23 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Inicia Sesión</title>
-	<link rel="icon" href="img/favicon.ico" />
-    <!-- CSS -->
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="estilo.css">
-
-    <!-- jQuery and JS bundle w/ Popper.js -->
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <title>Inicia Sesión</title>
     <style>
         body{
 	margin:0;
@@ -175,48 +159,19 @@ a{color:inherit;text-decoration:none}
     </style>
 </head>
 <body>
-	<div class="container">
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="index.html">
-              <img src="img/logo.png" width="130" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-              
-            </a>
-            <a class="nav-link" href="#">Ayuda</a>
-           
-          </nav>
-
-        
-    </div>
     <div class="login-wrap">
         <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Inicia Sesión</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Regístrate</label>
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Registra tu restaurante</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
             <div class="login-form">
                 <div class="sign-in-htm">
                     <div class="group">
-                        <label for="email" class="label">Correo Electronico</label>
-                        <input id="email" type="text" class="input">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Contraseña</label>
-                        <input id="pass" type="password" class="input" data-type="password">
-                    </div>
-                    <div class="group">
-                        <input id="check" type="checkbox" class="check" checked>
-                        <label for="check"><span class="icon"></span> Guardar sesión</label>
-                    </div>
-                    <div class="group">
-                        <input type="submit" class="button" value="Inicia Sesión">
-                    </div>
-                    <div class="hr"></div>
-                    <div class="foot-lnk">
-                        <a href="#forgot">¿Has olvidado tu contraseña?</a>
-                    </div>
-                </div>
-                <div class="sign-up-htm">
-                    <div class="group">
                         <label for="nombre" class="label">Nombre</label>
                         <input id="nombre" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="cif" class="label">CIF</label>
+                        <input id="cif" type="text" class="input">
                     </div>
                     <div class="group">
                         <label for="pass" class="label">Contraseña</label>
@@ -241,6 +196,8 @@ a{color:inherit;text-decoration:none}
                     <div class="group">
                         <input type="submit" class="button" value="Crear cuenta">
                     </div>
+                </div>
+                <div class="sign-up-htm">
                     
                 </div>
             </div>
@@ -248,3 +205,5 @@ a{color:inherit;text-decoration:none}
     </div>
 </body>
 </html>
+
+
