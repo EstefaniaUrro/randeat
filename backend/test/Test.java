@@ -6,6 +6,7 @@ import backend.controller.ClienteController;
 import backend.controller.CodigoPostalController;
 import backend.controller.RestauranteController;
 import backend.controller.RestauranteTipoCocinaController;
+import backend.controller.RestauranteTipoEntregaController;
 import backend.controller.TipoCocinaController;
 import backend.controller.TipoEntregaController;
 import backend.controller.UsuarioController;
@@ -140,6 +141,57 @@ public class Test {
         }
     }
 
+    private static void listRestauranteIdTipoEntrega(int idTipoEntrega) {
+        String tipoEntregaNombre = TipoEntregaController
+            .getById(idTipoEntrega)
+            .get()
+            .getNombre()
+        ;
+        System.out.println(String.format(
+            "Restaurantes con tipo entrega %d (%s):",
+            idTipoEntrega,
+            tipoEntregaNombre
+        ));
+
+        List<Integer> idsRestaurante = RestauranteTipoEntregaController
+            .getIdsRestauranteByIdTipoEntrega(idTipoEntrega)
+        ;
+        for (int idRestaurante : idsRestaurante) {
+            Restaurante restaurante = RestauranteController
+                .getById(idRestaurante)
+                .get()
+            ;
+
+            System.out.println("\t- " + restaurante);
+        }
+    }
+
+    private static void listTiposEntregaIdRestaurante(int idRestaurante) {
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Tipos de entrega del restaurante %d (%s):",
+            idRestaurante,
+            restaurante.getNombreRestaurante()
+        ));
+
+        List<Integer> idsTipoEntrega = RestauranteTipoEntregaController
+            .getIdsTipoEntregaByIdRestaurante(idRestaurante)
+        ;
+
+        for (int idTipoEntrega : idsTipoEntrega) {
+            String tipoEntregaNombre = TipoEntregaController
+                .getById(idTipoEntrega)
+                .get()
+                .getNombre()
+            ;
+            System.out.println("\t- " + tipoEntregaNombre);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Tipos cocina:");
         Test.listTipoCocina();
@@ -174,5 +226,14 @@ public class Test {
         Test.listTipoCocinaIdRestaurante(2);
         Test.listTipoCocinaIdRestaurante(3);
 
+        System.out.println();
+        Test.listRestauranteIdTipoEntrega(1);
+        Test.listRestauranteIdTipoEntrega(2);
+        Test.listRestauranteIdTipoEntrega(3);
+
+        System.out.println();
+        Test.listTiposEntregaIdRestaurante(1);
+        Test.listTiposEntregaIdRestaurante(2);
+        Test.listTiposEntregaIdRestaurante(3);
     }
 }
