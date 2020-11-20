@@ -1,44 +1,37 @@
 package backend.controller;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import backend.DBConn;
+import backend.FromResultSet;
 import backend.modelo.Tarjeta;
 
-public class TarjetaController {
-    private static final String TABLE = "usuario";
+public class TarjetaController implements FromResultSet<Tarjeta> {
+    private static final String TABLE = "tarjeta";
     private static final String KEY = "id_tarjeta";
     private static final String NUMERO = "numero";
 
-    private static final String SELECT_ALL = String.format(
-        "SELECT * FROM %s", TABLE
+    private static final String SELECT_BY_KEY = String.format(
+        "SELECT * FROM %s WHERE %s = ?", TABLE, KEY
     );
 
-    public static List<Tarjeta> getAll() {
-        List<Tarjeta> listaTarjeta = new ArrayList<>();
+    public static List<Tarjeta> getById(int id_tarjeta) {
+        return DBConn.executeQueryWithParamsIntoList(
+            SELECT_BY_KEY,
+            new Object[][] {
+                {1, id_tarjeta}
+            },
+            new TarjetaController()
+        );
+    }
 
-        try (
-            Connection conn = DBConn.getConn();
-            Statement statement = conn.createStatement();
-        ) {
-            ResultSet resultSet = statement.executeQuery(SELECT_ALL);
-
-            while (resultSet.next()) {
-                listaTarjeta.add(new Tarjeta(
-                    resultSet.getInt(KEY),
-                    resultSet.getString(NUMERO)
-                ));
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return listaTarjeta;
+    @Override
+    public Tarjeta fromResultSet(ResultSet resultSet) throws SQLException {
+        return new Tarjeta(
+            resultSet.getInt(KEY),
+            resultSet.getString(NUMERO)
+        );
     }
 }

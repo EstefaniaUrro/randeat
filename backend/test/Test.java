@@ -2,16 +2,21 @@ package backend.test;
 
 import java.util.List;
 
+import backend.controller.BebidaController;
 import backend.controller.ClienteController;
 import backend.controller.CodigoPostalController;
+import backend.controller.RestauranteBebidaController;
 import backend.controller.RestauranteController;
 import backend.controller.RestauranteTipoCocinaController;
 import backend.controller.RestauranteTipoEntregaController;
+import backend.controller.TarjetaController;
 import backend.controller.TipoCocinaController;
 import backend.controller.TipoEntregaController;
 import backend.controller.UsuarioController;
+import backend.modelo.Bebida;
 import backend.modelo.Cliente;
 import backend.modelo.Restaurante;
+import backend.modelo.Tarjeta;
 import backend.modelo.TipoCocina;
 import backend.modelo.TipoEntrega;
 import backend.modelo.Usuario;
@@ -65,7 +70,7 @@ public class Test {
             System.out.println(String.format(
                 "El código postal %d es el '%s'",
                 restaurante.getCodigoPostalIdCodigoPostal(),
-                CodigoPostalController.getNumeroById(restaurante.getCodigoPostalIdCodigoPostal())
+                CodigoPostalController.getById(restaurante.getCodigoPostalIdCodigoPostal()).get().getNumero()
             ));
         }
     }
@@ -73,7 +78,7 @@ public class Test {
     // private static void listTarjetasCliente() {
     //     for (Cliente cliente : ClienteController.getAll()) {
     //         System.out.println(cliente.getNombreCompleto() + ":");
-    //         List<Tarjeta> tarjetas = TarjetaController.getTarjetasCliente(
+    //         List<Tarjeta> tarjetas = TarjetaController.getById(
     //             cliente.getIdCliente()
     //         );
 
@@ -192,6 +197,30 @@ public class Test {
         }
     }
 
+    private static void listBebidasFromRestaurante(int idRestaurante) {
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "El restaurante %d (%s) ofrece las siguientes bebidas:",
+            idRestaurante,
+            restaurante.getNombreRestaurante()
+        ));
+
+        List<Integer> idsBebida = RestauranteBebidaController
+            .getByIdRestaurante(idRestaurante)
+        ;
+        for (int idBebida : idsBebida) {
+            Bebida bebida = BebidaController
+                .getById(idBebida)
+                .get()
+            ;
+            System.out.println(bebida);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Tipos cocina:");
         Test.listTipoCocina();
@@ -235,5 +264,10 @@ public class Test {
         Test.listTiposEntregaIdRestaurante(1);
         Test.listTiposEntregaIdRestaurante(2);
         Test.listTiposEntregaIdRestaurante(3);
+
+        System.out.println();
+        Test.listBebidasFromRestaurante(1);
+        Test.listBebidasFromRestaurante(2);
+        Test.listBebidasFromRestaurante(3);
     }
 }

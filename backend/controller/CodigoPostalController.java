@@ -1,16 +1,15 @@
 package backend.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import backend.DBConn;
+import backend.FromResultSet;
 import backend.modelo.CodigoPostal;
 
-public class CodigoPostalController {
+public class CodigoPostalController implements FromResultSet<CodigoPostal> {
     private static final String TABLE = "codigo_postal";
     private static final String KEY = "id_codigo_postal";
     private static final String NUMERO = "numero";
@@ -19,45 +18,32 @@ public class CodigoPostalController {
         "SELECT * FROM %s", TABLE
     );
 
-    private static final String SELECT_NUMERO_BY_KEY = String.format(
-        "SELECT %s FROM %s WHERE id_codigo_postal = ?", NUMERO, TABLE
+    private static final String SELECT_BY_KEY = String.format(
+        "SELECT * FROM %s WHERE id_codigo_postal = ?", TABLE
     );
 
     public static List<CodigoPostal> getAll() {
-        List<CodigoPostal> listCodigoPostal = new ArrayList<>();
-
-        try (
-            Connection conn = DBConn.getConn();
-            PreparedStatement ps = conn.prepareStatement(
-                SELECT_ALL
-            );
-        ) {
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return listCodigoPostal;
+        return DBConn.executeQueryIntoList(
+            SELECT_ALL,
+            new CodigoPostalController()
+        );
     }
 
-    public static String getNumeroById(int idCodigoPostal) {
-        try (
-            Connection conn = DBConn.getConn();
-            PreparedStatement ps = conn.prepareStatement(
-                SELECT_NUMERO_BY_KEY
-            );
-        ) {
-            ps.setInt(1, idCodigoPostal);
+    public static Optional<CodigoPostal> getById(int idCodigoPostal) {
+        return DBConn.executeQueryWithParamsSingleValue(
+            SELECT_BY_KEY,
+            new Object[][] {
+                {1, idCodigoPostal}
+            },
+            new CodigoPostalController()
+        );
+    }
 
-            ResultSet resultSet = ps.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getString(NUMERO);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        // TODO Nunca tendría que pasar, porque los campos codigo_postal_id_codigo_postal tienen que ser FOREIGN KEYs válidas.
-        return "UNDEFINED";
+    @Override
+    public CodigoPostal fromResultSet(ResultSet resultSet) throws SQLException {
+        return new CodigoPostal(
+            resultSet.getInt(KEY),
+            resultSet.getString(NUMERO)
+        );
     }
 }

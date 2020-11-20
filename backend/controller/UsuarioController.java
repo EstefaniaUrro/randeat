@@ -1,16 +1,14 @@
 package backend.controller;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import backend.DBConn;
+import backend.FromResultSet;
 import backend.modelo.Usuario;
 
-public class UsuarioController {
+public class UsuarioController implements FromResultSet<Usuario> {
     private static final String TABLE = "usuario";
     private static final String KEY = "id_usuario";
     private static final String CORREO_ELECTRONICO = "correo_electronico";
@@ -24,29 +22,18 @@ public class UsuarioController {
     );
 
     public static List<Usuario> getAll() {
-        List<Usuario> listaUsuario = new ArrayList<>();
+        return DBConn.executeQueryIntoList(SELECT_ALL, new UsuarioController());
+    }
 
-        try (
-            Connection conn = DBConn.getConn();
-            Statement statement = conn.createStatement();
-        ) {
-            ResultSet resultSet = statement.executeQuery(SELECT_ALL);
-
-            while (resultSet.next()) {
-                listaUsuario.add(new Usuario(
-                    resultSet.getInt(KEY),
-                    resultSet.getString(CORREO_ELECTRONICO),
-                    resultSet.getString(CONTRASENA),
-                    resultSet.getString(TELEFONO),
-                    resultSet.getString(POBLACION),
-                    resultSet.getString(DIRECCION)
-                ));
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return listaUsuario;
+    @Override
+    public Usuario fromResultSet(ResultSet resultSet) throws SQLException {
+        return new Usuario(
+            resultSet.getInt(KEY),
+            resultSet.getString(CORREO_ELECTRONICO),
+            resultSet.getString(CONTRASENA),
+            resultSet.getString(TELEFONO),
+            resultSet.getString(POBLACION),
+            resultSet.getString(DIRECCION)
+        );
     }
 }
