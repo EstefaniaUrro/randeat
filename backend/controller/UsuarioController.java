@@ -17,7 +17,6 @@ public class UsuarioController {
     private static final String CONTRASENA = "contrasena";
     private static final String TELEFONO = "telefono";
     private static final String POBLACION = "poblacion";
-    private static final String CODIGO_POSTAL = "codigo_postal";
     private static final String DIRECCION = "direccion";
 
     private static final String SELECT_ALL = String.format(
@@ -40,7 +39,6 @@ public class UsuarioController {
                     resultSet.getString(CONTRASENA),
                     resultSet.getString(TELEFONO),
                     resultSet.getString(POBLACION),
-                    resultSet.getString(CODIGO_POSTAL),
                     resultSet.getString(DIRECCION)
                 ));
             }

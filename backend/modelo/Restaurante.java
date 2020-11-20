@@ -7,7 +7,7 @@ public class Restaurante {
     private String iban;
     private String nombreRestaurante;
     private String nombrePropietario;
-
+    private int codigoPostalIdCodigoPostal;
 
     public Restaurante() {
 
@@ -19,7 +19,8 @@ public class Restaurante {
         String cif,
         String iban,
         String nombreRestaurante,
-        String nombrePropietario
+        String nombrePropietario,
+        int codigoPostalIdCodigoPostal
     ) {
         this.idRestaurante = idRestaurante;
         this.usuarioIdUsuario = usuarioIdUsuario;
@@ -27,6 +28,7 @@ public class Restaurante {
         this.iban = iban;
         this.nombreRestaurante = nombreRestaurante;
         this.nombrePropietario = nombrePropietario;
+        this.codigoPostalIdCodigoPostal = codigoPostalIdCodigoPostal;
     }
 
     public int getIdRestaurante() {
@@ -75,5 +77,26 @@ public class Restaurante {
 
     public void setNombrePropietario(String nombrePropietario) {
         this.nombrePropietario = nombrePropietario;
+    }
+
+    public int getCodigoPostalIdCodigoPostal() {
+        return this.codigoPostalIdCodigoPostal;
+    }
+
+    public void setCodigoPostalIdCodigoPostal(int codigoPostalIdCodigoPostal) {
+        this.codigoPostalIdCodigoPostal = codigoPostalIdCodigoPostal;
+    }
+
+    @Override
+    public String toString() {
+        return
+            this.idRestaurante + ": "
+            + this.usuarioIdUsuario + ", "
+            + this.cif + ", "
+            + this.iban + ", "
+            + this.nombreRestaurante + ", "
+            + this.nombrePropietario + ", "
+            + this.codigoPostalIdCodigoPostal
+        ;
     }
 }
