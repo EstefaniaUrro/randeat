@@ -1,31 +1,31 @@
 package backend.modelo;
 
 public class Bebida {
-    private int idTarjeta;
-    private String numero;
+    private int idBebida;
+    private String nombre;
 
     public Bebida() {
 
     }
 
     public Bebida(int idBebida, String nombre) {
-        this.idTarjeta = idTarjeta;
-        this.numero = numero;
+        this.idBebida = idBebida;
+        this.nombre = nombre;
     }
 
-    public int getIdTarjeta() {
-        return this.idTarjeta;
+    public int getIdBebida() {
+        return this.idBebida;
     }
 
-    public void setIdTarjeta(int idTarjeta) {
-        this.idTarjeta = idTarjeta;
+    public void setIdBebida(int idBebida) {
+        this.idBebida = idBebida;
     }
 
-    public String getNumero() {
-        return this.numero;
+    public String getNombre() {
+        return this.nombre;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
