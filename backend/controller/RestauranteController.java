@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import backend.DBConn;
 import backend.modelo.Restaurante;
@@ -25,13 +26,17 @@ public class RestauranteController {
         "SELECT * FROM %s", TABLE
     );
 
+    private static final String SELECT_BY_ID = String.format(
+        "SELECT * FROM %s WHERE %s = ?", TABLE, KEY
+    );
+
     /**
-     * Crea un Restaurante con los datos de un registro.
+     * Crea un Restaurante con los datos de un ResultSet.
      * @param resultSet
      * @return
      * @throws SQLException
      */
-    private static Restaurante resultSetToRestaurante(ResultSet resultSet) throws SQLException {
+    private static Restaurante fromResultSet(ResultSet resultSet) throws SQLException {
         return new Restaurante(
             resultSet.getInt(KEY),
             resultSet.getInt(USUARIO_ID_USUARIO),
@@ -54,20 +59,40 @@ public class RestauranteController {
 
             while (resultSet.next()) {
                 listaRestaurante.add(
-                    RestauranteController.resultSetToRestaurante(resultSet)
+                    RestauranteController.fromResultSet(resultSet)
                 );
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return listaRestaurante;
     }
 
-    public static List<Restaurante> getRestaurantesEnCodigosPostales(
-        int[] idsCodigoPostal
-    ) {
+    public static Optional<Restaurante> getById(int idRestaurante) {
+        Optional<Restaurante> restaurante = Optional.empty();
+
+        try {
+            ResultSet resultSet = DBConn.executeQueryWithParams(
+                SELECT_BY_ID,
+                new Object[][] {
+                    {1, idRestaurante}
+                }
+            );
+
+            if (resultSet.next()) {
+                restaurante = Optional.of(
+                    RestauranteController.fromResultSet(resultSet)
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return restaurante;
+    }
+
+    public static List<Restaurante> getByCodigoPostal(int[] idsCodigoPostal) {
         List<Restaurante> listaRestaurante = new ArrayList<>();
 
         // Si no hay ningún id de código postal, lista vacía.
@@ -94,19 +119,13 @@ public class RestauranteController {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 listaRestaurante.add(
-                    RestauranteController.resultSetToRestaurante(resultSet)
+                    RestauranteController.fromResultSet(resultSet)
                 );
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return listaRestaurante;
     }
-    
-    // TODO
-    // public static List<RestaurantePaquete> getPaquetes(int idRestaurante) {
-
-    // }
 }

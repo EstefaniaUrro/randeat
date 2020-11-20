@@ -5,13 +5,12 @@ import java.util.List;
 import backend.controller.ClienteController;
 import backend.controller.CodigoPostalController;
 import backend.controller.RestauranteController;
-import backend.controller.TarjetaController;
+import backend.controller.RestauranteTipoCocinaController;
 import backend.controller.TipoCocinaController;
 import backend.controller.TipoEntregaController;
 import backend.controller.UsuarioController;
 import backend.modelo.Cliente;
 import backend.modelo.Restaurante;
-import backend.modelo.Tarjeta;
 import backend.modelo.TipoCocina;
 import backend.modelo.TipoEntrega;
 import backend.modelo.Usuario;
@@ -70,25 +69,74 @@ public class Test {
         }
     }
 
-    private static void listTarjetasCliente() {
-        for (Cliente cliente : ClienteController.getAll()) {
-            System.out.println(cliente.getNombreCompleto() + ":");
-            List<Tarjeta> tarjetas = TarjetaController.getTarjetasCliente(
-                cliente.getIdCliente()
-            );
+    // private static void listTarjetasCliente() {
+    //     for (Cliente cliente : ClienteController.getAll()) {
+    //         System.out.println(cliente.getNombreCompleto() + ":");
+    //         List<Tarjeta> tarjetas = TarjetaController.getTarjetasCliente(
+    //             cliente.getIdCliente()
+    //         );
 
-            for (Tarjeta tarjeta : tarjetas) {
-                System.out.println(
-                    tarjeta.getIdTarjeta() + ": "
-                    + tarjeta.getNumero()
-                );
-            }
+    //         for (Tarjeta tarjeta : tarjetas) {
+    //             System.out.println(
+    //                 tarjeta.getIdTarjeta() + ": "
+    //                 + tarjeta.getNumero()
+    //             );
+    //         }
+    //     }
+    // }
+
+    private static void listRestauranteCodigosPostales(int[] idsCodigoPostal) {
+        for (Restaurante restaurante : RestauranteController.getByCodigoPostal(idsCodigoPostal)) {
+            System.out.println(restaurante);
         }
     }
 
-    private static void listRestauranteCodigosPostales(int[] idsCodigoPostal) {
-        for (Restaurante restaurante : RestauranteController.getRestaurantesEnCodigosPostales(idsCodigoPostal)) {
+    private static void listRestauranteIdsTipoCocina(int idTipoCocina) {
+        List<Integer> idsRestauranteTipoCocina = RestauranteTipoCocinaController
+            .getIdsRestauranteConTipoCocina(idTipoCocina)
+        ;
+
+        TipoCocina tipoCocina = TipoCocinaController
+            .getById(idTipoCocina)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Restaurantes con tipo_cocina %d (%s)",
+            idTipoCocina,
+            tipoCocina.getNombre()
+        ));
+        for (int idRestaurante : idsRestauranteTipoCocina) {
+            Restaurante restaurante = RestauranteController
+                .getById(idRestaurante)
+                .get()
+            ;
             System.out.println(restaurante);
+        }
+    }
+
+    private static void listTipoCocinaIdRestaurante(int idRestaurante) {
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Tipos de cocina del restaurante %d (%s)",
+            idRestaurante,
+            restaurante.getNombreRestaurante()
+        ));
+
+        List<Integer> idsTipoCocina = RestauranteTipoCocinaController
+            .getIdsTipoCocinaDeRestaurante(idRestaurante)
+        ;
+
+        for (int idTipoCocina : idsTipoCocina) {
+            TipoCocina tipoCocina = TipoCocinaController
+                .getById(idTipoCocina)
+                .get()
+            ;
+            System.out.println(tipoCocina);
         }
     }
 
@@ -108,14 +156,23 @@ public class Test {
         System.out.println("\nY ahora la de los clientes:");
         Test.listCliente();
 
-        System.out.println("\nLas tarjetas de cada cliente:");
-        Test.listTarjetasCliente();
+        // System.out.println("\nLas tarjetas de cada cliente:");
+        // Test.listTarjetasCliente();
 
-        System.out.println("\n Restaurantes en códigos postales (1):");
+        System.out.println("\nRestaurantes en códigos postales (1):");
         Test.listRestauranteCodigosPostales(new int[] {1});
-        System.out.println("\n Restaurantes en códigos postales (1, 2):");
+        System.out.println("\nRestaurantes en códigos postales (1, 2):");
         Test.listRestauranteCodigosPostales(new int[] {1, 2});
-        System.out.println("\n Restaurantes en códigos postales ():");
+        System.out.println("\nRestaurantes en códigos postales ():");
         Test.listRestauranteCodigosPostales(new int[] {});
+
+        System.out.println();
+        Test.listRestauranteIdsTipoCocina(1);
+
+        System.out.println();
+        Test.listTipoCocinaIdRestaurante(1);
+        Test.listTipoCocinaIdRestaurante(2);
+        Test.listTipoCocinaIdRestaurante(3);
+
     }
 }

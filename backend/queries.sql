@@ -78,13 +78,35 @@ INSERT INTO restaurante (usuario_id_usuario, cif, iban, nombre_restaurante, nomb
     'Señor Michi',
     1
 );
+INSERT INTO restaurante (usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+	2,
+    'laksjdlaksjd',
+    'ES 343434343434',
+    'Natillas Pro',
+    'Natialia',
+    2
+);
+INSERT INTO restaurante (usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+	2,
+    'lkj12lk3jl',
+    'ES 909090909090',
+    'Pizzas Melissa',
+    'Melisa',
+    1
+);
 
 INSERT INTO tipo_cocina VALUES (1, 'Chino');
 INSERT INTO tipo_cocina VALUES (2, 'Pizza');
 
 INSERT INTO restaurante_tipo_cocina VALUES (1, 1);
+INSERT INTO restaurante_tipo_cocina VALUES (2, 1);
+INSERT INTO restaurante_tipo_cocina VALUES (2, 2);
+INSERT INTO restaurante_tipo_cocina VALUES (3, 2);
 
 INSERT INTO restaurante_tipo_entrega VALUES (1, 2);
+INSERT INTO restaurante_tipo_entrega VALUES (2, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (3, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (3, 3);
 
 INSERT INTO restaurante_paquete VALUES (1, 1, 6.75);
 INSERT INTO restaurante_paquete VALUES (1, 2, 12.75);

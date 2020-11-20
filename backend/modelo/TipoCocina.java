@@ -29,5 +29,11 @@ public class TipoCocina {
         this.nombre = nombre;
     }
 
-    
+    @Override
+    public String toString() {
+        return
+            this.idTipoCocina + ": "
+            + this.nombre
+        ;
+    }
 }
