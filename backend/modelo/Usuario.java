@@ -6,7 +6,6 @@ public class Usuario {
     private String contrasena;
     private String telefono;
     private String poblacion;
-    private String codigoPostal;
     private String direccion;
 
     public Usuario() {
@@ -19,7 +18,6 @@ public class Usuario {
         String contrasena,
         String telefono,
         String poblacion,
-        String codigoPostal,
         String direccion
     ) {
         this.idUsuario = idUsuario;
@@ -27,7 +25,6 @@ public class Usuario {
         this.contrasena = contrasena;
         this.telefono = telefono;
         this.poblacion = poblacion;
-        this.codigoPostal = codigoPostal;
         this.direccion = direccion;
     }
 
@@ -69,14 +66,6 @@ public class Usuario {
 
     public void setPoblacion(String poblacion) {
         this.poblacion = poblacion;
-    }
-
-    public String getCodigoPostal() {
-        return this.codigoPostal;
-    }
-
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
     }
 
     public String getDireccion() {
