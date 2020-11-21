@@ -11,14 +11,30 @@ import java.util.List;
 import java.util.Optional;
 
 public class DBConn {
+    private static Optional<Connection> connection = Optional.empty();
+
+    private DBConn() {
+
+    }
+
     public static Connection getConn() throws SQLException {
+        if (connection.isEmpty()) {
+            DBConn.connection = Optional.of(DriverManager.getConnection(
+                DBConnSettings.URL,
+                DBConnSettings.USERNAME,
+                DBConnSettings.PASSWORD
+            ));
+        }
+
+        return DBConn.connection.get();
+
         // DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 
-        return DriverManager.getConnection(
-            DBConnSettings.URL,
-            DBConnSettings.USERNAME,
-            DBConnSettings.PASSWORD
-        );
+        // return DriverManager.getConnection(
+        //     DBConnSettings.URL,
+        //     DBConnSettings.USERNAME,
+        //     DBConnSettings.PASSWORD
+        // );
     }
 
     /**
