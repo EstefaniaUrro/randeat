@@ -14,14 +14,14 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
     private static final String NUMERO = "numero";
 
     private static final String SELECT_BY_KEY = String.format(
-        "SELECT * FROM %s WHERE %s = ?", TABLE, KEY
+        "SELECT * FROM %s WHERE %s IN (?)", TABLE, KEY
     );
 
-    public static List<Tarjeta> getById(int id_tarjeta) {
+    public static List<Tarjeta> getById(List<Integer> idsTarjeta) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_BY_KEY,
             new Object[][] {
-                {1, id_tarjeta}
+                {1, DBConn.joinIntsInClause(idsTarjeta)}
             },
             new TarjetaController()
         );

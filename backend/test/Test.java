@@ -5,6 +5,7 @@ import java.util.List;
 
 import backend.controller.BebidaController;
 import backend.controller.ClienteController;
+import backend.controller.ClienteTarjetaController;
 import backend.controller.CodigoPostalController;
 import backend.controller.RestauranteBebidaController;
 import backend.controller.RestauranteController;
@@ -76,21 +77,22 @@ public class Test {
         }
     }
 
-    // private static void listTarjetasCliente() {
-    //     for (Cliente cliente : ClienteController.getAll()) {
-    //         System.out.println(cliente.getNombreCompleto() + ":");
-    //         List<Tarjeta> tarjetas = TarjetaController.getById(
-    //             cliente.getIdCliente()
-    //         );
+    private static void listTarjetasCliente() {
+        for (Cliente cliente : ClienteController.getAll()) {
+            System.out.println("Tarjetas de " + cliente.getNombreCompleto() + ":");
+            List<Integer> idsTarjetaCliente = ClienteTarjetaController
+                .getByIdCliente(cliente.getIdCliente())
+            ;
 
-    //         for (Tarjeta tarjeta : tarjetas) {
-    //             System.out.println(
-    //                 tarjeta.getIdTarjeta() + ": "
-    //                 + tarjeta.getNumero()
-    //             );
-    //         }
-    //     }
-    // }
+            List<Tarjeta> tarjetas = TarjetaController.getById(
+                idsTarjetaCliente
+            );
+
+            for (Tarjeta tarjeta : tarjetas) {
+                System.out.println(tarjeta);
+            }
+        }
+    }
 
     private static void listRestauranteCodigosPostales(
         List<Integer> idsCodigoPostal
@@ -246,8 +248,8 @@ public class Test {
         System.out.println("\nY ahora la de los clientes:");
         Test.listCliente();
 
-        // System.out.println("\nLas tarjetas de cada cliente:");
-        // Test.listTarjetasCliente();
+        System.out.println("\nLas tarjetas de cada cliente:");
+        Test.listTarjetasCliente();
 
         System.out.println();
         Test.listRestauranteCodigosPostales(Arrays.asList(1));
