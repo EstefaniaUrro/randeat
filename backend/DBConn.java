@@ -11,17 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class DBConn {
-    private static final String URL = "jdbc:mysql://localhost/pistaccio";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "OmG-123-Venga";
-
     public static Connection getConn() throws SQLException {
         // DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 
         return DriverManager.getConnection(
-            DBConn.URL,
-            DBConn.USERNAME,
-            DBConn.PASSWORD
+            DBConnSettings.URL,
+            DBConnSettings.USERNAME,
+            DBConnSettings.PASSWORD
         );
     }
 
