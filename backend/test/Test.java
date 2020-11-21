@@ -1,5 +1,6 @@
 package backend.test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import backend.controller.BebidaController;
@@ -91,8 +92,16 @@ public class Test {
     //     }
     // }
 
-    private static void listRestauranteCodigosPostales(int[] idsCodigoPostal) {
-        for (Restaurante restaurante : RestauranteController.getByCodigoPostal(idsCodigoPostal)) {
+    private static void listRestauranteCodigosPostales(
+        List<Integer> idsCodigoPostal
+    ) {
+        System.out.println("Restaurantes en códigos postales " + idsCodigoPostal + ":");
+
+        List<Restaurante> restaurantes = RestauranteController
+            .getByIdCodigoPostal(idsCodigoPostal)
+        ;
+
+        for (Restaurante restaurante : restaurantes) {
             System.out.println(restaurante);
         }
     }
@@ -240,12 +249,10 @@ public class Test {
         // System.out.println("\nLas tarjetas de cada cliente:");
         // Test.listTarjetasCliente();
 
-        System.out.println("\nRestaurantes en códigos postales (1):");
-        Test.listRestauranteCodigosPostales(new int[] {1});
-        System.out.println("\nRestaurantes en códigos postales (1, 2):");
-        Test.listRestauranteCodigosPostales(new int[] {1, 2});
-        System.out.println("\nRestaurantes en códigos postales ():");
-        Test.listRestauranteCodigosPostales(new int[] {});
+        System.out.println();
+        Test.listRestauranteCodigosPostales(Arrays.asList(1));
+        Test.listRestauranteCodigosPostales(Arrays.asList(1, 2));
+        Test.listRestauranteCodigosPostales(Arrays.asList());
 
         System.out.println();
         Test.listRestauranteIdsTipoCocina(1);

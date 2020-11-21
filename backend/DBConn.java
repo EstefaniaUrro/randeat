@@ -13,7 +13,7 @@ import java.util.Optional;
 public class DBConn {
     private static final String URL = "jdbc:mysql://localhost/pistaccio";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "BernaT-457";
+    private static final String PASSWORD = "OmG-123-Venga";
 
     public static Connection getConn() throws SQLException {
         // DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -45,7 +45,10 @@ public class DBConn {
      * @return
      * @throws SQLException
      */
-    public static ResultSet executeQueryWithParams(String sql, Object[][] params) throws SQLException {
+    public static ResultSet executeQueryWithParams(
+        String sql,
+        Object[][] params
+    ) throws SQLException {
         Connection conn = DBConn.getConn();
 
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -56,8 +59,8 @@ public class DBConn {
         return ps.executeQuery();
     }
 
-    public static String joinIntsInClause(int[] ints) {
-        if (ints.length == 0) {
+    public static String joinIntsInClause(List<Integer> ints) {
+        if (ints.isEmpty()) {
             return "";
         }
 
@@ -71,8 +74,8 @@ public class DBConn {
         );
     }
 
-    public static String joinStringsInClause(String[] strings) {
-        if (strings.length == 0) {
+    public static String joinStringsInClause(List<String> strings) {
+        if (strings.isEmpty()) {
             return "";
         }
         
@@ -143,5 +146,32 @@ public class DBConn {
         }
         
         return value;
+    }
+
+    /**
+     * Ejecuta una query con parámetros para listar los IDs de los resultados, que estarán en la columna especificada.
+     * @param sql
+     * @param params
+     * @param intCol la columna que contiene los ints a listar
+     * @return
+     */
+    public static List<Integer> executeQueryGetIntIds(
+        String sql,
+        Object[][] params,
+        String intCol
+    ) {
+        List<Integer> ids = new ArrayList<>();
+
+        try {
+            ResultSet resultSet = DBConn.executeQueryWithParams(sql, params);
+
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt(intCol));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ids;
     }
 }

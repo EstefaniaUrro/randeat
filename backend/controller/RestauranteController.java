@@ -44,7 +44,9 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
-    public static List<Restaurante> getByCodigoPostal(int[] idsCodigoPostal) {
+    public static List<Restaurante> getByIdCodigoPostal(
+        List<Integer> idsCodigoPostal
+    ) {
         return DBConn.executeQueryWithParamsIntoList(
             String.format(
                 "SELECT * FROM %s WHERE codigo_postal_id_codigo_postal IN (?)", TABLE
