@@ -11,20 +11,24 @@ import backend.modelo.Restaurante;
 
 public class RestauranteController implements FromResultSet<Restaurante> {
     private static final String TABLE = "restaurante";
-    private static final String KEY = "id_restaurante";
-    private static final String USUARIO_ID_USUARIO = "usuario_id_usuario";
+    private static final String ID_RESTAURANTE = "id_restaurante";
+    private static final String ID_USUARIO = "usuario_id_usuario";
     private static final String CIF = "cif";
     private static final String IBAN = "iban";
     private static final String NOMBRE_RESTAURANTE = "nombre_restaurante";
     private static final String NOMBRE_PROPIETARIO = "nombre_propietario";
-    private static final String CODIGO_POSTAL_ID_CODIGO_POSTAL = "codigo_postal_id_codigo_postal";
+    private static final String ID_CODIGO_POSTAL = "codigo_postal_id_codigo_postal";
 
     private static final String SELECT_ALL = String.format(
         "SELECT * FROM %s", TABLE
     );
 
-    private static final String SELECT_BY_ID = String.format(
-        "SELECT * FROM %s WHERE %s = ?", TABLE, KEY
+    private static final String SELECT_BY_ID_RESTAURANTE = String.format(
+        "SELECT * FROM %s WHERE %s = ?", TABLE, ID_RESTAURANTE
+    );
+
+    private static final String SELECT_BY_ID_CODIGO_POSTAL = String.format(
+        "SELECT * FROM %s WHERE %s IN (?)", TABLE, ID_CODIGO_POSTAL
     );
 
     public static List<Restaurante> getAll() {
@@ -36,7 +40,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
 
     public static Optional<Restaurante> getById(int idRestaurante) {
         return DBConn.executeQueryWithParamsSingleValue(
-            SELECT_BY_ID,
+            SELECT_BY_ID_RESTAURANTE,
             new Object[][] {
                 {1, idRestaurante}
             },
@@ -48,9 +52,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         List<Integer> idsCodigoPostal
     ) {
         return DBConn.executeQueryWithParamsIntoList(
-            String.format(
-                "SELECT * FROM %s WHERE codigo_postal_id_codigo_postal IN (?)", TABLE
-            ),
+            SELECT_BY_ID_CODIGO_POSTAL,
             new Object[][] {
                 {1, DBConn.joinIntsInClause(idsCodigoPostal)}
             },
@@ -61,13 +63,13 @@ public class RestauranteController implements FromResultSet<Restaurante> {
     @Override
     public Restaurante fromResultSet(ResultSet resultSet) throws SQLException {
         return new Restaurante(
-            resultSet.getInt(KEY),
-            resultSet.getInt(USUARIO_ID_USUARIO),
+            resultSet.getInt(ID_RESTAURANTE),
+            resultSet.getInt(ID_USUARIO),
             resultSet.getString(CIF),
             resultSet.getString(IBAN),
             resultSet.getString(NOMBRE_RESTAURANTE),
             resultSet.getString(NOMBRE_PROPIETARIO),
-            resultSet.getInt(CODIGO_POSTAL_ID_CODIGO_POSTAL)
+            resultSet.getInt(ID_CODIGO_POSTAL)
         );
     }
 }

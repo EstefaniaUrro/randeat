@@ -12,15 +12,15 @@ import backend.modelo.Bebida;
 
 public class BebidaController implements FromResultSet<Bebida> {
     private static final String TABLE = "bebida";
-    public static final String KEY = "id_bebida";
+    public static final String ID_BEBIDA = "id_bebida";
     public static final String NOMBRE = "nombre";
 
     private static final String SELECT_ALL = String.format(
         "SELECT * FROM %s", TABLE
     );
 
-    private static final String SELECT_BY_ID = String.format(
-        "SELECT * FROM %s WHERE %s = ?", TABLE, KEY
+    private static final String SELECT_BY_ID_BEBIDA = String.format(
+        "SELECT * FROM %s WHERE %s = ?", TABLE, ID_BEBIDA
     );
 
     public static List<Bebida> getAll() {
@@ -29,7 +29,7 @@ public class BebidaController implements FromResultSet<Bebida> {
 
     public static Optional<Bebida> getById(int idBebida) {
         return DBConn.executeQueryWithParamsSingleValue(
-            SELECT_BY_ID,
+            SELECT_BY_ID_BEBIDA,
             new Object[][] {
                 {1, idBebida}
             },
@@ -40,7 +40,7 @@ public class BebidaController implements FromResultSet<Bebida> {
     @Override
     public Bebida fromResultSet(ResultSet resultSet) throws SQLException {
         return new Bebida(
-            resultSet.getInt(KEY),
+            resultSet.getInt(ID_BEBIDA),
             resultSet.getString(NOMBRE)
         );
     }

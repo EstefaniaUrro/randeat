@@ -1,34 +1,34 @@
 package backend.modelo;
 
 public class RestaurantePaquete {
-    private int RestauranteIdRestaurante;
-    private int PaqueteIdPaquete;
+    private int restauranteIdRestaurante;
+    private int paqueteIdPaquete;
     private double coste;
 
     public RestaurantePaquete() {
 
     }
 
-    public RestaurantePaquete(int RestauranteIdRestaurante, int PaqueteIdPaquete, double coste) {
-        this.RestauranteIdRestaurante = RestauranteIdRestaurante;
-        this.PaqueteIdPaquete = PaqueteIdPaquete;
+    public RestaurantePaquete(int restauranteIdRestaurante, int paqueteIdPaquete, double coste) {
+        this.restauranteIdRestaurante = restauranteIdRestaurante;
+        this.paqueteIdPaquete = paqueteIdPaquete;
         this.coste = coste;
     }
 
     public int getRestauranteIdRestaurante() {
-        return this.RestauranteIdRestaurante;
+        return this.restauranteIdRestaurante;
     }
 
     public void setRestauranteIdRestaurante(int RestauranteIdRestaurante) {
-        this.RestauranteIdRestaurante = RestauranteIdRestaurante;
+        this.restauranteIdRestaurante = RestauranteIdRestaurante;
     }
 
     public int getPaqueteIdPaquete() {
-        return this.PaqueteIdPaquete;
+        return this.paqueteIdPaquete;
     }
 
     public void setPaqueteIdPaquete(int PaqueteIdPaquete) {
-        this.PaqueteIdPaquete = PaqueteIdPaquete;
+        this.paqueteIdPaquete = PaqueteIdPaquete;
     }
 
     public double getCoste() {

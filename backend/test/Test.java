@@ -84,7 +84,7 @@ public class Test {
                 .getByIdCliente(cliente.getIdCliente())
             ;
 
-            List<Tarjeta> tarjetas = TarjetaController.getById(
+            List<Tarjeta> tarjetas = TarjetaController.getMultById(
                 idsTarjetaCliente
             );
 
@@ -110,7 +110,7 @@ public class Test {
 
     private static void listRestauranteIdsTipoCocina(int idTipoCocina) {
         List<Integer> idsRestauranteTipoCocina = RestauranteTipoCocinaController
-            .getIdsRestauranteConTipoCocina(idTipoCocina)
+            .getIdsTipoRestauranteByIdTipoCocina(idTipoCocina)
         ;
 
         TipoCocina tipoCocina = TipoCocinaController
@@ -145,7 +145,7 @@ public class Test {
         ));
 
         List<Integer> idsTipoCocina = RestauranteTipoCocinaController
-            .getIdsTipoCocinaDeRestaurante(idRestaurante)
+            .getIdsTipoCocinaByIdRestaurante(idRestaurante)
         ;
 
         for (int idTipoCocina : idsTipoCocina) {

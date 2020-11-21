@@ -11,15 +11,15 @@ import backend.modelo.TipoEntrega;
 
 public class TipoEntregaController implements FromResultSet<TipoEntrega> {
     private static final String TABLE = "tipo_entrega";
-    private static final String KEY = "id_tipo_entrega";
+    private static final String ID_TIPO_ENTREGA = "id_tipo_entrega";
     private static final String NOMBRE = "nombre";
 
     private static final String SELECT_ALL = String.format(
         "SELECT * FROM %s", TABLE
     );
 
-    private static final String SELECT_BY_ID = String.format(
-        "SELECT * FROM %s WHERE %s = ?", TABLE, KEY
+    private static final String SELECT_BY_ID_TIPO_ENTREGA = String.format(
+        "SELECT * FROM %s WHERE %s = ?", TABLE, ID_TIPO_ENTREGA
     );
 
     public static List<TipoEntrega> getAll() {
@@ -31,7 +31,7 @@ public class TipoEntregaController implements FromResultSet<TipoEntrega> {
 
     public static Optional<TipoEntrega> getById(int idTipoEntrega) {
         return DBConn.executeQueryWithParamsSingleValue(
-            SELECT_BY_ID,
+            SELECT_BY_ID_TIPO_ENTREGA,
             new Object[][] {
                 {1, idTipoEntrega}
             },
@@ -42,7 +42,7 @@ public class TipoEntregaController implements FromResultSet<TipoEntrega> {
     @Override
     public TipoEntrega fromResultSet(ResultSet resultSet) throws SQLException {
         return new TipoEntrega(
-            resultSet.getInt(KEY),
+            resultSet.getInt(ID_TIPO_ENTREGA),
             resultSet.getString(NOMBRE)
         );
     }
