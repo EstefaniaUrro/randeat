@@ -44,6 +44,11 @@ INSERT INTO tipo_entrega VALUES (1, 'Enviar');
 INSERT INTO tipo_entrega VALUES (2, 'Recoger');
 INSERT INTO tipo_entrega VALUES (3, 'Comer ahí');
 
+INSERT INTO bebida (nombre) VALUES ("Coca-Cola");
+INSERT INTO bebida (nombre) VALUES ("Fanta naranja");
+INSERT INTO bebida (nombre) VALUES ("Agua");
+INSERT INTO bebida (nombre) VALUES ("Tinto de verano Don Simón");
+
 INSERT INTO usuario (correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
 	'bernatespinas@gmail.com',
     'tengo_hambre',
@@ -111,13 +116,34 @@ INSERT INTO restaurante_tipo_entrega VALUES (3, 3);
 INSERT INTO restaurante_paquete VALUES (1, 1, 6.75);
 INSERT INTO restaurante_paquete VALUES (1, 2, 12.75);
 
-INSERT INTO pedido (cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, aceptado, comentario) VALUES (
+INSERT INTO restaurante_bebida VALUES (1, 1);
+INSERT INTO restaurante_bebida VALUES (1, 2);
+INSERT INTO restaurante_bebida VALUES (1, 3);
+INSERT INTO restaurante_bebida VALUES (2, 4);
+INSERT INTO restaurante_bebida VALUES (3, 1);
+INSERT INTO restaurante_bebida VALUES (3, 4);
+
+INSERT INTO pedido (cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, aceptado, comentario) VALUES (
 	1,
     1,
     2,
     1,
+	-- direccion_envio porque tipo_entrega_id_tipo_entrega es 1, enviar
+    "Calle del hambre, 23, Barcelona, 08009",
+    DATE(NOW()),
+    TIME(NOW()),
     0,
     'Crudo porfavor'
+);
+INSERT INTO pedido (cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, fecha_date, fecha_time, aceptado, comentario) VALUES (
+	1,
+    2,
+    1,
+    2,
+    DATE(NOW()),
+    TIME(NOW()),
+    0,
+    'hehe :P'
 );
 
 -- Listar pedidos con nombres info básica en texto.

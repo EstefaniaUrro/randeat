@@ -1,11 +1,16 @@
 package backend.modelo;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 public class Pedido {
     private int idPedido;
     private int clienteIdCliente;
     private int restauranteIdRestaurante;
     private int tipoCocinaIdTipoCocina;
     private int tipoEntregaIdTipoEntrega;
+    private Optional<String> direccionEnvio;
+    private LocalDateTime fecha;
     private boolean aceptado;
     private String comentario;
 
@@ -19,6 +24,8 @@ public class Pedido {
         int restauranteIdRestaurante,
         int tipoCocinaIdTipoCocina,
         int tipoEntregaIdTipoEntrega,
+        Optional<String> direccionEnvio,
+        LocalDateTime fecha,
         boolean aceptado,
         String comentario
     ) {
@@ -27,6 +34,9 @@ public class Pedido {
         this.restauranteIdRestaurante = restauranteIdRestaurante;
         this.tipoCocinaIdTipoCocina = tipoCocinaIdTipoCocina;
         this.tipoEntregaIdTipoEntrega = tipoEntregaIdTipoEntrega;
+        // TODO Comprovar que esté presente sólo cuando el tipo de entrega sea envío
+        this.direccionEnvio = direccionEnvio;
+        this.fecha = fecha;
         this.aceptado = aceptado;
         this.comentario = comentario;
     }
@@ -71,6 +81,22 @@ public class Pedido {
         this.tipoEntregaIdTipoEntrega = tipoEntregaIdTipoEntrega;
     }
 
+    public Optional<String> getDireccionEnvio() {
+        return this.direccionEnvio;
+    }
+
+    public void setDireccionEnvio(Optional<String> direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
+    }
+
+    public LocalDateTime getFecha() {
+        return this.fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
     public boolean isAceptado() {
         return this.aceptado;
     }
@@ -85,5 +111,20 @@ public class Pedido {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    @Override
+    public String toString() {
+        return
+            this.idPedido + ": "
+            + "\n\tCliente: " + this.clienteIdCliente + ", "
+            + "\n\tRestaurante: " + this.restauranteIdRestaurante + ", "
+            + "\n\tTipo cocina: " + this.tipoCocinaIdTipoCocina + ", "
+            + "\n\tTipo entrega: " + this.tipoEntregaIdTipoEntrega + ", "
+            + "\n\tDirección envío: " + this.direccionEnvio + ", "
+            + "\n\tFecha: " + this.fecha + ", "
+            + "\n\tAceptado: " + this.aceptado + ", "
+            + "\n\tComentario: " + this.comentario
+        ;
     }
 }
