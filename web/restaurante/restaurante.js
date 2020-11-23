@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(event) {
-    createFoodOptions();
+  
     cargarOpcionesPaquete();
     createDeliveryOptions();
     createDrinkLists();
