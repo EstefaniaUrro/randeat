@@ -8,7 +8,6 @@ h3 {
     margin-top: 20px;
     text-align: center;
 }
-
 div.separator {
     height: 2px;
     width: 75%;
@@ -32,9 +31,46 @@ ul.list-group *:hover {
 }
 
 .selected {
-    background-color: #ffaa30 !important;
+    background-color: #ffaa30;
+    border-color: #ffaa30;
 }
+.selected:hover{
+    background-color:#ffa600;
+    border-color: #ffa600;
+}
+.active:hover{
+    background-color:#ffa600;
+    border-color: #ffa600;
+}
+.list-group-item.active{
+    background-color:#ffa600;
+    border-color: #ffffff;
 
+}
+.selector{
+    background-color:#ffa600;
+    border-color: #ffa600;
+}
+.selector:hover{
+    background-color: #ffaa30 !important;
+    border-color: #ffaa30;
+}
+.mas{
+    background-color: #ffaa30;
+    border-color: #ffaa30;
+}
+.mas:hover{
+    background-color: #ffaa30 !important;
+    border-color: #ffaa30;
+}
+.menos{
+    background-color: #ffaa30;
+    border-color: #ffaa30;
+}
+.menos:hover{
+    background-color: #ffaa30 !important;
+    border-color: #ffaa30;
+}
 .green {
     background-color: greenyellow !important;
 }

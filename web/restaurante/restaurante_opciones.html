@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="btn-group">
-                                <a class="btn btn-info selector" title="select all"><i class="far fa-check-square"></i></a>
+                                <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
                             </div>
                         </div>
                     </div>
@@ -58,11 +58,11 @@
             </div>
     
             <div class="list-arrows col-md-1 text-center">
-                <button class="btn btn-info btn-sm move-left">
+                <button class="btn btn-info btn-sm move-left menos">
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <br>
-                <button class="btn btn-info btn-sm move-right">
+                <button class="btn btn-info btn-sm move-right mas">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -72,7 +72,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="btn-group">
-                                <a class="btn btn-info selector" title="select all"><i class="far fa-check-square"></i></a>
+                                <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
                             </div>
                         </div>
                         <div class="col-md-10">
@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="btn-group">
-                                    <a class="btn btn-info selector" title="select all"><i class="far fa-check-square"></i></a>
+                                <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -119,11 +119,11 @@
                 </div>
         
                 <div class="list-arrows col-md-1 text-center">
-                    <button class="btn btn-info btn-sm move-left">
+                    <button class="btn btn-info btn-sm move-left menos">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                     <br>
-                    <button class="btn btn-info btn-sm move-right">
+                    <button class="btn btn-info btn-sm move-right mas">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
@@ -132,7 +132,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="btn-group">
-                                    <a class="btn btn-info selector" title="select all"><i class="far fa-check-square"></i></a>
+                                    <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
                                 </div>
                             </div>
                             <div class="col-md-10">
@@ -227,10 +227,10 @@ $('.dual-list .selector').click(function () {
     var $checkBox = $(this);
     if (!$checkBox.hasClass('selected')) {
         $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
-        $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+        $checkBox.children('i').removeClass('far fa-square').addClass('far fa-check-square');
     } else {
         $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
-        $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+        $checkBox.children('i').removeClass('far fa-check-square').addClass('far fa-square');
     }
 });
 $('[name="SearchDualList"]').keyup(function (e) {
