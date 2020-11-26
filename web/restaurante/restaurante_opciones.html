@@ -6,24 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuración restaurante</title>
     <link rel="icon" href="../img/favicon.ico" />
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-    <!-- jQuery and JS bundle w/ Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="../estilo.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+        
+        
+        <script>
+      $('select').selectpicker();
+        </script>
 </head>
 
 <body>
-    <div class="container">
+    
+    <div class="container" >
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="130" height="30"
                     class="d-inline-block align-top" alt="" loading="lazy"></a>
@@ -31,80 +43,99 @@
             <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-users-cog"></i> Ajustes</a>
         </nav>
     </div>
-
-    <h3>Tipo de cocina</h3>
     <div class="container">
-        <div class="row">
-            <div class="dual-list list-left col-md-5">
-                <div class="well text-right">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="input-group">
-                             
-                                <input type="text" name="SearchDualList" class="form-control" placeholder="search"/>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="btn-group">
-                                <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item"><span><b>Italiano</b></span><br><span class="option-description">Pasta, pizza...</span></li>
-                        <li class="list-group-item"><span><b>Chino</b></span><br><span class="option-description">Fideos, sopitas...</span></li>
-                    </ul>
-                </div>
-            </div>
-    
-            <div class="list-arrows col-md-1 text-center">
-                <button class="btn btn-info btn-sm move-left menos">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <br>
-                <button class="btn btn-info btn-sm move-right mas">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-
-            <div class="dual-list list-right col-md-5">
-                <div class="well">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="btn-group">
-                                <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="input-group">
-                                <input type="text" name="SearchDualList" class="form-control" placeholder="search" />
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item"><span><b>Vegano</b></span><br><span class="option-description">Ensaladas, tofu (XD)</span></li>
-                        <li class="list-group-item"><span><b>Americana</b></span><br><span class="option-description">Hambuerguesas, Hot Dog</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    <div class="separator"></div>
-        <h3>Paquetes</h3>
-        <ul id="package-options"></ul>
-    <div class="separator"></div>
-        <h3>Bebidas</h3>   
+        <h3>Tipo de cocina</h3>
+        <select class="selectpicker" multiple data-selected-text-format="count > 3">
+            <option>Pasta</option>
+        <option>Pizza</option>
+        <option>Fideos</option>
+        <option>Hambuerguesas</option>
+        <option>Pollo</option>
+          </select>
+        <!--<div class="container">
             <div class="row">
                 <div class="dual-list list-left col-md-5">
                     <div class="well text-right">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class=" col-sm-10 col-md-10">
                                 <div class="input-group">
-                                    <input type="text" name="SearchDualList1" class="form-control" placeholder="search"/>
+                                    <input type="text" name="SearchDualList" class="form-control"
+                                        placeholder="search" />
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class=" col-sm-2 col-md-2">
                                 <div class="btn-group">
-                                <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
+                                    <a class="btn btn-info selector" title="select all"><i
+                                            class="far fa-square"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item"><span><b>Italiano</b></span><br><span
+                                    class="option-description">Pasta, pizza...</span></li>
+                            <li class="list-group-item"><span><b>Chino</b></span><br><span
+                                    class="option-description">Fideos, sopitas...</span></li>
+                                    <li class="list-group-item"><span><b>Vegano</b></span><br><span
+                                        class="option-description">Ensaladas, tofu (XD)</span></li>
+                                <li class="list-group-item"><span><b>Americana</b></span><br><span
+                                        class="option-description">Hambuerguesas, Hot Dog</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="list-arrows col-md-1 text-center">
+                    <button class="btn btn-info btn-sm move-left menos">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <br>
+                    <button class="btn btn-info btn-sm move-right mas">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="dual-list list-right col-md-5">
+                    <div class="well">
+                        <div class="row">
+                            <div class=" col-sm-2 col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-info selector" title="select all"><i
+                                            class="far fa-square"></i></a>
+                                </div>
+                            </div>
+                            <div class=" col-sm-10 col-md-10">
+                                <div class="input-group">
+                                    <input type="text" name="SearchDualList" class="form-control"
+                                        placeholder="search" />
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        -->
+        <div class="separator"></div>
+        <h3>Paquetes</h3>
+        <h6>Selecciona los paquetes que ofreces en tu restaurante</h6>
+        <ul class="container" id="package-options"></ul>
+        <div class="separator"></div>
+        <h3>Bebidas</h3>
+        <div class="container">
+            <div class="row">
+                <div class="dual-list list-left col-md-5">
+                    <div class="well text-right">
+                        <div class="row">
+                            <div class="col-sm-10 col-md-10 ">
+                                <div class="input-group">
+                                    <input type="text" name="SearchDualList" class="form-control"
+                                        placeholder="search" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2 col-md-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-info selector" title="select all"><i
+                                            class="far fa-square"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -114,10 +145,12 @@
                             <li class="list-group-item">Fanta limón</li>
                             <li class="list-group-item">Pepsi</li>
                             <li class="list-group-item">Orchata</li>
+                            <li class="list-group-item">Agua</li>
+                            <li class="list-group-item">Agua de coco</li>
                         </ul>
                     </div>
                 </div>
-        
+
                 <div class="list-arrows col-md-1 text-center">
                     <button class="btn btn-info btn-sm move-left menos">
                         <i class="fas fa-chevron-left"></i>
@@ -130,25 +163,25 @@
                 <div class="dual-list list-right col-md-5">
                     <div class="well">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-sm-2 col-md-2">
                                 <div class="btn-group">
-                                    <a class="btn btn-info selector" title="select all"><i class="far fa-square"></i></a>
+                                    <a class="btn btn-info selector" title="select all"><i
+                                            class="far fa-square"></i></a>
                                 </div>
                             </div>
-                            <div class="col-md-10">
+                            <div class=" col-sm-10 col-md-10">
                                 <div class="input-group">
-                                    <input type="text" name="SearchDualList1" class="form-control" placeholder="search" />
-            
+                                    <input type="text" name="SearchDualList" class="form-control"
+                                        placeholder="search" />
                                 </div>
                             </div>
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item">Agua</li>
-                            <li class="list-group-item">Agua de coco</li>
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
         <!--<div class="row">
             <div class="col-12 col-md-6 mx-auto">
                 <p style="text-align: center;">Bebidas no añadidas</p>
@@ -162,17 +195,17 @@
 
         <div class="separator"></div>
         <h3>Modalidades de entrega</h3>
-        <ul id="delivery-options"></ul>
+        <ul class="container" id="delivery-options"></ul>
         <div class="separator"></div>
-        <h3>Visiblidad</h3>
-        <ul id="visibility-options">
+        <h3>Actividad</h3>
+        <ul class="container col-md-8" id="visibility-options">
             <li id="visible" class="list-group-item list-group-item-action"
                 onclick="javascript:toggleVisibilityOption(this);">
-                Visible
+                Restaurante activo
             </li>
-            <li id="no-visible" class="list-group-item list-group-item-action red"
+            <li id="no-visible" class="list-group-item list-group-item-action"
                 onclick="javascript:toggleVisibilityOption(this);">
-                No visible
+                Restaurante inactivo
             </li>
         </ul>
 
@@ -199,56 +232,61 @@
             </div>
         </div>
     </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-<script>
-            $(function () {
+    <script>
+        $(function () {
 
-$('body').on('click', '.list-group .list-group-item', function () {
-    $(this).toggleClass('active');
-});
-$('.list-arrows button').click(function () {
-    var $button = $(this), actives = '';
-    if ($button.hasClass('move-left')) {
-        actives = $('.list-right ul li.active');
-        actives.clone().appendTo('.list-left ul');
-        actives.remove();
-    } else if ($button.hasClass('move-right')) {
-        actives = $('.list-left ul li.active');
-        actives.clone().appendTo('.list-right ul');
-        actives.remove();
-    }
-});
-$('.dual-list .selector').click(function () {
-    var $checkBox = $(this);
-    if (!$checkBox.hasClass('selected')) {
-        $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
-        $checkBox.children('i').removeClass('far fa-square').addClass('far fa-check-square');
-    } else {
-        $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
-        $checkBox.children('i').removeClass('far fa-check-square').addClass('far fa-square');
-    }
-});
-$('[name="SearchDualList"]').keyup(function (e) {
-    var code = e.keyCode || e.which;
-    if (code == '9') return;
-    if (code == '27') $(this).val(null);
-    var $rows = $(this).closest('.dual-list').find('.list-group li');
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-    $rows.show().filter(function () {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        return !~text.indexOf(val);
-    }).hide();
-});
+            $('body').on('click', '.list-group .list-group-item', function () {
+                $(this).toggleClass('active');
+            });
+            $('.list-arrows button').click(function () {
+                var $button = $(this), actives = '';
+                if ($button.hasClass('move-left')) {
+                    actives = $('.list-right ul li.active');
+                    actives.clone().appendTo('.list-left ul');
+                    actives.remove();
+                } else if ($button.hasClass('move-right')) {
+                    actives = $('.list-left ul li.active');
+                    actives.clone().appendTo('.list-right ul');
+                    actives.remove();
+                }
+            });
+            $('.dual-list .selector').click(function () {
+                var $checkBox = $(this);
+                if (!$checkBox.hasClass('selected')) {
+                    $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
+                    $checkBox.children('i').removeClass('far fa-square').addClass('far fa-check-square');
+                } else {
+                    $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
+                    $checkBox.children('i').removeClass('far fa-check-square').addClass('far fa-square');
+                }
+            });
+            $('[name="SearchDualList"]').keyup(function (e) {
+                var code = e.keyCode || e.which;
+                if (code == '9') return;
+                if (code == '27') $(this).val(null);
+                var $rows = $(this).closest('.dual-list').find('.list-group li');
+                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                $rows.show().filter(function () {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    return !~text.indexOf(val);
+                }).hide();
+            });
 
-});
-</script>
+        });
+    </script>
     <script src="restaurante.js"></script>
     
+
+
+
 </body>
 
 </html>

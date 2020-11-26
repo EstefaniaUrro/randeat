@@ -8,17 +8,18 @@ h3 {
     margin-top: 20px;
     text-align: center;
 }
+h6{
+    text-align-last: center;
+}
 div.separator {
     height: 2px;
-    width: 75%;
-    
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
     margin-bottom: 40px;
     background-color: #BBBBBB;
 }
-
 ul.list-group {
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -72,13 +73,18 @@ ul.list-group *:hover {
     border-color: #ffaa30;
 }
 .green {
-    background-color: greenyellow !important;
+    background-color: green !important;
+    color:white !important;
 }
 
 .red {
     background-color: red !important;
+    color:white !important;
 }
+#visibility-options{
+    color:#777777 !important;
 
+}
 #drinks-not-added, #drinks-added {
     height: 250px;
     overflow: auto;
@@ -235,6 +241,7 @@ footer{
 /* ---------------------------------------*/
   .dual-list .list-group {
     margin-top: 8px;
+    text-align:left;
 }
 
 .list-left li, .list-right li {
@@ -242,9 +249,11 @@ footer{
 }
 
 .list-arrows {
-    padding-top: 100px;
+    padding: 0;
+    margin: auto;
+    height: 80px !important;
 }
 
-    .list-arrows button {
-        margin-bottom: 20px;
-    }
+.list-arrows button {
+    margin-bottom: 20px;
+}

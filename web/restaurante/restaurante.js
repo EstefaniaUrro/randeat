@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(event) {
-  
+
     cargarOpcionesPaquete();
     createDeliveryOptions();
     createDrinkLists();
@@ -44,7 +44,7 @@ function createLiOption(name, description) {
 
 function getUlByIdAndApplyClasses(id) {
     let ul = document.getElementById(id);
-    ul.classList = "list-group col-12 col-md-8 col-lg-10 col-xl-8 mx-auto py-3";
+    ul.classList = "list-group col-12 col-md-8 col-lg-8 col-xl-8 mx-auto py-3";
     return ul;
 }
 
@@ -79,8 +79,7 @@ function cargarOpcionesPaquete() {
 function createDeliveryOptions() {
     let deliveryOptions = [
         ["Enviar", "Los clientes reciben la comida a su domicilio"],
-        ["Recoger", "Los clientes vienen a recoger la comida"],
-        ["Comer ahí", "Los clientes comen en el local"]
+        ["Recoger", "Los clientes vienen a recoger la comida"]
     ];
 
     let ul = getUlByIdAndApplyClasses("delivery-options");
