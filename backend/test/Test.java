@@ -7,6 +7,7 @@ import backend.controller.BebidaController;
 import backend.controller.ClienteController;
 import backend.controller.ClienteTarjetaController;
 import backend.controller.CodigoPostalController;
+import backend.controller.PedidoController;
 import backend.controller.RestauranteBebidaController;
 import backend.controller.RestauranteController;
 import backend.controller.RestauranteTipoCocinaController;
@@ -17,6 +18,7 @@ import backend.controller.TipoEntregaController;
 import backend.controller.UsuarioController;
 import backend.modelo.Bebida;
 import backend.modelo.Cliente;
+import backend.modelo.Pedido;
 import backend.modelo.Restaurante;
 import backend.modelo.Tarjeta;
 import backend.modelo.TipoCocina;
@@ -232,6 +234,48 @@ public class Test {
         }
     }
 
+    private static void listPedidosCliente(int idCliente) {
+        Cliente cliente = ClienteController
+            .getById(idCliente)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Pedidos del cliente %d (%s)",
+            idCliente,
+            cliente.getNombreCompleto()
+        ));
+
+        List<Pedido> pedidosCliente = PedidoController
+            .getByIdCliente(idCliente)
+        ;
+
+        for (Pedido pedido : pedidosCliente) {
+            System.out.println(pedido);
+        }
+    }
+
+    private static void listPedidosRestaurante(int idRestaurante) {
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Pedidos del restaurante %d (%s)",
+            idRestaurante,
+            restaurante.getNombreRestaurante()
+        ));
+
+        List<Pedido> pedidosRestaurante = PedidoController
+            .getByIdRestaurante(idRestaurante)
+        ;
+
+        for (Pedido pedido : pedidosRestaurante) {
+            System.out.println(pedido);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Tipos cocina:");
         Test.listTipoCocina();
@@ -278,5 +322,12 @@ public class Test {
         Test.listBebidasFromRestaurante(1);
         Test.listBebidasFromRestaurante(2);
         Test.listBebidasFromRestaurante(3);
+
+        // Pedidos
+        System.out.println("\nPEDIDOS\n");
+
+        Test.listPedidosCliente(1);
+        System.out.println();
+        Test.listPedidosRestaurante(1);
     }
 }

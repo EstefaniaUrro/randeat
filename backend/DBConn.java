@@ -17,8 +17,11 @@ public class DBConn {
 
     }
 
+    // TODO Private
     public static Connection getConn() throws SQLException {
         if (connection.isEmpty()) {
+            // DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+
             DBConn.connection = Optional.of(DriverManager.getConnection(
                 DBConnSettings.URL,
                 DBConnSettings.USERNAME,
@@ -27,14 +30,6 @@ public class DBConn {
         }
 
         return DBConn.connection.get();
-
-        // DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-
-        // return DriverManager.getConnection(
-        //     DBConnSettings.URL,
-        //     DBConnSettings.USERNAME,
-        //     DBConnSettings.PASSWORD
-        // );
     }
 
     /**
@@ -44,10 +39,17 @@ public class DBConn {
      * @throws SQLException
      */
     public static ResultSet executeQuery(String sql) throws SQLException {
-        Connection conn = DBConn.getConn();
-
-        Statement statement = conn.createStatement();
+        Statement statement = DBConn.getConn().createStatement();
         return statement.executeQuery(sql);
+    }
+
+    private static void setPreparedStatementParams(
+        PreparedStatement ps,
+        Object[][] params
+    ) throws SQLException {
+        for (Object[] posParam : params) {
+            ps.setObject((int)posParam[0], posParam[1]);
+        }
     }
 
     /**
@@ -61,12 +63,8 @@ public class DBConn {
         String sql,
         Object[][] params
     ) throws SQLException {
-        Connection conn = DBConn.getConn();
-
-        PreparedStatement ps = conn.prepareStatement(sql);
-        for (Object[] posParam : params) {
-            ps.setObject((int)posParam[0], posParam[1]);
-        }
+        PreparedStatement ps = DBConn.getConn().prepareStatement(sql);
+        DBConn.setPreparedStatementParams(ps, params);
 
         return ps.executeQuery();
     }
@@ -185,5 +183,54 @@ public class DBConn {
         }
 
         return ids;
+    }
+
+    /**
+     * 
+     * @param sql
+     * @param params
+     * @return el ID autogenerado si lo hay y si todo ha ido bien
+     */
+    public static Optional<Integer> executeInsert(
+        String sql,
+        Object[][] params
+    ) {
+        Optional<Integer> autoIncId = Optional.empty();
+
+        try {
+            PreparedStatement ps = DBConn.getConn().prepareStatement(sql);
+
+            DBConn.setPreparedStatementParams(ps, params);
+
+            ps.executeUpdate();
+
+            ResultSet resultSet = ps.executeQuery("SELECT LAST_INSERT_ID()");
+            if (resultSet.next()) {
+                autoIncId = Optional.of(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return autoIncId;
+    }
+
+    // TODO Mismo código?
+    public static boolean executeUpdateOrDelete(
+        String sql,
+        Object[][] params
+    ) {
+        try {
+            PreparedStatement ps = DBConn.getConn().prepareStatement(sql);
+            DBConn.setPreparedStatementParams(ps, params);
+
+            ps.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }
