@@ -4,15 +4,17 @@ public class Cliente {
     private int idCliente;
     private int usuarioIdUsuario;
     private String nombreCompleto;
+    private int codigoPostalIdCodigoPostal;
 
     public Cliente() {
 
     }
 
-    public Cliente(int idCliente, int usuarioIdUsuario, String nombreCompleto) {
+    public Cliente(int idCliente, int usuarioIdUsuario, String nombreCompleto, int codigoPostalIdCodigoPostal) {
         this.idCliente = idCliente;
         this.usuarioIdUsuario = usuarioIdUsuario;
         this.nombreCompleto = nombreCompleto;
+        this.codigoPostalIdCodigoPostal = codigoPostalIdCodigoPostal;
     }
 
     public int getIdCliente() {
@@ -37,5 +39,12 @@ public class Cliente {
 
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
+    }
+    public int getCodigoPostalIdCodigoPostal() {
+        return this.codigoPostalIdCodigoPostal;
+    }
+
+    public void setCodigoPostalIdCodigoPostal(int codigoPostalIdCodigoPostal) {
+        this.codigoPostalIdCodigoPostal = codigoPostalIdCodigoPostal;
     }
 }
