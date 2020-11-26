@@ -1,7 +1,10 @@
 package backend.controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,4 +47,30 @@ public class BebidaController implements FromResultSet<Bebida> {
             resultSet.getString(NOMBRE)
         );
     }
+    public static void save(Bebida bebida) {
+        String sql;
+        if (bebida.getIdBebida()>0) {
+        sql = String.format("UPDATE %s set id_bebida=?, nombre=?",
+        TABLE, ID_BEBIDA, bebida.getIdBebida());
+        } else {
+        sql = String.format("INSERT INTO %s  id_bebida, nombre) VALUES (?,?)",
+        TABLE);
+        }
+        try (Connection conn = DBConn.getConn();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        Statement stmt = conn.createStatement()) {
+        // (4)
+        pstmt.setInt(1, bebida.getIdBebida());
+        pstmt.setString(2, bebida.getNombre());
+        pstmt.executeUpdate();
+        if (bebida.getIdBebida()==0) {
+        ResultSet rs = stmt.executeQuery("select last_insert_id()"); // (6)
+        if (rs.next()) {
+        bebida.setIdBebida(rs.getInt(1));
+        }
+        }
+        } catch (Exception e) {
+        System.out.println(e.getMessage());
+        }
+        }
 }
