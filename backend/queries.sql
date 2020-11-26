@@ -49,7 +49,8 @@ INSERT INTO bebida (nombre) VALUES ("Fanta naranja");
 INSERT INTO bebida (nombre) VALUES ("Agua");
 INSERT INTO bebida (nombre) VALUES ("Tinto de verano Don Simón");
 
-INSERT INTO usuario (correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	1,
 	'bernatespinas@gmail.com',
     'tengo_hambre',
     '666666666',
@@ -57,17 +58,35 @@ INSERT INTO usuario (correo_electronico, contrasena, telefono, poblacion, direcc
     'Carrer Marina 23'
 );
 
-INSERT INTO cliente (usuario_id_usuario, nombre_completo, codigo_postal_id_codigo_postal) VALUES (
+INSERT INTO cliente (id_cliente, usuario_id_usuario, nombre_completo, codigo_postal_id_codigo_postal) VALUES (
+	1,
 	1,
 	'Bernat Espinàs Añor',
 	1
+);
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	2,
+	'ismamuño@gmail.com',
+    'tengo_hambre',
+    '688688688',
+    'Barcelona',
+    'Carrer Marina 27'
+);
+
+INSERT INTO cliente (id_cliente, usuario_id_usuario, nombre_completo, codigo_postal_id_codigo_postal) VALUES (
+	2,
+	2,
+    'Ismael Muñoz',
+    1
 );
 
 INSERT INTO tarjeta VALUES (1, 2349209342);
 
 INSERT INTO cliente_tarjeta VALUES (1, 1);
 
-INSERT INTO usuario (correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	3,
 	'gatosmuertos@gmail.com',
     'miau',
     '888889888',
@@ -75,24 +94,27 @@ INSERT INTO usuario (correo_electronico, contrasena, telefono, poblacion, direcc
     'Carrer Marina 23'
 );
 
-INSERT INTO restaurante (usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
-	2,
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+	1,
+    2,
     'cif campeador',
     'ES 1231231231231',
     'Cocido Gatileño',
     'Señor Michi',
     1
 );
-INSERT INTO restaurante (usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
 	2,
+    2,
     'laksjdlaksjd',
     'ES 343434343434',
     'Natillas Pro',
     'Natialia',
     2
 );
-INSERT INTO restaurante (usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
-	2,
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+	3,
+    2,
     'lkj12lk3jl',
     'ES 909090909090',
     'Pizzas Melissa',
@@ -123,8 +145,9 @@ INSERT INTO restaurante_bebida VALUES (2, 4);
 INSERT INTO restaurante_bebida VALUES (3, 1);
 INSERT INTO restaurante_bebida VALUES (3, 4);
 
-INSERT INTO pedido (cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, aceptado, comentario) VALUES (
+INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, aceptado, comentario) VALUES (
 	1,
+    1,
     1,
     2,
     1,
@@ -135,8 +158,9 @@ INSERT INTO pedido (cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_
     0,
     'Crudo porfavor'
 );
-INSERT INTO pedido (cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, fecha_date, fecha_time, aceptado, comentario) VALUES (
-	1,
+INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, fecha_date, fecha_time, aceptado, comentario) VALUES (
+	2,
+    1,
     2,
     1,
     2,
@@ -157,3 +181,6 @@ SELECT pedido.id_pedido, cliente.nombre_completo AS 'nombre_cliente', restaurant
 ;
 
 INSERT INTO pedido_paquete VALUES (1, 5);
+
+SELECT * FROM pedido;
+SELECT LAST_INSERT_ID();
