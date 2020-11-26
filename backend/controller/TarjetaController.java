@@ -22,6 +22,16 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         "SELECT * FROM %s WHERE %s IN (?)", TABLE, ID_TARJETA
     );
 
+    private static final String INSERT_TARJETA = String.format(
+        "INSERT INTO %s (%s) VALUES (?)",
+        TABLE, NUMERO
+    );
+
+    private static final String DELETE_TARJETA = String.format(
+        "DELETE FROM %s WHERE %s = ?",
+        TABLE, ID_TARJETA
+    );
+
     public static Optional<Tarjeta> getById(int idTarjeta) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_TARJETA,
@@ -39,6 +49,24 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
                 {1, DBConn.joinIntsInClause(idsTarjeta)}
             },
             new TarjetaController()
+        );
+    }
+
+    public static Optional<Integer> addTarjeta(Tarjeta tarjeta) {
+        return DBConn.executeInsert(
+            INSERT_TARJETA,
+            new Object[][] {
+                {1, tarjeta.getNumero()}
+            }
+        );
+    }
+
+    public static boolean removeTarjeta(int idTarjeta) {
+        return DBConn.executeUpdateOrDelete(
+            DELETE_TARJETA,
+            new Object[][] {
+                {1, idTarjeta}
+            }
         );
     }
 
