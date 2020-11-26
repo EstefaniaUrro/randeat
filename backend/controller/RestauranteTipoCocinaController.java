@@ -1,6 +1,7 @@
 package backend.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import backend.DBConn;
 
@@ -21,7 +22,17 @@ public class RestauranteTipoCocinaController {
         ID_RESTAURANTE
     );
 
-    public static List<Integer> getIdsTipoRestauranteByIdTipoCocina(
+    private static final String INSERT_RESTAURANTE_TIPO_COCINA = String.format(
+        "INSERT INTO %s (%s, %s) VALUES (?, ?)",
+        TABLE, ID_RESTAURANTE, ID_TIPO_COCINA
+    );
+
+    private static final String DELETE_RESTAURANTE_TIPO_COCINA = String.format(
+        "DELETE FROM %s WHERE %s = ? AND %s = ?",
+        TABLE, ID_RESTAURANTE, ID_TIPO_COCINA
+    );
+
+    public static List<Integer> getIdsRestauranteByIdTipoCocina(
         int idTipoCocina
     ) {
         return DBConn.executeQueryGetIntIds(
@@ -42,6 +53,26 @@ public class RestauranteTipoCocinaController {
                 {1, idRestaurante}
             },
             ID_TIPO_COCINA
+        );
+    }
+
+    public static Optional<Integer> addRestauranteTipoCocina(int idRestaurante, int idTipoCocina) {
+        return DBConn.executeInsert(
+            INSERT_RESTAURANTE_TIPO_COCINA,
+            new Object[][] {
+                {1, idRestaurante},
+                {2, idTipoCocina}
+            }
+        );
+    }
+
+    public static boolean removeRestauranteTipoCocina(int idRestaurante, int idTipoCocina) {
+        return DBConn.executeUpdateOrDelete(
+            DELETE_RESTAURANTE_TIPO_COCINA,
+            new Object[][] {
+                {1, idRestaurante},
+                {2, idTipoCocina}
+            }
         );
     }
 }
