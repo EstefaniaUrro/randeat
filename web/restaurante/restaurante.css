@@ -1,5 +1,4 @@
 body{
-    margin: 20px;
     background-color: #ECEDEF;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -30,7 +29,11 @@ ul.list-group {
 ul.list-group *:hover {
     cursor: pointer;
 }
-
+.btn .btn-info {
+    color: #fff;
+    background-color: #ffa704 !important;
+    border-color: #ffa704 !important;
+}
 .selected {
     background-color: #ffaa30 !important;
 }
