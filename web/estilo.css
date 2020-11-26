@@ -78,6 +78,8 @@ footer{
 }
 
   /* Slider */
+
+
   #slide_restaurantes{
     text-align:center;
     padding: 20px;
@@ -212,3 +214,5 @@ footer{
     .list-arrows button {
         margin-bottom: 20px;
     }
+
+
