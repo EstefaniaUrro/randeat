@@ -26,6 +26,11 @@ public class UsuarioController implements FromResultSet<Usuario> {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_USUARIO
     );
 
+    private static final String INSERT_USUARIO = String.format(
+        "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)",
+        TABLE, CORREO_ELECTRONICO, CONTRASENA, TELEFONO, POBLACION, DIRECCION
+    );
+
     public static List<Usuario> getAll() {
         return DBConn.executeQueryIntoList(SELECT_ALL, new UsuarioController());
     }
@@ -37,6 +42,19 @@ public class UsuarioController implements FromResultSet<Usuario> {
                 {1, idUsuario}
             },
             new UsuarioController()
+        );
+    }
+
+    public static Optional<Integer> add(Usuario usuario) {
+        return DBConn.executeInsert(
+            INSERT_USUARIO,
+            new Object[][] {
+                {1, usuario.getCorreoElectronico()},
+                {2, usuario.getContrasena()},
+                {3, usuario.getTelefono()},
+                {4, usuario.getPoblacion()},
+                {5, usuario.getDireccion()}
+            }
         );
     }
 
