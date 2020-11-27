@@ -50,27 +50,26 @@ public class ClienteController implements FromResultSet<Cliente> {
             resultSet.getInt(CODIGO_POSTAL_ID_CODIGO_POSTAL)
         );
     }
-    public static void save(Cliente Cliente) {
+    public static void save(Cliente cliente) {
         String sql;
-        if (Cliente.getIdCliente()>0) {
-        sql = String.format("UPDATE %s set id_cliente=?, usuario_id_usuario=?, nombre_completo=?, codigo_postal_id_codigo_postal=?",
-        TABLE, ID_CLIENTE, Cliente.getIdCliente());
+        if (cliente.getIdCliente()>0) {
+        sql = String.format("UPDATE %s set %s=?, %s=?, %s=? WHERE %s=%d",
+        TABLE, USUARIO_ID_USUARIO,NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL, ID_CLIENTE, cliente.getIdCliente());
         } else {
-        sql = String.format("INSERT INTO %s  id_cliente, usuario_id_usuario, nombre_completo, codigo_postal_id_codigo_postal) VALUES (?,?,?,?)",
-        TABLE);
+        sql = String.format("INSERT INTO %s (%s, %s, %s) VALUES (?,?,?)",
+        TABLE, USUARIO_ID_USUARIO, NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL);
         }
         try (Connection conn = DBConn.getConn();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         Statement stmt = conn.createStatement()) {
-        pstmt.setInt(1, Cliente.getIdCliente());
-        pstmt.setInt(2, Cliente.getUsuarioIdUsuario());
-        pstmt.setString(3, Cliente.getNombreCompleto());
-        pstmt.setInt(4, Cliente.getCodigoPostalIdCodigoPostal());
+        pstmt.setInt(1, cliente.getUsuarioIdUsuario());
+        pstmt.setString(2, cliente.getNombreCompleto());
+        pstmt.setInt(3, cliente.getCodigoPostalIdCodigoPostal());
         pstmt.executeUpdate();
-        if (Cliente.getIdCliente()==0) {
+        if (cliente.getIdCliente()==0) {
         ResultSet rs = stmt.executeQuery("select last_insert_id()");
         if (rs.next()) {
-        Cliente.setIdCliente(rs.getInt(1));
+        cliente.setIdCliente(rs.getInt(1));
         }
         }
         } catch (Exception e) {
