@@ -6,11 +6,9 @@ import java.util.Optional;
 import backend.DBConn;
 
 public class RestauranteTipoEntregaController {
-    private static final String TABLE = "restaurante_tipo_entrega";
-    private static final String ID_RESTAURANTE = "restaurante_id_restaurante";
-    private static final String ID_TIPO_ENTREGA =
-        "tipo_entrega_id_tipo_entrega"
-    ;
+    static final String TABLE = "restaurante_tipo_entrega";
+    static final String ID_RESTAURANTE = "restaurante_id_restaurante";
+    static final String ID_TIPO_ENTREGA = "tipo_entrega_id_tipo_entrega";
 
     private static final String SELECT_BY_ID_RESTAURANTE = String.format(
         "SELECT %s FROM %s WHERE %s = ?", ID_TIPO_ENTREGA, TABLE, ID_RESTAURANTE

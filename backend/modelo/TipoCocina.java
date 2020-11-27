@@ -32,8 +32,8 @@ public class TipoCocina {
     @Override
     public String toString() {
         return
-            this.idTipoCocina + ": "
-            + this.nombre
+            "TipoCocina " + this.idTipoCocina + ": "
+            + "\n\tNombre: " + this.nombre
         ;
     }
 }

@@ -20,6 +20,7 @@ import backend.controller.TipoEntregaController;
 import backend.controller.UsuarioController;
 import backend.modelo.Bebida;
 import backend.modelo.Cliente;
+import backend.modelo.CodigoPostal;
 import backend.modelo.Pedido;
 import backend.modelo.Restaurante;
 import backend.modelo.Tarjeta;
@@ -364,5 +365,81 @@ public class Test {
         Test.listBebidasFromRestaurante(1);
 
         Test.insertPedido();
+
+        Test.ponerRestauranteActivo(1);
+        Test.ponerRestauranteActivo(2);
+        Test.ponerRestauranteActivo(3);
+
+        Test.listTipoCocinaFilter(1, 2);
+
+        Test.listRestauranteFilter(1, 2, 1);
+    }
+
+    private static final void listTipoCocinaFilter(int idCodigoPostal, int idTipoEntrega) {
+        CodigoPostal codigoPostal = CodigoPostalController
+            .getById(idCodigoPostal)
+            .get()
+        ;
+
+        TipoEntrega tipoEntrega = TipoEntregaController
+            .getById(idTipoEntrega)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Lista de tipos de cocina en el código postal %s y con tipo entrega %s",
+            codigoPostal.getNumero(), tipoEntrega.getNombre()
+        ));
+
+        List<TipoCocina> listTipoCocina = TipoCocinaController
+            .getInFilter(idCodigoPostal, idTipoEntrega)
+        ;
+
+        for (TipoCocina tipoCocina : listTipoCocina) {
+            System.out.println(tipoCocina);
+        }
+    }
+
+    private static final void listRestauranteFilter(int idCodigoPostal, int idTipoEntrega, int idTipoCocina) {
+        CodigoPostal codigoPostal = CodigoPostalController
+            .getById(idCodigoPostal)
+            .get()
+        ;
+
+        TipoEntrega tipoEntrega = TipoEntregaController
+            .getById(idTipoEntrega)
+            .get()
+        ;
+
+        TipoCocina tipoCocina = TipoCocinaController
+            .getById(idTipoCocina)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Lista de restaurantes en el código postal %s, con tipo entrega %s y tipo cocina %s",
+            codigoPostal.getNumero(),
+            tipoEntrega.getNombre(),
+            tipoCocina.getNombre()
+        ));
+
+        List<Restaurante> listRestaurante = RestauranteController
+            .getInFilter(idCodigoPostal, idTipoEntrega, idTipoCocina)
+        ;
+
+        for (Restaurante restaurante : listRestaurante) {
+            System.out.println(restaurante);
+        }
+    }
+
+    private static final void ponerRestauranteActivo(int idRestaurante) {
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        restaurante.setActivo(true);
+
+        RestauranteController.save(restaurante);
     }
 }

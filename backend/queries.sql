@@ -130,6 +130,7 @@ INSERT INTO tipo_cocina VALUES (2, 'Pizza');
 INSERT INTO restaurante_tipo_cocina VALUES (1, 1);
 INSERT INTO restaurante_tipo_cocina VALUES (2, 1);
 INSERT INTO restaurante_tipo_cocina VALUES (2, 2);
+INSERT INTO restaurante_tipo_cocina VALUES (3, 1);
 INSERT INTO restaurante_tipo_cocina VALUES (3, 2);
 
 INSERT INTO restaurante_tipo_entrega VALUES (1, 2);

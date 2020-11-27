@@ -10,15 +10,15 @@ import backend.FromResultSet;
 import backend.modelo.Restaurante;
 
 public class RestauranteController implements FromResultSet<Restaurante> {
-    private static final String TABLE = "restaurante";
-    private static final String ID_RESTAURANTE = "id_restaurante";
-    private static final String ID_USUARIO = "usuario_id_usuario";
-    private static final String CIF = "cif";
-    private static final String IBAN = "iban";
-    private static final String NOMBRE_RESTAURANTE = "nombre_restaurante";
-    private static final String NOMBRE_PROPIETARIO = "nombre_propietario";
-    private static final String ID_CODIGO_POSTAL = "codigo_postal_id_codigo_postal";
-    private static final String ACTIVO = "activo";
+    static final String TABLE = "restaurante";
+    static final String ID_RESTAURANTE = "id_restaurante";
+    static final String ID_USUARIO = "usuario_id_usuario";
+    static final String CIF = "cif";
+    static final String IBAN = "iban";
+    static final String NOMBRE_RESTAURANTE = "nombre_restaurante";
+    static final String NOMBRE_PROPIETARIO = "nombre_propietario";
+    static final String ID_CODIGO_POSTAL = "codigo_postal_id_codigo_postal";
+    static final String ACTIVO = "activo";
 
     private static final String SELECT_ACTIVOS = String.format(
         "SELECT * FROM %s WHERE %s = 1", TABLE, ACTIVO
@@ -41,6 +41,34 @@ public class RestauranteController implements FromResultSet<Restaurante> {
     private static final String UPDATE = String.format(
         "UPDATE %s SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? WHERE %s = ?",
         TABLE, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO, ID_RESTAURANTE
+    );
+
+    // Restaurantes activos (1) en un código postal concreto (2, TODO lista?), con un tipo entrega (3) y un tipo cocina (4) determinados, .
+    private static final String SELECT_FILTER = String.format(
+        "SELECT r.* FROM %s r"
+        + " INNER JOIN %s rtc ON rtc.%s = r.%s"
+        + " INNER JOIN %s rte ON rte.%s = r.%s"
+        + " WHERE r.%s = 1" // (1)
+        + " AND r.%s = ?" // (2)
+        + " AND rte.%s = ?" // (3)
+        + " AND rtc.%s = ?", // (4)
+        TABLE,
+
+        RestauranteTipoCocinaController.TABLE,
+        RestauranteTipoCocinaController.ID_RESTAURANTE,
+        ID_RESTAURANTE,
+
+        RestauranteTipoEntregaController.TABLE,
+        RestauranteTipoEntregaController.ID_RESTAURANTE,
+        ID_RESTAURANTE,
+
+        ACTIVO,
+
+        ID_CODIGO_POSTAL,
+
+        RestauranteTipoEntregaController.ID_TIPO_ENTREGA,
+        
+        RestauranteTipoCocinaController.ID_TIPO_COCINA
     );
 
     public static List<Restaurante> getActivos() {
@@ -72,6 +100,29 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
+    /**
+     * Devuelve una lista con los restaurantes que se encuentran en un código postal concreto y que ofrecen un tipo de entrega y un tipo de cocina determinados
+     * @param idCodigoPostal
+     * @param idTipoEntrega
+     * @param idTipoCocina
+     * @return
+     */
+    public static List<Restaurante> getInFilter(
+        int idCodigoPostal,
+        int idTipoEntrega,
+        int idTipoCocina
+    ) {
+        return DBConn.executeQueryWithParamsIntoList(
+            SELECT_FILTER,
+            new Object[][] {
+                {1, idCodigoPostal},
+                {2, idTipoEntrega},
+                {3, idTipoCocina}
+            },
+            new RestauranteController()
+        );
+    }
+
     public static Optional<Integer> save(Restaurante restaurante) {
         if (restaurante.getIdRestaurante() == 0) {
             return RestauranteController.add(restaurante);
@@ -79,7 +130,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
             return RestauranteController.update(restaurante);
         }
     }
-    
+
     public static Optional<Integer> add(Restaurante restaurante) {
         return DBConn.executeInsert(
             INSERT,
@@ -93,29 +144,6 @@ public class RestauranteController implements FromResultSet<Restaurante> {
             }
         );
     }
-
-    // public static boolean update(
-    //     int idRestaurante,
-    //     String cif,
-    //     String iban,
-    //     String nombreRestaurante,
-    //     String nombrePropietario,
-    //     int idCodigoPostal,
-    //     boolean activo
-    // ) {
-    //     return DBConn.executeUpdateOrDelete(
-    //         UPDATE,
-    //         new Object[][] {
-    //             {1, cif},
-    //             {2, iban},
-    //             {3, nombreRestaurante},
-    //             {4, nombrePropietario},
-    //             {5, idCodigoPostal},
-    //             {6, activo},
-    //             {7, idRestaurante}
-    //         }
-    //     );
-    // }
 
     public static Optional<Integer> update(Restaurante restaurante) {
         DBConn.executeUpdateOrDelete(

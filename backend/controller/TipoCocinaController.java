@@ -68,6 +68,48 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
         return Optional.of(tipoCocina.getIdTipoCocina());
     }
 
+    // Tipos de cocina de los restaurantes activos (1) en un código postal (2, TODO lista?) y un tipo de entrega (3) determinados.
+    private static final String SELECT_TIPO_COCINA_FILTER = String.format(
+        "SELECT tc.* FROM %s r"
+        + " INNER JOIN %s rte ON rte.%s = r.%s"
+        + " INNER JOIN %s rtc ON rtc.%s = r.%s"
+        + " INNER JOIN %s tc ON tc.%s = rtc.%s"
+        + " WHERE r.%s = 1" // (1)
+        + " AND r.%s = ?" // (2)
+        + " AND rte.%s = ?", // (3)
+        RestauranteController.TABLE,
+
+        RestauranteTipoEntregaController.TABLE,
+        RestauranteTipoEntregaController.ID_RESTAURANTE,
+        RestauranteController.ID_RESTAURANTE,
+
+        RestauranteTipoCocinaController.TABLE,
+        RestauranteTipoCocinaController.ID_RESTAURANTE,
+        RestauranteController.ID_RESTAURANTE,
+
+        TABLE,
+        ID_TIPO_COCINA,
+        RestauranteTipoCocinaController.ID_TIPO_COCINA,
+
+        RestauranteController.ACTIVO,
+        RestauranteController.ID_CODIGO_POSTAL,
+        RestauranteTipoEntregaController.ID_TIPO_ENTREGA
+    );
+
+    public static List<TipoCocina> getInFilter(
+        int idCodigoPostal,
+        int idTipoEntrega
+    ) {
+        return DBConn.executeQueryWithParamsIntoList(
+            SELECT_TIPO_COCINA_FILTER,
+            new Object[][] {
+                {1, idCodigoPostal},
+                {2, idTipoEntrega}
+            },
+            new TipoCocinaController()
+        );
+    }
+
     @Override
     public TipoCocina fromResultSet(ResultSet resultSet) throws SQLException {
         return new TipoCocina(
