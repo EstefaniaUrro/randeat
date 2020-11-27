@@ -38,6 +38,11 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         TABLE, ID_USUARIO, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO
     );
 
+    private static final String UPDATE = String.format(
+        "UPDATE %s SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? WHERE %s = ?",
+        TABLE, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO, ID_RESTAURANTE
+    );
+
     public static List<Restaurante> getActivos() {
         return DBConn.executeQueryIntoList(
             SELECT_ACTIVOS,
@@ -67,6 +72,14 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
+    public static Optional<Integer> save(Restaurante restaurante) {
+        if (restaurante.getIdRestaurante() == 0) {
+            return RestauranteController.add(restaurante);
+        } else {
+            return RestauranteController.update(restaurante);
+        }
+    }
+    
     public static Optional<Integer> add(Restaurante restaurante) {
         return DBConn.executeInsert(
             INSERT,
@@ -79,6 +92,46 @@ public class RestauranteController implements FromResultSet<Restaurante> {
                 {6, restaurante.getCodigoPostalIdCodigoPostal()}
             }
         );
+    }
+
+    // public static boolean update(
+    //     int idRestaurante,
+    //     String cif,
+    //     String iban,
+    //     String nombreRestaurante,
+    //     String nombrePropietario,
+    //     int idCodigoPostal,
+    //     boolean activo
+    // ) {
+    //     return DBConn.executeUpdateOrDelete(
+    //         UPDATE,
+    //         new Object[][] {
+    //             {1, cif},
+    //             {2, iban},
+    //             {3, nombreRestaurante},
+    //             {4, nombrePropietario},
+    //             {5, idCodigoPostal},
+    //             {6, activo},
+    //             {7, idRestaurante}
+    //         }
+    //     );
+    // }
+
+    public static Optional<Integer> update(Restaurante restaurante) {
+        DBConn.executeUpdateOrDelete(
+            UPDATE,
+            new Object[][] {
+                {1, restaurante.getCif()},
+                {2, restaurante.getIban()},
+                {3, restaurante.getNombreRestaurante()},
+                {4, restaurante.getNombrePropietario()},
+                {5, restaurante.getCodigoPostalIdCodigoPostal()},
+                {6, restaurante.isActivo()},
+                {7, restaurante.getIdRestaurante()}
+            }
+        );
+
+        return Optional.of(restaurante.getIdRestaurante());
     }
 
     @Override
