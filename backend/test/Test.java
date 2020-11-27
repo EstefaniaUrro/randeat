@@ -1,7 +1,6 @@
 package backend.test;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,13 +100,22 @@ public class Test {
         }
     }
 
-    private static void listRestauranteCodigosPostales(
-        List<Integer> idsCodigoPostal
+    private static void listRestaurantesCodigoPostal(
+        int idCodigoPostal
     ) {
-        System.out.println("Restaurantes en códigos postales " + idsCodigoPostal + ":");
+        CodigoPostal codigoPostal = CodigoPostalController
+            .getById(idCodigoPostal)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Restaurantes en código postal %d (%s);",
+            codigoPostal.getIdCodigoPostal(),
+            codigoPostal.getNumero()
+        ));
 
         List<Restaurante> restaurantes = RestauranteController
-            .getActivosByIdCodigoPostal(idsCodigoPostal)
+            .getActivosByIdCodigoPostal(idCodigoPostal)
         ;
 
         for (Restaurante restaurante : restaurantes) {
@@ -327,9 +335,9 @@ public class Test {
         Test.listTarjetasCliente();
 
         System.out.println();
-        Test.listRestauranteCodigosPostales(Arrays.asList(1));
-        Test.listRestauranteCodigosPostales(Arrays.asList(1, 2));
-        Test.listRestauranteCodigosPostales(Arrays.asList());
+        Test.listRestaurantesCodigoPostal(1);
+        Test.listRestaurantesCodigoPostal(2);
+        Test.listRestaurantesCodigoPostal(3);
 
         System.out.println();
         Test.listRestauranteIdsTipoCocina(1);

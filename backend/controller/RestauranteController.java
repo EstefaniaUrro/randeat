@@ -29,7 +29,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
     );
 
     private static final String SELECT_ACTIVOS_BY_ID_CODIGO_POSTAL = String.format(
-        "SELECT * FROM %s WHERE %s = 1 AND %s IN (?)",
+        "SELECT * FROM %s WHERE %s = 1 AND %s = ?",
         TABLE, ACTIVO, ID_CODIGO_POSTAL
     );
 
@@ -43,7 +43,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         TABLE, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO, ID_RESTAURANTE
     );
 
-    // Restaurantes activos (1) en un código postal concreto (2, TODO lista?), con un tipo entrega (3) y un tipo cocina (4) determinados, .
+    // Restaurantes activos (1) en un código postal concreto (2), con un tipo entrega (3) y un tipo cocina (4) determinados, .
     private static final String SELECT_FILTER = String.format(
         "SELECT r.* FROM %s r"
         + " INNER JOIN %s rtc ON rtc.%s = r.%s"
@@ -89,12 +89,12 @@ public class RestauranteController implements FromResultSet<Restaurante> {
     }
 
     public static List<Restaurante> getActivosByIdCodigoPostal(
-        List<Integer> idsCodigoPostal
+        int idCodigoPostal
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_ACTIVOS_BY_ID_CODIGO_POSTAL,
             new Object[][] {
-                {1, DBConn.joinIntsInClause(idsCodigoPostal)}
+                {1, idCodigoPostal}
             },
             new RestauranteController()
         );

@@ -68,7 +68,7 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
         return Optional.of(tipoCocina.getIdTipoCocina());
     }
 
-    // Tipos de cocina de los restaurantes activos (1) en un código postal (2, TODO lista?) y un tipo de entrega (3) determinados.
+    // Tipos de cocina de los restaurantes activos (1) en un código postal (2) y un tipo de entrega (3) determinados.
     private static final String SELECT_TIPO_COCINA_FILTER = String.format(
         "SELECT tc.* FROM %s r"
         + " INNER JOIN %s rte ON rte.%s = r.%s"
