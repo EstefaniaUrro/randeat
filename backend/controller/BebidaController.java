@@ -1,10 +1,7 @@
 package backend.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +23,16 @@ public class BebidaController implements FromResultSet<Bebida> {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_BEBIDA
     );
 
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s,%s) VALUES (?,?)",
+         TABLE, ID_BEBIDA, NOMBRE
+    );
+
+    private static final String UPDATE = String.format(
+        "UPDATE %s SET %s=? WHERE %s=?",
+         TABLE, NOMBRE, ID_BEBIDA
+    );
+
     public static List<Bebida> getAll() {
         return DBConn.executeQueryIntoList(SELECT_ALL, new BebidaController());
     }
@@ -40,6 +47,27 @@ public class BebidaController implements FromResultSet<Bebida> {
         );
     }
 
+    public static Optional<Integer> add(Bebida bebida) {
+        return DBConn.executeInsert(
+            INSERT,
+            new Object[][] {
+                {1, bebida.getIdBebida()},
+                {2, bebida.getNombre()}
+            }
+        );
+    }
+    public static Optional<Integer> update(Bebida bebida) {
+        DBConn.executeUpdateOrDelete(
+            UPDATE,
+            new Object[][] {
+                {1, bebida.getNombre()},
+                {2, bebida.getIdBebida()},
+            }
+        );
+
+        return Optional.of(bebida.getIdBebida());
+    }
+
     @Override
     public Bebida fromResultSet(ResultSet resultSet) throws SQLException {
         return new Bebida(
@@ -47,30 +75,4 @@ public class BebidaController implements FromResultSet<Bebida> {
             resultSet.getString(NOMBRE)
         );
     }
-    public static void save(Bebida bebida) {
-        String sql;
-        if (bebida.getIdBebida()>0) {
-        sql = String.format("UPDATE %s set id_bebida=?, nombre=?",
-        TABLE, ID_BEBIDA, bebida.getIdBebida());
-        } else {
-        sql = String.format("INSERT INTO %s  id_bebida, nombre) VALUES (?,?)",
-        TABLE);
-        }
-        try (Connection conn = DBConn.getConn();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        Statement stmt = conn.createStatement()) {
-        // (4)
-        pstmt.setInt(1, bebida.getIdBebida());
-        pstmt.setString(2, bebida.getNombre());
-        pstmt.executeUpdate();
-        if (bebida.getIdBebida()==0) {
-        ResultSet rs = stmt.executeQuery("select last_insert_id()"); // (6)
-        if (rs.next()) {
-        bebida.setIdBebida(rs.getInt(1));
-        }
-        }
-        } catch (Exception e) {
-        System.out.println(e.getMessage());
-        }
-        }
 }

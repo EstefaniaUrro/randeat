@@ -62,7 +62,7 @@ public class UsuarioController implements FromResultSet<Usuario> {
             }
         );
     }
-
+//Preguntar Bernat Lunes
     public static boolean update(Usuario usuario) {
         return DBConn.executeUpdateOrDelete(
             UPDATE_USUARIO,
