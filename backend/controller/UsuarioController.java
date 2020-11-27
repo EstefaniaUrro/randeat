@@ -27,7 +27,7 @@ public class UsuarioController implements FromResultSet<Usuario> {
     );
 
     private static final String INSERT_USUARIO = String.format(
-        "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)",
         TABLE, CORREO_ELECTRONICO, CONTRASENA, TELEFONO, POBLACION, DIRECCION
     );
 
