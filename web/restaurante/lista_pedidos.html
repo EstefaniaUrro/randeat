@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista pedidos</title>
+    <title>Pedidos</title>
     <link rel="icon" href="../img/favicon.ico" />
 
 
@@ -23,10 +23,6 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <script src="js/slide.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
         table {
             margin-top: 30px;
@@ -35,13 +31,33 @@
 </head>
 
 <body>
+    <!-- Nav -->
     <div class="container">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="130" height="30"
                     class="d-inline-block align-top" alt="" loading="lazy"></a>
-            <a class="nav-link" href="inicio.html"><i class="fas fa-list-ul"></i> Pedidos</a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-bars"></i> Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-cog"></i> Restaurante</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> Nombre Usuario</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="restaurante.html">Mi cuenta</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
+                            Sesión</a>
+                    </div>
+                </li>
+            </ul>
         </nav>
     </div>
+    <!-- Nav -->
 
     <div class="container">
         <h1>Lista de pedidos</h1>
@@ -59,6 +75,15 @@
             </tbody>
         </table>
     </div>
+    <!-- Footer -->
+    <footer class="page-footer font-small blue-grey lighten-5">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-black-50 py-3">
+            © 2020 Copyright: RandEat
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
     <script>
         document.addEventListener('DOMContentLoaded', function (event) {
             loadPedidos();

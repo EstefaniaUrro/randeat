@@ -4,12 +4,28 @@ body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+/* INICIO RESTAURANTE */
 h3 {
     margin-top: 20px;
     text-align: center;
-}
+}/*
 h6{
     text-align-last: center;
+}*/
+#enviar{
+    background-color: #ffaa30;
+    border-color: #ffaa30;
+    border: none;
+     padding: 10px 20px; 
+    border-radius: 25px;
+}
+#enviar:hover{
+    background-color: #ff8000;
+}
+#cancelar{
+    border: none;
+     padding: 10px 20px; 
+    border-radius: 25px;
 }
 div.separator {
     height: 2px;
@@ -23,8 +39,6 @@ div.separator {
 ul.list-group {
     padding-left: 10px !important;
     padding-right: 10px !important;
-
-    /* box-shadow: 1px 1px 10px 1px #BBBBBB; */
 }
 
 ul.list-group *:hover {
@@ -32,8 +46,8 @@ ul.list-group *:hover {
 }
 
 .selected {
-    background-color: #ffaa30;
-    border-color: #ffaa30;
+    background-color: #ffaa30 !important;
+    border-color: #ffaa30 !important;
 }
 .selected:hover{
     background-color:#ffa600;
@@ -45,7 +59,7 @@ ul.list-group *:hover {
 }
 .list-group-item.active{
     background-color:#ffa600;
-    border-color: #ffffff;
+    border-color: #ffffff !important;
 
 }
 .selector{
@@ -76,7 +90,6 @@ ul.list-group *:hover {
     background-color: green !important;
     color:white !important;
 }
-
 .red {
     background-color: red !important;
     color:white !important;
@@ -94,7 +107,8 @@ ul.list-group *:hover {
 .option-description {
     color: #777777;
 }
-
+/* FIN RESTAURANTE */
+/* INICIO INDEX */
 div nav{
     padding: 10px 0;
     margin-bottom: 10px;
@@ -103,7 +117,8 @@ div nav a{
     color: #ffaa30;
 }
 div nav a:hover{
-    color: #ff8000;
+    color: #ff8000 !important;
+    background-color: white;
 }
 .carousel-item img{
     height: 450px !important;
@@ -112,15 +127,16 @@ div nav a:hover{
 #rest{
     background-color: white;
 }
-
 footer{
     background-color: #ffaa30;
     padding-top: 5px;
     margin-top: 30px;
+    width: 100%;
+    bottom:0px;
+    position:relative;
 }
 
   /* Slider */
-
 
   #slide_restaurantes{
     text-align:center;
@@ -255,15 +271,3 @@ footer{
     margin: auto;
     height: 80px !important;
 }
-
-<<<<<<< HEAD
-.list-arrows button {
-    margin-bottom: 20px;
-}
-=======
-    .list-arrows button {
-        margin-bottom: 20px;
-    }
-
-
->>>>>>> e0ac35d6c938c58d7ce9227d3ccbb42c5b877acf

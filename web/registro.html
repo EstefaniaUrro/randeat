@@ -223,10 +223,7 @@
 		<nav class="navbar navbar-light bg-light">
 			<a class="navbar-brand" href="index.html">
 				<img src="img/logo.png" width="130" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-
 			</a>
-			<a class="nav-link" href="#">Ayuda</a>
-
 		</nav>
 
 
@@ -249,7 +246,9 @@
 						</div>
 						<div class="group">
 							<label for="postal" class="label">Código postal</label>
-							<input id="postal" type="number" class="input">
+							<select name="postal" id="postal" class="input">
+								<option value="postal" disable hidden>Por favor seleccina</option>
+							</select>
 						</div>
 						<div class="group">
 							<label for="direccion" class="label">Dirección del restaurante</label>
