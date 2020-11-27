@@ -1,10 +1,7 @@
 package backend.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +24,16 @@ public class ClienteController implements FromResultSet<Cliente> {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_CLIENTE
     );
 
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s, %s, %s) VALUES (?,?,?)",
+        TABLE, USUARIO_ID_USUARIO, NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL
+    );
+
+    private static final String UPDATE = String.format(
+        "UPDATE %s set %s=?, %s=?, %s=? WHERE %s=?",
+        TABLE, USUARIO_ID_USUARIO,NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL, ID_CLIENTE
+    );
+
     public static List<Cliente> getAll() {
         return DBConn.executeQueryIntoList(SELECT_ALL, new ClienteController());
     }
@@ -41,6 +48,30 @@ public class ClienteController implements FromResultSet<Cliente> {
         );
     }
 
+    public static Optional<Integer> add(Cliente cliente) {
+        return DBConn.executeInsert(
+            INSERT,
+            new Object[][] {
+                 {1, cliente.getUsuarioIdUsuario()},
+                 {2, cliente.getNombreCompleto()},
+                 {3, cliente.getCodigoPostalIdCodigoPostal()}
+            }
+        );
+    }
+
+    public static Optional<Integer> update(Cliente cliente) {
+        DBConn.executeUpdateOrDelete(
+            UPDATE,
+            new Object[][]{
+                {1, cliente.getUsuarioIdUsuario()},
+                {2, cliente.getNombreCompleto()},
+                {3, cliente.getCodigoPostalIdCodigoPostal()},
+                {4, cliente.getIdCliente()}
+        });
+
+        return Optional.of(cliente.getIdCliente());
+    }
+
     @Override
     public Cliente fromResultSet(ResultSet resultSet) throws SQLException {
         return new Cliente(
@@ -50,30 +81,4 @@ public class ClienteController implements FromResultSet<Cliente> {
             resultSet.getInt(CODIGO_POSTAL_ID_CODIGO_POSTAL)
         );
     }
-    public static void save(Cliente cliente) {
-        String sql;
-        if (cliente.getIdCliente()>0) {
-        sql = String.format("UPDATE %s set %s=?, %s=?, %s=? WHERE %s=%d",
-        TABLE, USUARIO_ID_USUARIO,NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL, ID_CLIENTE, cliente.getIdCliente());
-        } else {
-        sql = String.format("INSERT INTO %s (%s, %s, %s) VALUES (?,?,?)",
-        TABLE, USUARIO_ID_USUARIO, NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL);
-        }
-        try (Connection conn = DBConn.getConn();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        Statement stmt = conn.createStatement()) {
-        pstmt.setInt(1, cliente.getUsuarioIdUsuario());
-        pstmt.setString(2, cliente.getNombreCompleto());
-        pstmt.setInt(3, cliente.getCodigoPostalIdCodigoPostal());
-        pstmt.executeUpdate();
-        if (cliente.getIdCliente()==0) {
-        ResultSet rs = stmt.executeQuery("select last_insert_id()");
-        if (rs.next()) {
-        cliente.setIdCliente(rs.getInt(1));
-        }
-        }
-        } catch (Exception e) {
-        System.out.println(e.getMessage());
-        }
-        }
 }

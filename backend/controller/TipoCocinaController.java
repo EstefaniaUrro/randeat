@@ -1,10 +1,7 @@
 package backend.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +21,14 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
     private static final String SELECT_BY_ID_TIPO_COCINA = String.format(
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_TIPO_COCINA
     );
+
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s) VALUES (?)",TABLE, NOMBRE
+    );
+
+    private static final String UPDATE = String.format(
+        "UPDATE %s SET %s=? WHERE %s=?", TABLE, NOMBRE, ID_TIPO_COCINA
+    );
     
     public static List<TipoCocina> getAll() {
         return DBConn.executeQueryIntoList(
@@ -42,6 +47,27 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
         );
     }
 
+    public static Optional<Integer> add(TipoCocina tipoCocina) {
+        return DBConn.executeInsert(
+            INSERT, 
+            new Object[][]{
+                {1, tipoCocina.getNombre()}
+            }
+        );
+    }
+
+    public static Optional<Integer> update(TipoCocina tipoCocina) {
+        DBConn.executeUpdateOrDelete(
+            UPDATE,
+            new Object[][]{
+                {1, tipoCocina.getNombre()},
+                {2, tipoCocina.getIdTipoCocina()}
+            }
+        );
+
+        return Optional.of(tipoCocina.getIdTipoCocina());
+    }
+
     @Override
     public TipoCocina fromResultSet(ResultSet resultSet) throws SQLException {
         return new TipoCocina(
@@ -49,28 +75,4 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
             resultSet.getString(NOMBRE)
         );
     }
-    public static void save(TipoCocina tipoCocina) {
-        String sql;
-        if (tipoCocina.getIdTipoCocina()>0) {
-        sql = String.format("UPDATE %s set %s=? WHERE %s=%d",
-        TABLE, NOMBRE, ID_TIPO_COCINA, tipoCocina.getIdTipoCocina());
-        } else {
-        sql = String.format("INSERT INTO %s (%s) VALUES (?)",
-        TABLE, NOMBRE);
-        }
-        try (Connection conn = DBConn.getConn();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        Statement stmt = conn.createStatement()) {
-        pstmt.setString(1, tipoCocina.getNombre());
-        pstmt.executeUpdate();
-        if (tipoCocina.getIdTipoCocina()==0) {
-        ResultSet rs = stmt.executeQuery("select last_insert_id()");
-        if (rs.next()) {
-        tipoCocina.setIdTipoCocina(rs.getInt(1));
-        }
-        }
-        } catch (Exception e) {
-        System.out.println(e.getMessage());
-        }
-        }
 }
