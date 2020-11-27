@@ -1,6 +1,7 @@
 package backend.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import backend.DBConn;
 
@@ -13,13 +14,13 @@ public class ClienteTarjetaController {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_CLIENTE
     );
 
-    private static final String INSERT_CLIENTE_TARJETA = String.format(
+    private static final String INSERT = String.format(
         "INSERT INTO %s (%s, %s) VALUES (?, ?)",
         TABLE, ID_CLIENTE, ID_TARJETA
 
     );
 
-    private static final String DELETE_CLIENTE_TARJETA = String.format(
+    private static final String DELETE = String.format(
         "DELETE FROM %s WHERE %s = ? AND %s = ?",
         TABLE, ID_CLIENTE, ID_TARJETA
     );
@@ -39,9 +40,9 @@ public class ClienteTarjetaController {
         );
     }
 
-    public static void addTarjeta(int idCliente, int idTarjeta) {
-        DBConn.executeInsert(
-            INSERT_CLIENTE_TARJETA,
+    public static Optional<Integer> add(int idCliente, int idTarjeta) {
+        return DBConn.executeInsert(
+            INSERT,
             new Object[][] {
                 {1, idCliente},
                 {2, idTarjeta}
@@ -49,9 +50,9 @@ public class ClienteTarjetaController {
         );
     }
 
-    public static void removeTarjeta(int idCliente, int idTarjeta) {
-        DBConn.executeUpdateOrDelete(
-            DELETE_CLIENTE_TARJETA,
+    public static boolean remove(int idCliente, int idTarjeta) {
+        return DBConn.executeUpdateOrDelete(
+            DELETE,
             new Object[][] {
                 {1, idCliente},
                 {2, idTarjeta}

@@ -1,7 +1,9 @@
 package backend.test;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import backend.controller.BebidaController;
 import backend.controller.ClienteController;
@@ -112,7 +114,7 @@ public class Test {
 
     private static void listRestauranteIdsTipoCocina(int idTipoCocina) {
         List<Integer> idsRestauranteTipoCocina = RestauranteTipoCocinaController
-            .getIdsTipoRestauranteByIdTipoCocina(idTipoCocina)
+            .getIdsRestauranteByIdTipoCocina(idTipoCocina)
         ;
 
         TipoCocina tipoCocina = TipoCocinaController
@@ -276,6 +278,32 @@ public class Test {
         }
     }
 
+    private static void addBebidaToRestaurante(int idBebida, int idRestaurante) {
+        Bebida bebida = BebidaController
+            .getById(idBebida)
+            .get()
+        ;
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Añadiendo bebiba %s al restaurante %s",
+            bebida.getNombre(), restaurante.getNombreRestaurante()
+        ));
+
+        RestauranteBebidaController
+            .add(idRestaurante, idBebida)
+        ;
+    }
+
+    private static void insertPedido() {
+        Pedido pedido = new Pedido(3, 1, 1, 1, 2, Optional.empty(), LocalDateTime.now(), true, "asd");
+
+        PedidoController.add(pedido);
+    }
+
     public static void main(String[] args) {
         System.out.println("Tipos cocina:");
         Test.listTipoCocina();
@@ -329,5 +357,13 @@ public class Test {
         Test.listPedidosCliente(1);
         System.out.println();
         Test.listPedidosRestaurante(1);
+
+        System.out.println("\n### UPDATES");
+        
+        System.out.println();
+        Test.addBebidaToRestaurante(4, 1);
+        Test.listBebidasFromRestaurante(1);
+
+        Test.insertPedido();
     }
 }
