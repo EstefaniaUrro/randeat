@@ -1,46 +1,58 @@
 package backend.controller;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import backend.DBConn;
+import backend.FromResultSet;
 import backend.modelo.RestaurantePaquete;
 
 
-public class RestaurantePaqueteController {
+public class RestaurantePaqueteController implements FromResultSet<RestaurantePaquete> {
     private static final String TABLE = "restaurante_paquete";
     private static final String ID_RESTAURANTE = "restaurante_id_restaurante";
     private static final String ID_PAQUETE = "paquete_id_paquete";
     private static final String COSTE = "coste";
 
-    private static final String SELECT_ALL = String.format(
-        "SELECT * FROM %s", TABLE
+    private static final String SELECT_BY_ID_RESTAURANTE = String.format(
+        "SELECT rp.*, p.%s FROM %s r"
+        + " INNER JOIN %s rp ON rp.%s = r.%s"
+        + " INNER JOIN %s p ON p.%s = rp.%s"
+        + " WHERE r.%s = ?",
+        PaqueteController.NOMBRE,
+        RestauranteController.TABLE,
+
+        TABLE,
+        ID_RESTAURANTE,
+        RestauranteController.ID_RESTAURANTE,
+
+        PaqueteController.TABLE,
+        PaqueteController.ID_PAQUETE,
+        ID_PAQUETE,
+
+        RestauranteController.ID_RESTAURANTE
     );
 
-    public static List<RestaurantePaquete> getAll() {
-        List<RestaurantePaquete> listaRestaurantePaquete = new ArrayList<>();
+    public static List<RestaurantePaquete> getByIdRestaurante(
+        int idRestaurante
+    ) {
+        return DBConn.executeQueryWithParamsIntoList(
+            SELECT_BY_ID_RESTAURANTE,
+            new Object[][] {
+                {1, idRestaurante}
+            },
+            new RestaurantePaqueteController()
+        );
+    }
 
-        try (
-            Connection conn = DBConn.getConn();
-            Statement statement = conn.createStatement();
-        ) {
-            ResultSet resultSet = statement.executeQuery(SELECT_ALL);
-
-            while (resultSet.next()) {
-                listaRestaurantePaquete.add(new RestaurantePaquete(
-                    resultSet.getInt(ID_RESTAURANTE),
-                    resultSet.getInt(ID_PAQUETE),
-                    resultSet.getDouble(COSTE)
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return listaRestaurantePaquete;
+    @Override
+    public RestaurantePaquete fromResultSet(ResultSet resultSet) throws SQLException {
+        return new RestaurantePaquete(
+            resultSet.getInt(ID_RESTAURANTE),
+            resultSet.getInt(ID_PAQUETE),
+            resultSet.getDouble(COSTE),
+            resultSet.getString(PaqueteController.NOMBRE)
+        );
     }
 }

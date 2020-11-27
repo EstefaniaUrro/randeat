@@ -11,9 +11,9 @@ import backend.modelo.Paquete;
 
 
 public class PaqueteController implements FromResultSet<Paquete> {
-    private static final String TABLE = "paquete";
-    private static final String ID_PAQUETE = "id_paquete";
-    private static final String NOMBRE = "nombre";
+    static final String TABLE = "paquete";
+    static final String ID_PAQUETE = "id_paquete";
+    static final String NOMBRE = "nombre";
 
     private static final String SELECT_ALL = String.format(
         "SELECT * FROM %s", TABLE

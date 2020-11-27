@@ -12,6 +12,7 @@ import backend.controller.CodigoPostalController;
 import backend.controller.PedidoController;
 import backend.controller.RestauranteBebidaController;
 import backend.controller.RestauranteController;
+import backend.controller.RestaurantePaqueteController;
 import backend.controller.RestauranteTipoCocinaController;
 import backend.controller.RestauranteTipoEntregaController;
 import backend.controller.TarjetaController;
@@ -23,6 +24,7 @@ import backend.modelo.Cliente;
 import backend.modelo.CodigoPostal;
 import backend.modelo.Pedido;
 import backend.modelo.Restaurante;
+import backend.modelo.RestaurantePaquete;
 import backend.modelo.Tarjeta;
 import backend.modelo.TipoCocina;
 import backend.modelo.TipoEntrega;
@@ -373,6 +375,31 @@ public class Test {
         Test.listTipoCocinaFilter(1, 2);
 
         Test.listRestauranteFilter(1, 2, 1);
+
+        Test.listRestaurantePaqueteFromRestaurante(1);
+        Test.listRestaurantePaqueteFromRestaurante(2);
+        Test.listRestaurantePaqueteFromRestaurante(3);
+    }
+
+    private static final void listRestaurantePaqueteFromRestaurante(int idRestaurante) {
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        System.out.println(String.format(
+            "Paquetes que ofrece el restaurante %d (%s) ",
+            restaurante.getIdRestaurante(),
+            restaurante.getNombreRestaurante()
+        ));
+
+        List<RestaurantePaquete> listRestaurantePaquete = RestaurantePaqueteController
+            .getByIdRestaurante(idRestaurante)
+        ;
+
+        for (RestaurantePaquete restaurantePaquete : listRestaurantePaquete) {
+            System.out.println(restaurantePaquete);
+        }
     }
 
     private static final void listTipoCocinaFilter(int idCodigoPostal, int idTipoEntrega) {
