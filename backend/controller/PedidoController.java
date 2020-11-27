@@ -43,6 +43,17 @@ public class PedidoController implements FromResultSet<Pedido> {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_CLIENTE
     );
 
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        TABLE,
+        ID_CLIENTE, ID_RESTAURANTE, ID_TIPO_COCINA, ID_TIPO_ENTREGA, DIRECCION_ENVIO, FECHA_DATE, FECHA_TIME, ACEPTADO, COMENTARIO
+    );
+
+    private static final String UPDATE_PEDIDO_ACEPTADO = String.format(
+        "UPDATE %s SET %s = ? WHERE %s = ?",
+        TABLE, ACEPTADO, ID_PEDIDO
+    );
+
     public static Optional<Pedido> getById(int idPedido) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_PEDIDO,
@@ -74,6 +85,42 @@ public class PedidoController implements FromResultSet<Pedido> {
                 {1, idCliente}
             },
             new PedidoController()
+        );
+    }
+
+    public static Optional<Integer> add(Pedido pedido) {
+        Optional<String> direccionEnvio = pedido.getDireccionEnvio();
+        String direccionEnvioQuizaNull = direccionEnvio.isEmpty() ?
+            null
+            :
+            direccionEnvio.get()
+        ;
+
+        return DBConn.executeInsert(
+            INSERT,
+            new Object[][] {
+                {1, pedido.getClienteIdCliente()},
+                {2, pedido.getRestauranteIdRestaurante()},
+                {3, pedido.getTipoCocinaIdTipoCocina()},
+                {4, pedido.getTipoEntregaIdTipoEntrega()},
+                {5, direccionEnvioQuizaNull},
+                {6, pedido.getFecha().toLocalDate()},
+                {7, pedido.getFecha().toLocalTime()},
+                {8, pedido.isAceptado()},
+                {9, pedido.getComentario()}
+            }
+        );
+    }
+
+    public static void toggleAceptado(int idPedido) {
+        Pedido pedido = PedidoController.getById(idPedido).get();
+        boolean aceptado = !pedido.isAceptado();
+
+        DBConn.executeUpdateOrDelete(
+            UPDATE_PEDIDO_ACEPTADO,
+            new Object[][] {
+                {1, aceptado}
+            }
         );
     }
 
