@@ -31,8 +31,9 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         "SELECT * FROM %s WHERE %s IN (?)", TABLE, ID_CODIGO_POSTAL
     );
 
-    private static final String INSERT_RESTAURANTE = String.format(
-        "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)"
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)",
+        TABLE, ID_USUARIO, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL
     );
 
     public static List<Restaurante> getAll() {
@@ -66,7 +67,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
 
     public static Optional<Integer> add(Restaurante restaurante) {
         return DBConn.executeInsert(
-            INSERT_RESTAURANTE,
+            INSERT,
             new Object[][] {
                 {1, restaurante.getUsuarioIdUsuario()},
                 {2, restaurante.getCif()},

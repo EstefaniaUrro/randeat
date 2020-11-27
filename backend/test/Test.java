@@ -339,7 +339,6 @@ public class Test {
         System.out.println();
         Test.listRestauranteIdTipoEntrega(1);
         Test.listRestauranteIdTipoEntrega(2);
-        Test.listRestauranteIdTipoEntrega(3);
 
         System.out.println();
         Test.listTiposEntregaIdRestaurante(1);

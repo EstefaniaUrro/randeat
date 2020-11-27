@@ -42,7 +42,6 @@ INSERT INTO paquete VALUES (5, 'Menú');
 
 INSERT INTO tipo_entrega VALUES (1, 'Enviar');
 INSERT INTO tipo_entrega VALUES (2, 'Recoger');
-INSERT INTO tipo_entrega VALUES (3, 'Comer ahí');
 
 INSERT INTO bebida (nombre) VALUES ("Coca-Cola");
 INSERT INTO bebida (nombre) VALUES ("Fanta naranja");
@@ -133,7 +132,7 @@ INSERT INTO restaurante_tipo_cocina VALUES (3, 2);
 INSERT INTO restaurante_tipo_entrega VALUES (1, 2);
 INSERT INTO restaurante_tipo_entrega VALUES (2, 1);
 INSERT INTO restaurante_tipo_entrega VALUES (3, 1);
-INSERT INTO restaurante_tipo_entrega VALUES (3, 3);
+INSERT INTO restaurante_tipo_entrega VALUES (3, 2);
 
 INSERT INTO restaurante_paquete VALUES (1, 1, 6.75);
 INSERT INTO restaurante_paquete VALUES (1, 2, 12.75);
