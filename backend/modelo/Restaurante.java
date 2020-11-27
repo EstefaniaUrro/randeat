@@ -8,6 +8,7 @@ public class Restaurante {
     private String nombreRestaurante;
     private String nombrePropietario;
     private int codigoPostalIdCodigoPostal;
+    private boolean activo;
 
     public Restaurante() {
 
@@ -20,7 +21,8 @@ public class Restaurante {
         String iban,
         String nombreRestaurante,
         String nombrePropietario,
-        int codigoPostalIdCodigoPostal
+        int codigoPostalIdCodigoPostal,
+        boolean activo
     ) {
         this.idRestaurante = idRestaurante;
         this.usuarioIdUsuario = usuarioIdUsuario;
@@ -29,6 +31,7 @@ public class Restaurante {
         this.nombreRestaurante = nombreRestaurante;
         this.nombrePropietario = nombrePropietario;
         this.codigoPostalIdCodigoPostal = codigoPostalIdCodigoPostal;
+        this.activo = activo;
     }
 
     public int getIdRestaurante() {
@@ -87,16 +90,25 @@ public class Restaurante {
         this.codigoPostalIdCodigoPostal = codigoPostalIdCodigoPostal;
     }
 
+    public boolean isActivo() {
+        return this.activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+    
     @Override
     public String toString() {
         return
             this.idRestaurante + ": "
-            + this.usuarioIdUsuario + ", "
-            + this.cif + ", "
-            + this.iban + ", "
-            + this.nombreRestaurante + ", "
-            + this.nombrePropietario + ", "
-            + this.codigoPostalIdCodigoPostal
+            + "\n\tID usuario: " + this.usuarioIdUsuario + ", "
+            + "\n\tCIF: " + this.cif + ", "
+            + "\n\tIBAN: " + this.iban + ", "
+            + "\n\tNombre restaurante: " + this.nombreRestaurante + ", "
+            + "\n\tNombre propietario: " + this.nombrePropietario + ", "
+            + "\n\tID código postal: " + this.codigoPostalIdCodigoPostal + ", "
+            + "\n\tActivo: " + this.activo
         ;
     }
 }

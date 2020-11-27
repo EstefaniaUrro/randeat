@@ -18,27 +18,29 @@ public class RestauranteController implements FromResultSet<Restaurante> {
     private static final String NOMBRE_RESTAURANTE = "nombre_restaurante";
     private static final String NOMBRE_PROPIETARIO = "nombre_propietario";
     private static final String ID_CODIGO_POSTAL = "codigo_postal_id_codigo_postal";
+    private static final String ACTIVO = "activo";
 
-    private static final String SELECT_ALL = String.format(
-        "SELECT * FROM %s", TABLE
+    private static final String SELECT_ACTIVOS = String.format(
+        "SELECT * FROM %s WHERE %s = 1", TABLE, ACTIVO
     );
 
     private static final String SELECT_BY_ID_RESTAURANTE = String.format(
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_RESTAURANTE
     );
 
-    private static final String SELECT_BY_ID_CODIGO_POSTAL = String.format(
-        "SELECT * FROM %s WHERE %s IN (?)", TABLE, ID_CODIGO_POSTAL
+    private static final String SELECT_ACTIVOS_BY_ID_CODIGO_POSTAL = String.format(
+        "SELECT * FROM %s WHERE %s = 1 AND %s IN (?)",
+        TABLE, ACTIVO, ID_CODIGO_POSTAL
     );
 
     private static final String INSERT = String.format(
-        "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)",
-        TABLE, ID_USUARIO, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL
+        "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, 0)",
+        TABLE, ID_USUARIO, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO
     );
 
-    public static List<Restaurante> getAll() {
+    public static List<Restaurante> getActivos() {
         return DBConn.executeQueryIntoList(
-            SELECT_ALL,
+            SELECT_ACTIVOS,
             new RestauranteController()
         );
     }
@@ -53,11 +55,11 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
-    public static List<Restaurante> getByIdCodigoPostal(
+    public static List<Restaurante> getActivosByIdCodigoPostal(
         List<Integer> idsCodigoPostal
     ) {
         return DBConn.executeQueryWithParamsIntoList(
-            SELECT_BY_ID_CODIGO_POSTAL,
+            SELECT_ACTIVOS_BY_ID_CODIGO_POSTAL,
             new Object[][] {
                 {1, DBConn.joinIntsInClause(idsCodigoPostal)}
             },
@@ -88,7 +90,8 @@ public class RestauranteController implements FromResultSet<Restaurante> {
             resultSet.getString(IBAN),
             resultSet.getString(NOMBRE_RESTAURANTE),
             resultSet.getString(NOMBRE_PROPIETARIO),
-            resultSet.getInt(ID_CODIGO_POSTAL)
+            resultSet.getInt(ID_CODIGO_POSTAL),
+            resultSet.getBoolean(ACTIVO)
         );
     }
 }

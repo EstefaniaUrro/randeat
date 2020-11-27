@@ -70,7 +70,7 @@ public class Test {
     }
 
     private static void listRestaurante() {
-        for (Restaurante restaurante : RestauranteController.getAll()) {
+        for (Restaurante restaurante : RestauranteController.getActivos()) {
             System.out.println(restaurante);
 
             System.out.println(String.format(
@@ -104,7 +104,7 @@ public class Test {
         System.out.println("Restaurantes en códigos postales " + idsCodigoPostal + ":");
 
         List<Restaurante> restaurantes = RestauranteController
-            .getByIdCodigoPostal(idsCodigoPostal)
+            .getActivosByIdCodigoPostal(idsCodigoPostal)
         ;
 
         for (Restaurante restaurante : restaurantes) {
@@ -299,7 +299,7 @@ public class Test {
     }
 
     private static void insertPedido() {
-        Pedido pedido = new Pedido(3, 1, 1, 1, 2, Optional.empty(), LocalDateTime.now(), true, "asd");
+        Pedido pedido = new Pedido(3, 1, 1, 1, 2, Optional.empty(), LocalDateTime.now(), "asd");
 
         PedidoController.add(pedido);
     }

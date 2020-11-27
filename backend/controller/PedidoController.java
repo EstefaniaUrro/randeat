@@ -27,7 +27,6 @@ public class PedidoController implements FromResultSet<Pedido> {
     ;
     private static final String FECHA_DATE = "fecha_date";
     private static final String FECHA_TIME = "fecha_time";
-    private static final String ACEPTADO = "aceptado";
     private static final String COMENTARIO = "comentario";
     private static final String DIRECCION_ENVIO = "direccion_envio";
 
@@ -44,14 +43,9 @@ public class PedidoController implements FromResultSet<Pedido> {
     );
 
     private static final String INSERT = String.format(
-        "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         TABLE,
-        ID_CLIENTE, ID_RESTAURANTE, ID_TIPO_COCINA, ID_TIPO_ENTREGA, DIRECCION_ENVIO, FECHA_DATE, FECHA_TIME, ACEPTADO, COMENTARIO
-    );
-
-    private static final String UPDATE_PEDIDO_ACEPTADO = String.format(
-        "UPDATE %s SET %s = ? WHERE %s = ?",
-        TABLE, ACEPTADO, ID_PEDIDO
+        ID_CLIENTE, ID_RESTAURANTE, ID_TIPO_COCINA, ID_TIPO_ENTREGA, DIRECCION_ENVIO, FECHA_DATE, FECHA_TIME, COMENTARIO
     );
 
     public static Optional<Pedido> getById(int idPedido) {
@@ -106,20 +100,7 @@ public class PedidoController implements FromResultSet<Pedido> {
                 {5, direccionEnvioQuizaNull},
                 {6, pedido.getFecha().toLocalDate()},
                 {7, pedido.getFecha().toLocalTime()},
-                {8, pedido.isAceptado()},
-                {9, pedido.getComentario()}
-            }
-        );
-    }
-
-    public static void toggleAceptado(int idPedido) {
-        Pedido pedido = PedidoController.getById(idPedido).get();
-        boolean aceptado = !pedido.isAceptado();
-
-        DBConn.executeUpdateOrDelete(
-            UPDATE_PEDIDO_ACEPTADO,
-            new Object[][] {
-                {1, aceptado}
+                {8, pedido.getComentario()}
             }
         );
     }
@@ -145,7 +126,6 @@ public class PedidoController implements FromResultSet<Pedido> {
             resultSet.getInt(ID_TIPO_ENTREGA),
             direccionEnvio,
             LocalDateTime.of(date, time),
-            resultSet.getBoolean(ACEPTADO),
             resultSet.getString(COMENTARIO)
         );
     }

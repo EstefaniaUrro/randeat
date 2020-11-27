@@ -93,32 +93,35 @@ INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, pobla
     'Carrer Marina 23'
 );
 
-INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	1,
     2,
     'cif campeador',
     'ES 1231231231231',
     'Cocido Gatileño',
     'Señor Michi',
-    1
+    1,
+    0
 );
-INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	2,
     2,
     'laksjdlaksjd',
     'ES 343434343434',
     'Natillas Pro',
     'Natialia',
-    2
+    2,
+    0
 );
-INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal) VALUES (
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	3,
     2,
     'lkj12lk3jl',
     'ES 909090909090',
     'Pizzas Melissa',
     'Melisa',
-    1
+    1,
+    0
 );
 
 INSERT INTO tipo_cocina VALUES (1, 'Chino');
@@ -144,7 +147,7 @@ INSERT INTO restaurante_bebida VALUES (2, 4);
 INSERT INTO restaurante_bebida VALUES (3, 1);
 INSERT INTO restaurante_bebida VALUES (3, 4);
 
-INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, aceptado, comentario) VALUES (
+INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, comentario) VALUES (
 	1,
     1,
     1,
@@ -154,10 +157,9 @@ INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, t
     "Calle del hambre, 23, Barcelona, 08009",
     DATE(NOW()),
     TIME(NOW()),
-    0,
     'Crudo porfavor'
 );
-INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, fecha_date, fecha_time, aceptado, comentario) VALUES (
+INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, fecha_date, fecha_time, comentario) VALUES (
 	2,
     1,
     2,
@@ -165,12 +167,11 @@ INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, t
     2,
     DATE(NOW()),
     TIME(NOW()),
-    0,
     'hehe :P'
 );
 
 -- Listar pedidos con nombres info básica en texto.
-SELECT pedido.id_pedido, cliente.nombre_completo AS 'nombre_cliente', restaurante.nombre_restaurante AS 'nombre_restaurante', tipo_cocina.nombre AS 'tipo_cocina', tipo_entrega.nombre AS 'tipo_entrega', pedido.comentario, pedido.aceptado
+SELECT pedido.id_pedido, cliente.nombre_completo AS 'nombre_cliente', restaurante.nombre_restaurante AS 'nombre_restaurante', tipo_cocina.nombre AS 'tipo_cocina', tipo_entrega.nombre AS 'tipo_entrega', pedido.comentario
 	FROM pedido INNER JOIN cliente ON cliente.id_cliente = pedido.cliente_id_cliente
     INNER JOIN usuario usuario_cliente ON usuario_cliente.id_usuario = cliente.usuario_id_usuario
     INNER JOIN tipo_entrega ON tipo_entrega.id_tipo_entrega = pedido.tipo_entrega_id_tipo_entrega
