@@ -52,7 +52,6 @@
                         aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> Nombre Usuario</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="restaurante.html">Mi cuenta</a>
-                        <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
                             Sesión</a>
@@ -67,8 +66,8 @@
             <h3>Tipo de cocina</h3>
             <h6>Seleccione los tipos de cocina que tiene el restaurante</h6>
             <div class="col-md-8 offset-md-2">
-                <select class="selectpicker form-control" multiple data-selected-text-format="count > 4" data-size="4"
-                    title="No ha seleccinado nada" data-count-selected-text="{0} items seleccinados">
+                <select class="selectpicker form-control" multiple data-max-options="2" data-size="4"
+                    title="No ha seleccinado nada">
                     <option>Pasta</option>
                     <option>Pizza</option>
                     <option>Fideos</option>
@@ -89,8 +88,8 @@
             <h3>Bebidas</h3>
             <h6>Seleccione las bebidas que ofreces en el restaurante</h6>
             <div class="col-md-8 offset-md-2">
-                <select class="selectpicker form-control" multiple data-selected-text-format="count > 4" data-size="4"
-                    title="No ha seleccinado nada" data-count-selected-text="{0} items seleccinados">
+                <select class="selectpicker form-control" multiple data-selected-text-format="count > 3" data-size="4"
+                    title="No ha seleccinado nada" data-count-selected-text="{0} bebidas seleccinadas">
 
                     <option>Coca-Cola</option>
                     <option>Fanta naranja</option>
@@ -124,8 +123,7 @@
 
             <div class="group offset-md-4">
                 <input type="reset" class="btn btn-danger col-md-3" data-toggle="modal" id="cancelar">
-                <button type="submit" class="btn btn-primary col-md-3" data-toggle="modal" data-target="#exampleModal"
-                    id="enviar">Guardar</button>
+                <button type="submit" class="btn btn-primary col-md-3 enviar" data-toggle="modal" data-target="#exampleModal">Guardar</button>
             </div>
         </form>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
