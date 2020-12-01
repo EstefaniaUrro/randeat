@@ -33,30 +33,14 @@
 
 <body>
 
-   <!-- Nav -->
-   <div class="container">
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="130" height="30"
-                class="d-inline-block align-top" alt="" loading="lazy"></a>
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link" href="ayuda.html"><i class="fas fa-cog"></i> Ayuda</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                    aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> Nombre Usuario</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="restaurante.html">Mi cuenta</a>
-                    <a class="dropdown-item" href="#">Pedidos</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
-                        Sesión</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-</div>
-<!-- Nav -->
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/logo.png" width="130" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+            </a>
+            <a class="nav-link" href="inicio.html"><i class="far fa-user-circle"></i> Iniciar sesión</a>
+        </nav>
+    </div>
 
 
 
@@ -66,14 +50,20 @@
     <div class="container">
         <div class="row">
             <div class="card col-md-4" style="background-color: rgba(243, 243, 243, 0.616);">
-                <div class="card-title">
+                <div class="card-title card-center">
                     <br>
-                    <h4>"Nombre del restaurante"</h4>
+                    <h4 style="text-align: center;">"Nombre del restaurante"</h4>
                 </div>
-                <img class="card-img-top" src="img/lasmuns.png" alt="Card image cap">
+                <div class="text-center">
+                    <img class="card-img-top" src="img/lasmuns.png" alt="Card image cap"
+                        style="width: 200px; height: 200px;">
+                </div>
                 <div class="card-body">
-                    <br>
-                    <button class="btn btn-outline-secondary enviar" type="button"><a href="escogerpaquete.html"> Cambiar de restaurante</a></button>
+                    <hr>
+                    <div class="text-center">
+                        <button class="btn btn-outline-secondary enviar" type="button"><a
+                                href="escogerpaquete.html">Cambiar de restaurante</a></button>
+                    </div>
                     <hr>
                     <textarea rows="10" cols="30" class="form-control"
                         placeholder="Alergias o otros comentarios para el restaurante" style="height: 40%;"></textarea>
@@ -143,11 +133,12 @@
                 <div class="card text-center"
                     style="background-color: rgba(240, 248, 255, 0); border: 0px solid rgba(255, 255, 255, 0);">
                     <dic class="row">
-                        <div class="col-md-6">
-                            <button class="enviar" type="button" style="width: 300px;">Pagar en efectivo</button>
+                        <div class="col-6 col-md-6">
+                            <button class="enviar" id="myBtn" type="button" style="width: 200px;">Pagar en
+                                efectivo</button>
                         </div>
-                        <div class="col-md-6">
-                            <button class="enviar" type="button" style="width: 300px;">Pagar en tarjeta</button>
+                        <div class="col-6 col-md-6">
+                            <button class="enviar" type="button" style="width: 200px;">Pagar en tarjeta</button>
                         </div>
                 </div>
                 <br>
@@ -157,8 +148,55 @@
 
     <br>
 
-    <div class="container">
-
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Información sobre tu pedido</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Tipo de paquete</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Paquete grande</td>
+                        <td>1</td>
+                        <td>15€</td>
+                    </tr>
+                    <tr>
+                        <td>Paquete mediano</td>
+                        <td>0</td>
+                        <td>10€</td>
+                    </tr>
+                    <tr>
+                        <td>Paquete pequeño</td>
+                        <td>3</td>
+                        <td>5€</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Precio Total</th>
+                        <th></th>
+                        <th colspan="2">30€</th>
+                    </tr>
+                    </tfood>
+            </table>
+            <hr>
+            <p>Tu pedido estara listo en 45 minutos</p>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6">
+                    <button class="enviar" type="button" style="width: 200px;">Confirmar pedido</button>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6">
+                <button class="enviar" type="button"
+                    style="width: 200px; background-color: rgba(233, 42, 42, 0.795);">Cancelar pedido</button>
+            </div>
+        </div>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -266,3 +304,8 @@
 </body>
 
 </html>
+
+
+
+
+
