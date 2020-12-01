@@ -16,8 +16,13 @@ h6{
     background-color: #ffaa30;
     border-color: #ffaa30;
     border: none;
-     padding: 10px 20px; 
+    padding: 10px 20px; 
     border-radius: 25px;
+    color:white !important;
+}
+.enviar a{
+    text-decoration: none;
+    color:white !important;
 }
 .enviar:hover{
     background-color: #ff8000;
@@ -121,7 +126,9 @@ div nav a:hover{
     background-color: white;
 }
 .carousel-item img{
-    height: 450px !important;
+        width:100% !important;
+        min-width:100 !important;
+        height: 425px;
     position: relative;
 }
 #rest{
