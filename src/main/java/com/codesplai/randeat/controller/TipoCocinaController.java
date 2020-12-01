@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.websocket.server.PathParam;
-
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.TipoCocina;

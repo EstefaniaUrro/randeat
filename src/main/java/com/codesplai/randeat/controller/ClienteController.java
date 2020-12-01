@@ -9,6 +9,13 @@ import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.Cliente;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/cliente")
 public class ClienteController implements FromResultSet<Cliente> {
     private static final String TABLE = "cliente";
     private static final String ID_CLIENTE = "id_cliente";
@@ -38,7 +45,10 @@ public class ClienteController implements FromResultSet<Cliente> {
         return DBConn.executeQueryIntoList(SELECT_ALL, new ClienteController());
     }
 
-    public static Optional<Cliente> getById(int idCliente) {
+    @GetMapping("/getById/{idCliente}")
+    public static Optional<Cliente> getById(
+        @PathVariable int idCliente
+    ) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_CLIENTE,
             new Object[][] {

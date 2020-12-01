@@ -3,25 +3,14 @@ package com.codesplai.randeat.modelo;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-@JsonSerialize
 public class Pedido {
-    @JsonSerialize
     private int idPedido;
-    @JsonSerialize
     private int clienteIdCliente;
-    @JsonSerialize
     private int restauranteIdRestaurante;
-    @JsonSerialize
     private int tipoCocinaIdTipoCocina;
-    @JsonSerialize
     private int tipoEntregaIdTipoEntrega;
-    @JsonSerialize
     private Optional<String> direccionEnvio;
-    @JsonSerialize
     private LocalDateTime fecha;
-    @JsonSerialize
     private String comentario;
 
     public Pedido() {

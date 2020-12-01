@@ -1,8 +1,5 @@
 package com.codesplai.randeat.modelo;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-@JsonSerialize
 public class Tarjeta {
     private int idTarjeta;
     private String numero;

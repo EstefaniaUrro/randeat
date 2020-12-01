@@ -1,16 +1,9 @@
 package com.codesplai.randeat.modelo;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-@JsonSerialize
 public class Cliente {
-    @JsonSerialize
     private int idCliente;
-    @JsonSerialize
     private int usuarioIdUsuario;
-    @JsonSerialize
     private String nombreCompleto;
-    @JsonSerialize
     private int codigoPostalIdCodigoPostal;
 
     public Cliente() {

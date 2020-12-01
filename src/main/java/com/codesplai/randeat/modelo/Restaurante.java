@@ -1,24 +1,13 @@
 package com.codesplai.randeat.modelo;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-@JsonSerialize
 public class Restaurante {
-    @JsonSerialize
     private int idRestaurante;
-    @JsonSerialize
     private int usuarioIdUsuario;
-    @JsonSerialize
     private String cif;
-    @JsonSerialize
     private String iban;
-    @JsonSerialize
     private String nombreRestaurante;
-    @JsonSerialize
     private String nombrePropietario;
-    @JsonSerialize
     private int codigoPostalIdCodigoPostal;
-    @JsonSerialize
     private boolean activo;
 
     public Restaurante() {
