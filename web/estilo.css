@@ -142,6 +142,10 @@ footer{
     bottom:0px;
     position:relative;
 }
+.borde {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
 
   /* Slider */
 
