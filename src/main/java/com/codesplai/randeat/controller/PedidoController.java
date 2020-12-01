@@ -12,6 +12,13 @@ import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.Pedido;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/pedido")
 public class PedidoController implements FromResultSet<Pedido> {
     private static final String TABLE = "pedido";
     private static final String ID_PEDIDO = "id_pedido";
@@ -48,7 +55,10 @@ public class PedidoController implements FromResultSet<Pedido> {
         ID_CLIENTE, ID_RESTAURANTE, ID_TIPO_COCINA, ID_TIPO_ENTREGA, DIRECCION_ENVIO, FECHA_DATE, FECHA_TIME, COMENTARIO
     );
 
-    public static Optional<Pedido> getById(int idPedido) {
+    @GetMapping("/getById/{idPedido}")
+    public static Optional<Pedido> getById(
+        @PathVariable int idPedido
+    ) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_PEDIDO,
             new Object[][] {
@@ -58,8 +68,9 @@ public class PedidoController implements FromResultSet<Pedido> {
         );
     }
     
+    @GetMapping("/getByIdRestaurante/{idRestaurante}")
     public static List<Pedido> getByIdRestaurante(
-        int idRestaurante
+        @PathVariable int idRestaurante
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_BY_ID_RESTAURANTE,
@@ -70,8 +81,9 @@ public class PedidoController implements FromResultSet<Pedido> {
         );
     }
 
+    @GetMapping("/getByIdCliente/{idCliente}")
     public static List<Pedido> getByIdCliente(
-        int idCliente
+        @PathVariable int idCliente
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_BY_ID_CLIENTE,

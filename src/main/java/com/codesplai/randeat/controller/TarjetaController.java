@@ -12,7 +12,6 @@ import com.codesplai.randeat.modelo.Tarjeta;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -49,8 +48,7 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         ClienteTarjetaController.ID_CLIENTE
     );
 
-    @GetMapping("/byId/{idTarjeta:[\\d]}")
-    @ResponseBody
+    @GetMapping("/getById/{idTarjeta}")
     public static Optional<Tarjeta> getById(@PathVariable int idTarjeta) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_TARJETA,
@@ -61,8 +59,7 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         );
     }
 
-    @GetMapping("/byIdCliente/{idCliente:[\\d]}")
-    @ResponseBody
+    @GetMapping("/byIdCliente/{idCliente}")
     public static List<Tarjeta> byIdCliente(@PathVariable int idCliente) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_BY_ID_CLIENTE,

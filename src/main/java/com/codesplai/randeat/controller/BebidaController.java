@@ -9,7 +9,13 @@ import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.Bebida;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/bebida")
 public class BebidaController implements FromResultSet<Bebida> {
     private static final String TABLE = "bebida";
     public static final String ID_BEBIDA = "id_bebida";
@@ -23,21 +29,13 @@ public class BebidaController implements FromResultSet<Bebida> {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_BEBIDA
     );
 
-    private static final String INSERT = String.format(
-        "INSERT INTO %s (%s,%s) VALUES (?,?)",
-         TABLE, ID_BEBIDA, NOMBRE
-    );
-
-    private static final String UPDATE = String.format(
-        "UPDATE %s SET %s=? WHERE %s=?",
-         TABLE, NOMBRE, ID_BEBIDA
-    );
-
+    @GetMapping("/getAll")
     public static List<Bebida> getAll() {
         return DBConn.executeQueryIntoList(SELECT_ALL, new BebidaController());
     }
 
-    public static Optional<Bebida> getById(int idBebida) {
+    @GetMapping("/getById/{idBebida}")
+    public static Optional<Bebida> getById(@PathVariable int idBebida) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_BEBIDA,
             new Object[][] {
@@ -45,27 +43,6 @@ public class BebidaController implements FromResultSet<Bebida> {
             },
             new BebidaController()
         );
-    }
-
-    public static Optional<Integer> add(Bebida bebida) {
-        return DBConn.executeInsert(
-            INSERT,
-            new Object[][] {
-                {1, bebida.getIdBebida()},
-                {2, bebida.getNombre()}
-            }
-        );
-    }
-    public static Optional<Integer> update(Bebida bebida) {
-        DBConn.executeUpdateOrDelete(
-            UPDATE,
-            new Object[][] {
-                {1, bebida.getNombre()},
-                {2, bebida.getIdBebida()},
-            }
-        );
-
-        return Optional.of(bebida.getIdBebida());
     }
 
     @Override

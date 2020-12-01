@@ -9,7 +9,14 @@ import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.Paquete;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+
+@RestController
+@RequestMapping("/paquete")
 public class PaqueteController implements FromResultSet<Paquete> {
     static final String TABLE = "paquete";
     static final String ID_PAQUETE = "id_paquete";
@@ -23,6 +30,7 @@ public class PaqueteController implements FromResultSet<Paquete> {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_PAQUETE
     );
 
+    @GetMapping("/getAll")
     public static List<Paquete> getAll() {
         return DBConn.executeQueryIntoList(
             SELECT_ALL,
@@ -30,7 +38,10 @@ public class PaqueteController implements FromResultSet<Paquete> {
         );
     }
 
-    public static Optional<Paquete> getById(int idPaquete) {
+    @GetMapping("/getById/{idPaquete}")
+    public static Optional<Paquete> getById(
+        @PathVariable int idPaquete
+    ) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_PAQUETE,
             new Object[][] {

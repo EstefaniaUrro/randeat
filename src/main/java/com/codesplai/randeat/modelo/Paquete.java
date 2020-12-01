@@ -1,7 +1,12 @@
 package com.codesplai.randeat.modelo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+@JsonSerialize
 public class Paquete {
+    @JsonSerialize
     private int idPaquete;
+    @JsonSerialize
     private String nombre;
 
     public Paquete() {

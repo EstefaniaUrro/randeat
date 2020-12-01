@@ -1,7 +1,12 @@
 package com.codesplai.randeat.modelo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+@JsonSerialize
 public class CodigoPostal {
+    @JsonSerialize
     private int idCodigoPostal;
+    @JsonSerialize
     private String numero;
 
     public CodigoPostal() {

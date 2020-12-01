@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
 public class Bebida {
-    @JsonSerialize
     private int idBebida;
-    @JsonSerialize
     private String nombre;
 
     public Bebida() {

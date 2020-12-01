@@ -5,10 +5,19 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.websocket.server.PathParam;
+
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.TipoCocina;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/tipoCocina")
 public class TipoCocinaController implements FromResultSet<TipoCocina> {
     private static final String TABLE = "tipo_cocina";
     private static final String ID_TIPO_COCINA = "id_tipo_cocina";
@@ -21,52 +30,6 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
     private static final String SELECT_BY_ID_TIPO_COCINA = String.format(
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_TIPO_COCINA
     );
-
-    private static final String INSERT = String.format(
-        "INSERT INTO %s (%s) VALUES (?)",TABLE, NOMBRE
-    );
-
-    private static final String UPDATE = String.format(
-        "UPDATE %s SET %s=? WHERE %s=?", TABLE, NOMBRE, ID_TIPO_COCINA
-    );
-    
-    public static List<TipoCocina> getAll() {
-        return DBConn.executeQueryIntoList(
-            SELECT_ALL,
-            new TipoCocinaController()
-        );
-    }
-
-    public static Optional<TipoCocina> getById(int idTipoCocina) {
-        return DBConn.executeQueryWithParamsSingleValue(
-            SELECT_BY_ID_TIPO_COCINA,
-            new Object[][] {
-                {1, idTipoCocina}
-            },
-            new TipoCocinaController()
-        );
-    }
-
-    public static Optional<Integer> add(TipoCocina tipoCocina) {
-        return DBConn.executeInsert(
-            INSERT, 
-            new Object[][]{
-                {1, tipoCocina.getNombre()}
-            }
-        );
-    }
-
-    public static Optional<Integer> update(TipoCocina tipoCocina) {
-        DBConn.executeUpdateOrDelete(
-            UPDATE,
-            new Object[][]{
-                {1, tipoCocina.getNombre()},
-                {2, tipoCocina.getIdTipoCocina()}
-            }
-        );
-
-        return Optional.of(tipoCocina.getIdTipoCocina());
-    }
 
     // Tipos de cocina de los restaurantes activos (1) en un código postal (2) y un tipo de entrega (3) determinados.
     private static final String SELECT_TIPO_COCINA_FILTER = String.format(
@@ -96,9 +59,39 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
         RestauranteTipoEntregaController.ID_TIPO_ENTREGA
     );
 
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s) VALUES (?)",TABLE, NOMBRE
+    );
+
+    private static final String UPDATE = String.format(
+        "UPDATE %s SET %s=? WHERE %s=?", TABLE, NOMBRE, ID_TIPO_COCINA
+    );
+    
+    @GetMapping("/getAll")
+    public static List<TipoCocina> getAll() {
+        return DBConn.executeQueryIntoList(
+            SELECT_ALL,
+            new TipoCocinaController()
+        );
+    }
+
+    @GetMapping("/getById/{idTipoCocina}")
+    public static Optional<TipoCocina> getById(
+        @PathVariable int idTipoCocina
+    ) {
+        return DBConn.executeQueryWithParamsSingleValue(
+            SELECT_BY_ID_TIPO_COCINA,
+            new Object[][] {
+                {1, idTipoCocina}
+            },
+            new TipoCocinaController()
+        );
+    }
+
+    @GetMapping("/getInFilter/{idCodigoPostal}/{idTipoEntrega}")
     public static List<TipoCocina> getInFilter(
-        int idCodigoPostal,
-        int idTipoEntrega
+        @PathVariable int idCodigoPostal,
+        @PathVariable int idTipoEntrega
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_TIPO_COCINA_FILTER,
@@ -108,6 +101,27 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
             },
             new TipoCocinaController()
         );
+    }
+
+    public static Optional<Integer> add(TipoCocina tipoCocina) {
+        return DBConn.executeInsert(
+            INSERT, 
+            new Object[][]{
+                {1, tipoCocina.getNombre()}
+            }
+        );
+    }
+
+    public static Optional<Integer> update(TipoCocina tipoCocina) {
+        DBConn.executeUpdateOrDelete(
+            UPDATE,
+            new Object[][]{
+                {1, tipoCocina.getNombre()},
+                {2, tipoCocina.getIdTipoCocina()}
+            }
+        );
+
+        return Optional.of(tipoCocina.getIdTipoCocina());
     }
 
     @Override

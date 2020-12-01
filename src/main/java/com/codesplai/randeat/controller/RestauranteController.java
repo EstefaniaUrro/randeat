@@ -9,11 +9,13 @@ import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.Restaurante;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/restaurantes")
+@RequestMapping("/restaurante")
 public class RestauranteController implements FromResultSet<Restaurante> {
     static final String TABLE = "restaurante";
     static final String ID_RESTAURANTE = "id_restaurante";
@@ -76,7 +78,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         RestauranteTipoCocinaController.ID_TIPO_COCINA
     );
 
-    @RequestMapping("/activos")
+    @GetMapping("/getActivos")
     public static List<Restaurante> getActivos() {
         return DBConn.executeQueryIntoList(
             SELECT_ACTIVOS,
@@ -84,7 +86,10 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
-    public static Optional<Restaurante> getById(int idRestaurante) {
+    @GetMapping("/getById/{idRestaurante}")
+    public static Optional<Restaurante> getById(
+        @PathVariable int idRestaurante
+    ) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_RESTAURANTE,
             new Object[][] {
@@ -94,8 +99,9 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
+    @GetMapping("/getActivosByIdCodigoPostal/{idCodigoPostal}")
     public static List<Restaurante> getActivosByIdCodigoPostal(
-        int idCodigoPostal
+        @PathVariable int idCodigoPostal
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_ACTIVOS_BY_ID_CODIGO_POSTAL,
@@ -113,10 +119,11 @@ public class RestauranteController implements FromResultSet<Restaurante> {
      * @param idTipoCocina
      * @return
      */
+    @GetMapping("/getInFilter/{idCodigoPostal}/{idTipoEntrega}/{idTipoCocina}")
     public static List<Restaurante> getInFilter(
-        int idCodigoPostal,
-        int idTipoEntrega,
-        int idTipoCocina
+        @PathVariable int idCodigoPostal,
+        @PathVariable int idTipoEntrega,
+        @PathVariable int idTipoCocina
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_FILTER,

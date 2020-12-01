@@ -9,6 +9,13 @@ import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.TipoEntrega;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/tipoEntrega")
 public class TipoEntregaController implements FromResultSet<TipoEntrega> {
     private static final String TABLE = "tipo_entrega";
     private static final String ID_TIPO_ENTREGA = "id_tipo_entrega";
@@ -22,6 +29,7 @@ public class TipoEntregaController implements FromResultSet<TipoEntrega> {
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_TIPO_ENTREGA
     );
 
+    @GetMapping("/getAll")
     public static List<TipoEntrega> getAll() {
         return DBConn.executeQueryIntoList(
             SELECT_ALL,
@@ -29,7 +37,10 @@ public class TipoEntregaController implements FromResultSet<TipoEntrega> {
         );
     }
 
-    public static Optional<TipoEntrega> getById(int idTipoEntrega) {
+    @GetMapping("/getById/{idTipoEntrega}")
+    public static Optional<TipoEntrega> getById(
+        @PathVariable int idTipoEntrega
+    ) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_TIPO_ENTREGA,
             new Object[][] {
