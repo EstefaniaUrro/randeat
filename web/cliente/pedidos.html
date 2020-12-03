@@ -31,23 +31,20 @@
 </head>
 
 <body>
-    <!-- Nav -->
-    <div class="container">
+     <!-- Nav -->
+     <div class="container">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="130" height="30"
                     class="d-inline-block align-top" alt="" loading="lazy"></a>
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-bars"></i> Pedidos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-cog"></i> Restaurante</a>
+                    <a class="nav-link" href="pedidos.html">Pedidos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> Nombre Usuario</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="restaurante.html">Mi cuenta</a>
+                        <a class="dropdown-item" href="cliente.html">Mi cuenta</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
                             Sesión</a>
@@ -64,10 +61,10 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Paquete</th>
-                    <th scope="col">Tipo cocina</th>
-                    <th scope="col">Tipo entrega</th>
-                    <th scope="col">¿Aceptado?</th>
+                    <th scope="col">Paquetes</th>
+                    <th scope="col">Tipo de cocina</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Fecha</th>
                 </tr>
             </thead>
             <tbody>
@@ -117,8 +114,8 @@
 
         function loadPedidos() {
             let pedidos = [
-                ["1", "Grande", "Chino", "Enviar", false],
-                ["2", "Mediano", "Italiano", "Entregar", true]
+                ["1", "Mediano y Grande", "Chino", "50€", "01-12-2020"],
+                ["2", "Mediano", "Italiano", "25€", "01-10-2020"]
             ];
 
             let tbody = document.getElementsByTagName("tbody")[0];
