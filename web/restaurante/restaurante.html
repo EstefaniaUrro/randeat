@@ -26,27 +26,40 @@
 <body>
     <!-- Nav -->
     <div class="container">
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="130" height="30"
-                    class="d-inline-block align-top" alt="" loading="lazy"></a>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-bars"></i> Pedidos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-cog"></i> Restaurante</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> Nombre Usuario</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="restaurante.html">Mi cuenta</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
-                            Sesión</a>
-                    </div>
-                </li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../img/logo.png" width="130" height="30" class="d-inline-block align-top" alt=""
+                    loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars" style="color: #ffa600;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-shopping-cart"></i> Mis
+                            pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-utensils"></i>
+                            Restaurante</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> Nombre Usuario</a>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="restaurante.html"><i class="fas fa-user-plus"></i> Mi
+                                cuenta</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
+                                Sesión</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </div>
     <!-- Nav -->
@@ -109,50 +122,50 @@
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="imagen">Imagen del restaurante</label>
-                    <input type="file" class="form-control" id="imagen"  accept="image/png, image/jpeg">
+                    <input type="file" class="form-control" id="imagen" accept="image/png, image/jpeg">
                 </div>
-               
+
             </div>
 
             <button type="submit" class="btn btn-primary col-md-3 enviar">Guardar cambios</button>
         </form>
     </div>
-   <!-- Footer -->
-   <footer class="page-footer font-small blue-grey lighten-5">
+    <!-- Footer -->
+    <footer class="page-footer font-small blue-grey lighten-5">
 
-    <!-- Copyright -->
-    <div class="footer-copyright text-center text-black-50 py-3 ">
-        <div class="col-12 col-md-12 col-lg-10 text-center text-md-center" style="margin: 0 auto;">
-            <div class="container">
-                <p class="row">
-                    <span class="col-12 col-md-3"><i class="fas fa-home mr-3"></i>Barcelona, BCN 08003, ES</span>
-                    <span class="col-12 col-md-3"><i class="fas fa-envelope mr-3"></i>randeat@randeat.com</span>
-                    <span class="col-12 col-md-3"><i class="fas fa-phone mr-3"></i>+ 34 634 567 89</span>
-                    <span class="col-1 col-md-1" style="margin: 0 auto;"> 
-                        <a class="fb-ic" style="text-decoration: none;">
-                            <i class="fab fa-facebook-f white-text mr-4"> </i>
-                        </a>
-                    </span>
-                    <span class="col-1 col-md-1" style="margin: 0 auto;">
-                        <a class="tw-ic" style="text-decoration: none;">
-                            <i class="fab fa-twitter white-text mr-4"> </i>
-                        </a>
-                    </span>
-                    <span class="col-1 col-md-1" style="margin: 0 auto;">
-                        <a class="ins-ic" style="text-decoration: none;">
-                            <i class="fab fa-instagram white-text"> </i>
-                        </a>
-                    </span>
-                </p>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-black-50 py-3 ">
+            <div class="col-12 col-md-12 col-lg-10 text-center text-md-center" style="margin: 0 auto;">
+                <div class="container">
+                    <p class="row">
+                        <span class="col-12 col-md-3"><i class="fas fa-home mr-3"></i>Barcelona, BCN 08003, ES</span>
+                        <span class="col-12 col-md-3"><i class="fas fa-envelope mr-3"></i>randeat@randeat.com</span>
+                        <span class="col-12 col-md-3"><i class="fas fa-phone mr-3"></i>+ 34 634 567 89</span>
+                        <span class="col-1 col-md-1" style="margin: 0 auto;">
+                            <a class="fb-ic" style="text-decoration: none;">
+                                <i class="fab fa-facebook-f white-text mr-4"> </i>
+                            </a>
+                        </span>
+                        <span class="col-1 col-md-1" style="margin: 0 auto;">
+                            <a class="tw-ic" style="text-decoration: none;">
+                                <i class="fab fa-twitter white-text mr-4"> </i>
+                            </a>
+                        </span>
+                        <span class="col-1 col-md-1" style="margin: 0 auto;">
+                            <a class="ins-ic" style="text-decoration: none;">
+                                <i class="fab fa-instagram white-text"> </i>
+                            </a>
+                        </span>
+                    </p>
 
-                <div class="group">
+                    <div class="group">
 
+                    </div>
                 </div>
             </div>
+            © 2020 Copyright: RandEat
         </div>
-        © 2020 Copyright: RandEat
-    </div>
-    <!-- Copyright -->
+        <!-- Copyright -->
 </body>
 
 </html>

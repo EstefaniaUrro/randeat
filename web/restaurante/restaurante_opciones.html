@@ -37,30 +37,44 @@
 <body>
     <!-- Nav -->
     <div class="container">
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="130" height="30"
-                    class="d-inline-block align-top" alt="" loading="lazy"></a>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-bars"></i> Pedidos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-cog"></i> Restaurante</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> Nombre Usuario</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="restaurante.html">Mi cuenta</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
-                            Sesión</a>
-                    </div>
-                </li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../img/logo.png" width="130" height="30" class="d-inline-block align-top" alt=""
+                    loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars" style="color: #ffa600;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-shopping-cart"></i> Mis
+                            pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-utensils"></i>
+                            Restaurante</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> Nombre Usuario</a>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="restaurante.html"><i class="fas fa-user-plus"></i> Mi
+                                cuenta</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
+                                Sesión</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </div>
     <!-- Nav -->
+
     <div class="container">
         <form>
             <h3>Tipo de cocina</h3>
@@ -128,11 +142,10 @@
         </form>
     </div>
 
-    >
+
 
     <!-- Footer -->
     <footer class="page-footer font-small blue-grey lighten-5">
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-black-50 py-3 ">
             <div class="col-12 col-md-12 col-lg-10 text-center text-md-center" style="margin: 0 auto;">
@@ -166,6 +179,8 @@
             © 2020 Copyright: RandEat
         </div>
         <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
 
 
 
