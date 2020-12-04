@@ -1,6 +1,7 @@
 
 const url = 'http://localhost:8080/tipoCocina/getAll'
 
+//crea las diferentes tarjetas de tipoCocina en el HTML
 fetch(url)
 .then(response => response.json())
 .then(data => {
