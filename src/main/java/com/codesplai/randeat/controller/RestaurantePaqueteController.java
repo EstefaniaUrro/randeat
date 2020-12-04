@@ -8,7 +8,17 @@ import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.RestaurantePaquete;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@CrossOrigin
+@RequestMapping("/restaurantePaquete")
 public class RestaurantePaqueteController implements FromResultSet<RestaurantePaquete> {
     private static final String TABLE = "restaurante_paquete";
     private static final String ID_RESTAURANTE = "restaurante_id_restaurante";
@@ -34,8 +44,18 @@ public class RestaurantePaqueteController implements FromResultSet<RestaurantePa
         RestauranteController.ID_RESTAURANTE
     );
 
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)",
+        TABLE,
+
+        ID_RESTAURANTE,
+        ID_PAQUETE,
+        COSTE
+    );
+
+    @GetMapping("/getByIdRestaurante/{idRestaurante}")
     public static List<RestaurantePaquete> getByIdRestaurante(
-        int idRestaurante
+        @PathVariable int idRestaurante
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_BY_ID_RESTAURANTE,
@@ -43,6 +63,22 @@ public class RestaurantePaqueteController implements FromResultSet<RestaurantePa
                 {1, idRestaurante}
             },
             new RestaurantePaqueteController()
+        );
+    }
+
+    @PostMapping("/add")
+    public static void add(
+        @RequestParam int idRestaurante,
+        @RequestParam int idPaquete,
+        @RequestParam double coste
+    ) {
+        DBConn.executeInsert(
+            INSERT,
+            new Object[][] {
+                {1, idRestaurante},
+                {2, idPaquete},
+                {3, coste},
+            }
         );
     }
 
