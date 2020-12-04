@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,7 +34,7 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
 
     // Tipos de cocina de los restaurantes activos (1) en un código postal (2) y un tipo de entrega (3) determinados.
     private static final String SELECT_TIPO_COCINA_FILTER = String.format(
-        "SELECT tc.* FROM %s r"
+        "SELECT DISTINCT tc.* FROM %s r"
         + " INNER JOIN %s rte ON rte.%s = r.%s"
         + " INNER JOIN %s rtc ON rtc.%s = r.%s"
         + " INNER JOIN %s tc ON tc.%s = rtc.%s"
@@ -88,10 +89,10 @@ public class TipoCocinaController implements FromResultSet<TipoCocina> {
         );
     }
 
-    @GetMapping("/getInFilter/{idCodigoPostal}/{idTipoEntrega}")
+    @GetMapping("/getInFilter")
     public static List<TipoCocina> getInFilter(
-        @PathVariable int idCodigoPostal,
-        @PathVariable int idTipoEntrega
+        @RequestParam int idCodigoPostal,
+        @RequestParam int idTipoEntrega
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_TIPO_COCINA_FILTER,

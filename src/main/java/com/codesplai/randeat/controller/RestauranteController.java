@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -57,7 +58,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
 
     // Restaurantes activos (1) en un código postal concreto (2), con un tipo entrega (3) y un tipo cocina (4) determinados, .
     private static final String SELECT_FILTER = String.format(
-        "SELECT r.* FROM %s r"
+        "SELECT DISTINCT r.* FROM %s r"
         + " INNER JOIN %s rtc ON rtc.%s = r.%s"
         + " INNER JOIN %s rte ON rte.%s = r.%s"
         + " WHERE r.%s = 1" // (1)
@@ -124,11 +125,11 @@ public class RestauranteController implements FromResultSet<Restaurante> {
      * @param idTipoCocina
      * @return
      */
-    @GetMapping("/getInFilter/{idCodigoPostal}/{idTipoEntrega}/{idTipoCocina}")
+    @GetMapping("/getInFilter")
     public static List<Restaurante> getInFilter(
-        @PathVariable int idCodigoPostal,
-        @PathVariable int idTipoEntrega,
-        @PathVariable int idTipoCocina
+        @RequestParam int idCodigoPostal,
+        @RequestParam int idTipoEntrega,
+        @RequestParam int idTipoCocina
     ) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_FILTER,
