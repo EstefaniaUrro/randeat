@@ -61,7 +61,7 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         );
     }
 
-    @GetMapping("/byIdCliente/{idCliente}")
+    @GetMapping("/getByIdCliente/{idCliente}")
     public static List<Tarjeta> byIdCliente(@PathVariable int idCliente) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_BY_ID_CLIENTE,
@@ -72,16 +72,24 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         );
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add/{idCliente}")
     public static Optional<Integer> add(
+        @PathVariable int idCliente,
         @RequestBody Tarjeta tarjeta
     ) {
-        return DBConn.executeInsert(
+        Optional<Integer> idTarjeta = DBConn.executeInsert(
             INSERT_TARJETA,
             new Object[][] {
                 {1, tarjeta.getNumero()}
             }
         );
+
+        ClienteTarjetaController.add(
+            idCliente,
+            idTarjeta.get()
+        );
+
+        return idTarjeta;
     }
 
     public static boolean removeTarjeta(int idTarjeta) {

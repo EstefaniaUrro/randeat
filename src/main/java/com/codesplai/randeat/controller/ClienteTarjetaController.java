@@ -1,7 +1,6 @@
 package com.codesplai.randeat.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 
@@ -40,8 +39,8 @@ public class ClienteTarjetaController {
         );
     }
 
-    public static Optional<Integer> add(int idCliente, int idTarjeta) {
-        return DBConn.executeInsert(
+    public static void add(int idCliente, int idTarjeta) {
+        DBConn.executeInsert(
             INSERT,
             new Object[][] {
                 {1, idCliente},
