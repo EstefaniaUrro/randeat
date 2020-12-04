@@ -11,6 +11,8 @@ import com.codesplai.randeat.modelo.Usuario;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,7 +60,10 @@ public class UsuarioController implements FromResultSet<Usuario> {
         );
     }
 
-    public static Optional<Integer> add(Usuario usuario) {
+    @PostMapping("/add")
+    public static Optional<Integer> add(
+        @RequestBody Usuario usuario
+    ) {
         return DBConn.executeInsert(
             INSERT_USUARIO,
             new Object[][] {
@@ -70,7 +75,7 @@ public class UsuarioController implements FromResultSet<Usuario> {
             }
         );
     }
-//Preguntar Bernat Lunes
+
     public static boolean update(Usuario usuario) {
         return DBConn.executeUpdateOrDelete(
             UPDATE_USUARIO,

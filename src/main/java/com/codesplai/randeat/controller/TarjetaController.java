@@ -11,6 +11,8 @@ import com.codesplai.randeat.modelo.Tarjeta;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -70,7 +72,10 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         );
     }
 
-    public static Optional<Integer> addTarjeta(Tarjeta tarjeta) {
+    @PostMapping("/add")
+    public static Optional<Integer> add(
+        @RequestBody Tarjeta tarjeta
+    ) {
         return DBConn.executeInsert(
             INSERT_TARJETA,
             new Object[][] {

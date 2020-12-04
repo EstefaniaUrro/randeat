@@ -12,6 +12,8 @@ import com.codesplai.randeat.modelo.Restaurante;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -146,7 +148,10 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         }
     }
 
-    public static Optional<Integer> add(Restaurante restaurante) {
+    @PostMapping("/add")
+    public static Optional<Integer> add(
+        @RequestBody Restaurante restaurante
+    ) {
         return DBConn.executeInsert(
             INSERT,
             new Object[][] {

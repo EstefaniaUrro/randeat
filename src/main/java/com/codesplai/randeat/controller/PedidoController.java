@@ -15,6 +15,8 @@ import com.codesplai.randeat.modelo.Pedido;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -96,7 +98,10 @@ public class PedidoController implements FromResultSet<Pedido> {
         );
     }
 
-    public static Optional<Integer> add(Pedido pedido) {
+    @PostMapping("/add")
+    public static Optional<Integer> add(
+        @RequestBody Pedido pedido
+    ) {
         Optional<String> direccionEnvio = pedido.getDireccionEnvio();
         String direccionEnvioQuizaNull = direccionEnvio.isEmpty() ?
             null
