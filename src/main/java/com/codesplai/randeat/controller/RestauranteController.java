@@ -7,11 +7,14 @@ import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
+import com.codesplai.randeat.controller.wrapper.UsuarioRestauranteWrapper;
 import com.codesplai.randeat.modelo.Restaurante;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -138,24 +141,25 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
-    public static Optional<Integer> save(Restaurante restaurante) {
-        if (restaurante.getIdRestaurante() == 0) {
-            return RestauranteController.add(restaurante);
-        } else {
-            return RestauranteController.update(restaurante);
-        }
-    }
+    @PostMapping("/add")
+    public static Optional<Integer> add(
+        @RequestBody UsuarioRestauranteWrapper usuarioRestaurante
+    ) {
+        // Doy de alta el Usuario. Si todo ha ido bien, tendré el idUsuario que
+        // necesito para dar de alta el Restaurante.
+        int idUsuario = UsuarioController.add(
+            usuarioRestaurante.usuario
+        ).get();
 
-    public static Optional<Integer> add(Restaurante restaurante) {
         return DBConn.executeInsert(
             INSERT,
             new Object[][] {
-                {1, restaurante.getUsuarioIdUsuario()},
-                {2, restaurante.getCif()},
-                {3, restaurante.getIban()},
-                {4, restaurante.getNombreRestaurante()},
-                {5, restaurante.getNombrePropietario()},
-                {6, restaurante.getCodigoPostalIdCodigoPostal()}
+                {1, idUsuario},
+                {2, usuarioRestaurante.restaurante.getCif()},
+                {3, usuarioRestaurante.restaurante.getIban()},
+                {4, usuarioRestaurante.restaurante.getNombreRestaurante()},
+                {5, usuarioRestaurante.restaurante.getNombrePropietario()},
+                {6, usuarioRestaurante.restaurante.getCodigoPostalIdCodigoPostal()}
             }
         );
     }

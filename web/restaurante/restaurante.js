@@ -59,9 +59,6 @@ function createLiOption(name, description, precio) {
     input.placeholder = "Precio";
     input.innerHTML = precio;
     li.appendChild(input);
-    input.addEventListener("click", function () {
-        javascript: selectLiOption(this);
-    });
     li.addEventListener("click", function () {
         javascript: selectLiOption(this);
     });

@@ -7,11 +7,14 @@ import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
+import com.codesplai.randeat.controller.wrapper.UsuarioClienteWrapper;
 import com.codesplai.randeat.modelo.Cliente;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,13 +63,22 @@ public class ClienteController implements FromResultSet<Cliente> {
         );
     }
 
-    public static Optional<Integer> add(Cliente cliente) {
+    @PostMapping("/add")
+    public static Optional<Integer> add(
+        @RequestBody UsuarioClienteWrapper usuarioCliente
+    ) {
+        // Doy de alta el Usuario. Si todo ha ido bien, tendré el idUsuario que
+        // necesito para dar de alta el Cliente.
+        int idUsuario = UsuarioController.add(
+            usuarioCliente.usuario
+        ).get();
+
         return DBConn.executeInsert(
             INSERT,
             new Object[][] {
-                 {1, cliente.getUsuarioIdUsuario()},
-                 {2, cliente.getNombreCompleto()},
-                 {3, cliente.getCodigoPostalIdCodigoPostal()}
+                 {1, idUsuario},
+                 {2, usuarioCliente.cliente.getNombreCompleto()},
+                 {3, usuarioCliente.cliente.getCodigoPostalIdCodigoPostal()}
             }
         );
     }

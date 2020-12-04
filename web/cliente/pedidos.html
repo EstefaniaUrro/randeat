@@ -31,23 +31,20 @@
 </head>
 
 <body>
-    <!-- Nav -->
-    <div class="container">
+     <!-- Nav -->
+     <div class="container">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" width="130" height="30"
                     class="d-inline-block align-top" alt="" loading="lazy"></a>
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-bars"></i> Pedidos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-cog"></i> Restaurante</a>
+                    <a class="nav-link" href="pedidos.html">Pedidos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> Nombre Usuario</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="restaurante.html">Mi cuenta</a>
+                        <a class="dropdown-item" href="cliente.html">Mi cuenta</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
                             Sesión</a>
@@ -64,9 +61,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Paquete</th>
-                    <th scope="col">Tipo cocina</th>
-                    <th scope="col">Tipo entrega</th>
+                    <th scope="col">Paquetes</th>
+                    <th scope="col">Tipo de cocina</th>
+                    <th scope="col">Precio</th>
                     <th scope="col">Fecha</th>
                 </tr>
             </thead>
@@ -110,120 +107,45 @@
             © 2020 Copyright: RandEat
         </div>
         <!-- Copyright -->
-    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function (event) {
             loadPedidos();
         });
 
-        async function loadPaquetes() {
-            const response = await fetch(
-                "http://localhost:8080/paquete/getAll"
-            );
-            const json = await response.json();
+        function loadPedidos() {
+            let pedidos = [
+                ["1", "Mediano y Grande", "Chino", "50€", "01-12-2020"],
+                ["2", "Mediano", "Italiano", "25€", "01-10-2020"]
+            ];
 
-            let map = new Map();
+            let tbody = document.getElementsByTagName("tbody")[0];
 
-            await json.map(paquete => {
-                map.set(paquete.idPaquete, paquete);
+            pedidos.forEach(function (item, index) {
+                let tr = document.createElement("tr");
+
+                let thIdPedido = document.createElement("th");
+                thIdPedido.setAttribute("scope", "row");
+                thIdPedido.appendChild(document.createTextNode(item[0]));
+                tr.appendChild(thIdPedido);
+
+                let tdPaquete = document.createElement("td");
+                tdPaquete.appendChild(document.createTextNode(item[1]));
+                tr.appendChild(tdPaquete);
+
+                let tdTipoCocina = document.createElement("td");
+                tdTipoCocina.appendChild(document.createTextNode(item[2]));
+                tr.appendChild(tdTipoCocina);
+
+                let tdTipoEntrega = document.createElement("td");
+                tdTipoEntrega.appendChild(document.createTextNode(item[3]));
+                tr.appendChild(tdTipoEntrega);
+
+                let tdAceptado = document.createElement("td");
+                tdAceptado.appendChild(document.createTextNode(item[4]));
+                tr.appendChild(tdAceptado);
+
+                tbody.appendChild(tr);
             });
-
-            return map;
-        }
-
-        async function loadTipoEntregaMap() {
-            const response = await fetch(
-                "http://localhost:8080/tipoEntrega/getAll"
-            );
-            const json = await response.json();
-
-            let map = new Map();
-            
-            await json.map(tipoEntrega => {
-                map.set(
-                    tipoEntrega.idTipoEntrega,
-                    tipoEntrega
-                )
-            });
-
-            return map;
-        }
-
-        async function loadTipoCocinaMap() {
-            const response = await fetch(
-                "http://localhost:8080/tipoCocina/getAll"
-            );
-            const json = await response.json();
-
-            let map = new Map();
-            
-            await json.map(tipoCocina => {
-                map.set(
-                    tipoCocina.idTipoCocina,
-                    tipoCocina
-                )
-            });
-
-            return map;
-        }
-
-        async function loadPedidos() {
-            fetch("http://localhost:8080/pedido/getByIdRestaurante/1")
-                .then(resp => resp.json())
-                .then(pedidos => {
-                    const tipoEntregaMap = loadTipoEntregaMap().then(asd => {return asd});
-                    Promise.all([
-                        loadTipoEntregaMap(),
-                        loadTipoCocinaMap()
-                    ]).then(values => {
-                        let tipoEntregaMap = values[0];
-                        let tipoCocinaMap = values[1];
-
-                        pedidos.map(function (pedido) {
-                            console.log(pedido);
-                            let tbody = document.getElementsByTagName("tbody")[0];
-
-                            let tr = document.createElement("tr");
-
-                            let thIdPedido = document.createElement("th");
-                            thIdPedido.setAttribute("scope", "row");
-                            thIdPedido.appendChild(document.createTextNode(pedido.idPedido));
-                            tr.appendChild(thIdPedido);
-
-                            let tdPaquete = document.createElement("td");
-                            tdPaquete.appendChild(document.createTextNode(
-                                // paquetes.get(pedido.paqueteIdPaquete).nombre
-                                "Grande x2, Mediano x3, Pequeño x6"
-                            ));
-                            tr.appendChild(tdPaquete);
-
-                            let tdTipoCocina = document.createElement("td");
-                            tdTipoCocina.appendChild(document.createTextNode(
-                                tipoCocinaMap    
-                                    .get(pedido.tipoCocinaIdTipoCocina)
-                                    .nombre
-                            ));
-                            tr.appendChild(tdTipoCocina);
-
-                            let tdTipoEntrega = document.createElement("td");
-                            tdTipoEntrega.appendChild(document.createTextNode(
-                                tipoEntregaMap
-                                    .get(pedido.tipoEntregaIdTipoEntrega)
-                                    .nombre
-                            ));
-                            tr.appendChild(tdTipoEntrega);
-
-                            let tdFecha = document.createElement("td");
-                            tdFecha.appendChild(document.createTextNode(
-                                pedido.fecha
-                            ));
-                            tr.appendChild(tdFecha);
-
-                            tbody.appendChild(tr);
-                        });
-                    });
-                })
-            ;
         }
     </script>
 </body>

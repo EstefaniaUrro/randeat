@@ -36,7 +36,8 @@
     <div class="container">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="../index.html">
-                <img src="../img/logo.png" width="130" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                <img src="../img/logo.png" width="130" height="30" class="d-inline-block align-top" alt=""
+                    loading="lazy">
             </a>
             <a class="nav-link" href="../inicio.html"><i class="far fa-user-circle"></i> Iniciar sesión</a>
         </nav>
@@ -132,76 +133,94 @@
                 <br>
                 <div class="card text-center"
                     style="background-color: rgba(240, 248, 255, 0); border: 0px solid rgba(255, 255, 255, 0);">
-                    <dic class="row">
-                        <div class="col-6 col-md-6">
-                            <button class="enviar" id="myBtn" type="button" style="width: 200px;">Pagar en
-                                efectivo</button>
+                    <div class="row">
+                        <div class="text-center col-12 col-md-12">
+                            <button class="enviar " id="myBtn" type="button" style="width: 200px;" data-toggle="modal"
+                                data-target="#exampleModal">Pagar</button>
                         </div>
-                        <div class="col-6 col-md-6">
-                            <button class="enviar" type="button" style="width: 200px;">Pagar en tarjeta</button>
-                        </div>
+                    </div>
+                    <br>
                 </div>
-                <br>
             </div>
         </div>
-    </div>
+        <br>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Información sobre tu pedido</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tipo de paquete</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Paquete grande</td>
+                                    <td>1</td>
+                                    <td>15€</td>
+                                </tr>
+                                <tr>
+                                    <td>Paquete mediano</td>
+                                    <td>0</td>
+                                    <td>10€</td>
+                                </tr>
+                                <tr>
+                                    <td>Paquete pequeño</td>
+                                    <td>3</td>
+                                    <td>5€</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Precio Total</th>
+                                    <th></th>
+                                    <th colspan="2">30€</th>
+                                </tr>
+                                </tfood>
+                        </table>
+                        <hr>
+                        <p>Tu pedido estara listo en 45 minutos.</p>
+                        <div class="form-check">
+                            <input type="radio" name="pagartarjeta" id="sitarjeta" onclick="javascript:pagartarjeta();"
+                                checked>
+                            <label class="form-check-label" for="exampleRadios2">Pagar en efectivo.</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="pagartarjeta" id="tarjeta" onclick="javascript:pagartarjeta();">
+                            <label class="form-check-label" for="exampleRadios1">Pagar con tarjeta.</label>
+                        </div>
 
-    <br>
-
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Información sobre tu pedido</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Tipo de paquete</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Precio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Paquete grande</td>
-                        <td>1</td>
-                        <td>15€</td>
-                    </tr>
-                    <tr>
-                        <td>Paquete mediano</td>
-                        <td>0</td>
-                        <td>10€</td>
-                    </tr>
-                    <tr>
-                        <td>Paquete pequeño</td>
-                        <td>3</td>
-                        <td>5€</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Precio Total</th>
-                        <th></th>
-                        <th colspan="2">30€</th>
-                    </tr>
-                    </tfood>
-            </table>
-            <hr>
-            <p>Tu pedido estara listo en 45 minutos</p>
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-6">
-                    <button class="enviar" type="button" style="width: 200px;">Confirmar pedido</button>
+                        <div id="myDIV" style="display:none;">
+                            <br>
+                            <p>El pago se realizara en la tarjeta: **** **** **** 5724</p>
+                            <a href="#">
+                                <p>Desea cambiar de tarjeta?</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-footer row text-center">
+                        <div class="col-12 col-md-12">
+                            <button type="button" class="enviar" style="width: 200px;">Pagar</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-6">
-                <button class="enviar" type="button"
-                    style="width: 200px; background-color: rgba(233, 42, 42, 0.795);">Cancelar pedido</button>
             </div>
         </div>
-    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript"></script>
-    <script src="escogerpaquete.js"></script>
+    <script src="../js/escogerpaquete.js"></script>
 
 
     <!-- Footer -->
@@ -219,7 +238,8 @@
                     <!-- Content -->
                     <h6 class="text-uppercase font-weight-bold">RandEat</h6>
                     <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
+                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit
+                        amet,
                         consectetur
                         adipisicing elit.</p>
 
@@ -304,8 +324,3 @@
 </body>
 
 </html>
-
-
-
-
-
