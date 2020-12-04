@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -83,17 +84,22 @@ public class ClienteController implements FromResultSet<Cliente> {
         );
     }
 
-    public static Optional<Integer> update(Cliente cliente) {
+    @PutMapping("/update")
+    public static boolean update(
+        @RequestBody UsuarioClienteWrapper usuarioCliente
+    ) {
+        UsuarioController.update(usuarioCliente.usuario);
+
         DBConn.executeUpdateOrDelete(
             UPDATE,
             new Object[][]{
-                {1, cliente.getUsuarioIdUsuario()},
-                {2, cliente.getNombreCompleto()},
-                {3, cliente.getCodigoPostalIdCodigoPostal()},
-                {4, cliente.getIdCliente()}
+                {1, usuarioCliente.cliente.getUsuarioIdUsuario()},
+                {2, usuarioCliente.cliente.getNombreCompleto()},
+                {3, usuarioCliente.cliente.getCodigoPostalIdCodigoPostal()},
+                {4, usuarioCliente.cliente.getIdCliente()}
         });
 
-        return Optional.of(cliente.getIdCliente());
+        return true;
     }
 
     @Override
