@@ -11,6 +11,8 @@ import com.codesplai.randeat.modelo.Tarjeta;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,7 +61,7 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         );
     }
 
-    @GetMapping("/byIdCliente/{idCliente}")
+    @GetMapping("/getByIdCliente/{idCliente}")
     public static List<Tarjeta> byIdCliente(@PathVariable int idCliente) {
         return DBConn.executeQueryWithParamsIntoList(
             SELECT_BY_ID_CLIENTE,
@@ -70,13 +72,24 @@ public class TarjetaController implements FromResultSet<Tarjeta> {
         );
     }
 
-    public static Optional<Integer> addTarjeta(Tarjeta tarjeta) {
-        return DBConn.executeInsert(
+    @PostMapping("/add/{idCliente}")
+    public static Optional<Integer> add(
+        @PathVariable int idCliente,
+        @RequestBody Tarjeta tarjeta
+    ) {
+        Optional<Integer> idTarjeta = DBConn.executeInsert(
             INSERT_TARJETA,
             new Object[][] {
                 {1, tarjeta.getNumero()}
             }
         );
+
+        ClienteTarjetaController.add(
+            idCliente,
+            idTarjeta.get()
+        );
+
+        return idTarjeta;
     }
 
     public static boolean removeTarjeta(int idTarjeta) {
