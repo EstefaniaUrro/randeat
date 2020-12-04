@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -165,21 +166,26 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
-    public static Optional<Integer> update(Restaurante restaurante) {
+    @PutMapping("/update")
+    public static boolean update(
+        @RequestBody UsuarioRestauranteWrapper usuarioRestaurante
+    ) {
+        UsuarioController.update(usuarioRestaurante.usuario);
+        
         DBConn.executeUpdateOrDelete(
             UPDATE,
             new Object[][] {
-                {1, restaurante.getCif()},
-                {2, restaurante.getIban()},
-                {3, restaurante.getNombreRestaurante()},
-                {4, restaurante.getNombrePropietario()},
-                {5, restaurante.getCodigoPostalIdCodigoPostal()},
-                {6, restaurante.isActivo()},
-                {7, restaurante.getIdRestaurante()}
+                {1, usuarioRestaurante.restaurante.getCif()},
+                {2, usuarioRestaurante.restaurante.getIban()},
+                {3, usuarioRestaurante.restaurante.getNombreRestaurante()},
+                {4, usuarioRestaurante.restaurante.getNombrePropietario()},
+                {5, usuarioRestaurante.restaurante.getCodigoPostalIdCodigoPostal()},
+                {6, usuarioRestaurante.restaurante.isActivo()},
+                {7, usuarioRestaurante.restaurante.getIdRestaurante()}
             }
         );
 
-        return Optional.of(restaurante.getIdRestaurante());
+        return true;
     }
 
     @Override
