@@ -1,10 +1,18 @@
 package com.codesplai.randeat.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/restauranteBebida")
 public class RestauranteBebidaController {
     private static final String TABLE = "restaurante_bebida";
     private static final String ID_RESTAURANTE = "restaurante_id_restaurante";
@@ -34,8 +42,12 @@ public class RestauranteBebidaController {
         );
     }
 
-    public static Optional<Integer> add(int idRestaurante, int idBebida) {
-        return DBConn.executeInsert(
+    @PostMapping("/add")
+    public static void add(
+        @RequestParam int idRestaurante,
+        @RequestParam int idBebida
+    ) {
+        DBConn.executeInsert(
             INSERT,
             new Object[][] {
                 {1, idRestaurante},
