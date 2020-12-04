@@ -117,16 +117,19 @@ ul.list-group *:hover {
 }
 /* FIN RESTAURANTE */
 /* INICIO INDEX */
-div nav{
-    padding: 10px 0;
+nav{
+    padding: 5px 0;
     margin-bottom: 10px;
+    color: #ffaa30 !important;
 }
-div nav a{
-    color: #ffaa30;
+.nav-item a{  
+    color: #ffaa30 !important;
 }
-div nav a:hover{
+.nav-item a i{  
+    color: #ffaa30 !important;
+}
+.nav-item a:hover{
     color: #ff8000 !important;
-    background-color: white;
 }
 .carousel-item img{
         width:100% !important;
