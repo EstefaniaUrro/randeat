@@ -81,6 +81,7 @@
                     <th scope="col">Tipo cocina</th>
                     <th scope="col">Tipo entrega</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Info</th>
                 </tr>
             </thead>
             <tbody>
@@ -232,6 +233,11 @@
                             ));
                             tr.appendChild(tdFecha);
 
+                            let tdInfo = document.createElement("button")
+                            tdInfo.setAttribute("class", "btn-info");
+                            tdInfo.textContent("+");
+                            tr.appendChild(tdInfo);
+                            
                             tbody.appendChild(tr);
                         });
                     });

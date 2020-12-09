@@ -75,11 +75,29 @@
                     <th scope="col">Tipo de cocina</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Info</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Modal with Dynamic Content</h4>
+                </div>
+                <div class="modal-body">
+    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Footer -->
     <footer class="page-footer font-small blue-grey lighten-5 mt-auto">
@@ -154,7 +172,18 @@
                     tdAceptado.appendChild(document.createTextNode(item[4]));
                     tr.appendChild(tdAceptado);
 
+                    let tdInfo = document.createElement("button");
+                    tdInfo.classList.add("btn");
+                    tdInfo.classList.add("btn-info");
+                    tdInfo.textContent ="+";
+                    tdInfo.setAttribute("data-toggle","modal");
+                    tdInfo.setAttribute("data-target","myModal");
+
+                    tr.appendChild(tdInfo);
+
                     tbody.appendChild(tr);
+
+                
                 });
             }
         </script>

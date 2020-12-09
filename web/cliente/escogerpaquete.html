@@ -76,7 +76,7 @@
             <div class="card col-md-4" style="background-color: rgba(243, 243, 243, 0.616);">
                 <div class="card-title card-center">
                     <br>
-                    <h4 style="text-align: center;">"Nombre del restaurante"</h4>
+                    <h4 style="text-align: center;">Nombre del restaurante</h4>
                 </div>
                 <div class="text-center">
                     <img class="card-img-top" src="../img/lasmuns.png" alt="Card image cap"
@@ -158,7 +158,7 @@
                     <div class="row">
                         <div class="text-center col-12 col-md-12">
                             <button class="enviar " id="myBtn" type="button" style="width: 200px;" data-toggle="modal"
-                                data-target="#exampleModal"><i class="far fa-bookmark"></i> Pagar</button>
+                                data-target="#exampleModal" onclick="paquetes()"><i class="far fa-bookmark"></i> Pagar</button>
                         </div>
                     </div>
                     <br>
@@ -188,25 +188,25 @@
                             <tbody>
                                 <tr>
                                     <td>Paquete grande</td>
-                                    <td>1</td>
-                                    <td>15€</td>
+                                    <td><span id="cantidadGrande">0</span></td>
+                                    <td><span id="precioGrande">15</span>€</td>
                                 </tr>
                                 <tr>
                                     <td>Paquete mediano</td>
-                                    <td>0</td>
-                                    <td>10€</td>
+                                    <td><span id="cantidadMediano">0</span></td>
+                                    <td><span id="precioMediano">10</span>€</td>
                                 </tr>
                                 <tr>
                                     <td>Paquete pequeño</td>
-                                    <td>3</td>
-                                    <td>5€</td>
+                                    <td><span id="cantidadPeque">0</span></td>
+                                    <td><span id="precioPeque">10</span>€</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Precio Total</th>
                                     <th></th>
-                                    <th colspan="2">30€</th>
+                                    <th colspan="2" id="total">30€</th>
                                 </tr>
                                 </tfood>
                         </table>
@@ -244,6 +244,26 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript"></script>
     <script src="../js/escogerpaquete.js"></script>
+    <script>
+        function paquetes(){
+            var paqueteGrande = document.getElementById("paquetegrande").value;
+            document.getElementById("cantidadGrande").innerText = paqueteGrande;
+            var paqueteMediano = document.getElementById("paquetemediano").value;
+            document.getElementById("cantidadMediano").innerText = paqueteMediano;
+            var paquetePeque = document.getElementById("paquetepequeño").value;
+            document.getElementById("cantidadPeque").innerText = paquetePeque;
+            
+            var precioGrande = document.getElementById("precioGrande").innerText;
+            var precioMediano = document.getElementById("precioMediano").innerText;
+            var precioPeque = document.getElementById("precioPeque").innerText;
+            precioGrande = Number.parseInt(precioGrande);
+            precioMediano = Number.parseInt(precioMediano);
+            precioPeque = Number.parseInt(precioPeque);
+            var total = precioGrande +  precioMediano + precioPeque;
+            document.getElementById("total").value = total;
+            alert(total);
+        }
+    </script>
 
 
     <!-- Footer -->
