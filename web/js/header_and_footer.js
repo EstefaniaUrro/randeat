@@ -47,7 +47,7 @@ function createHeaderRestaurante(usuario, restaurante) {
 	return `
 	<div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="./index.html">
                 <img src="./img/logo.png" width="130" height="30" class="d-inline-block align-top" alt=""
                     loading="lazy">
             </a>
@@ -58,11 +58,11 @@ function createHeaderRestaurante(usuario, restaurante) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="lista_pedidos.html"><i class="fas fa-shopping-cart"></i> Mis
+                        <a class="nav-link" href="./pedidos.html"><i class="fas fa-shopping-cart"></i> Mis
                             pedidos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="restaurante_opciones.html"><i class="fas fa-utensils"></i>
+                        <a class="nav-link" href="./restaurante/restaurante_opciones.html"><i class="fas fa-utensils"></i>
                             Restaurante</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -71,7 +71,7 @@ function createHeaderRestaurante(usuario, restaurante) {
                             <i class="fas fa-user"></i> ${restaurante.nombreRestaurante}</a>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="restaurante.html"><i class="fas fa-user-plus"></i> Mi
+                            <a class="dropdown-item" href="./restaurante/restaurante.html"><i class="fas fa-user-plus"></i> Mi
                                 cuenta</a>
                             <div class="dropdown-divider"></div>
                             <a
@@ -95,7 +95,7 @@ function createHeaderNotLoggedIn() {
 	return `
 	<div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="./index.html">
                 <img src="./img/logo.png" width="130" height="30" class="d-inline-block align-top" alt=""
                     loading="lazy">
             </a>
@@ -106,7 +106,7 @@ function createHeaderNotLoggedIn() {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="inicio.html">
+                        <a class="nav-link" href="./inicio.html">
                             <i class="fas fa-user"></i> Iniciar sesión
                         </a>
                     </li>
@@ -123,7 +123,7 @@ function createHeaderCliente(usuario, cliente) {
 	return `
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="index.html">
+			<a class="navbar-brand" href="./index.html">
 				<img src="./img/logo.png" width="130" height="30" class="d-inline-block align-top" alt=""
 					loading="lazy">
 			</a>
@@ -142,7 +142,7 @@ function createHeaderCliente(usuario, cliente) {
 							<i class="fas fa-user"></i> ${nombre}</a>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="cliente.html"><i class="fas fa-user-plus"></i> Mi cuenta</a>
+							<a class="dropdown-item" href="./cliente/cliente.html"><i class="fas fa-user-plus"></i> Mi cuenta</a>
 							<div class="dropdown-divider"></div>
                             <a
                                 class="dropdown-item"
