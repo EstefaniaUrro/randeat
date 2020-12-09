@@ -38,7 +38,7 @@ function createIdElementMap(json, idAttributeName) {
 	return map;
 }
 
-function loadPedidosJson() {
+async function loadPedidosJson() {
 	let url = "";
 
 	let cliente = JSON.parse(localStorage.getItem("cliente"));
@@ -53,9 +53,10 @@ function loadPedidosJson() {
 		}
 	}
 
-	console.log("fing url: ", url);
+	console.log("loadPedidosJson url: ", url);
 
-	return fetch(url).then(response => response.json());
+	const response = await fetch(url);
+	return await response.json();
 }
 
 function loadPedidos() {
