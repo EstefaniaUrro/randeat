@@ -2,21 +2,23 @@ package com.codesplai.randeat.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.Usuario;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/usuario")
 public class UsuarioController implements FromResultSet<Usuario> {
     private static final String TABLE = "usuario";
@@ -27,12 +29,15 @@ public class UsuarioController implements FromResultSet<Usuario> {
     private static final String POBLACION = "poblacion";
     private static final String DIRECCION = "direccion";
 
-    private static final String SELECT_ALL = String.format(
-        "SELECT * FROM %s", TABLE
-    );
-
     private static final String SELECT_BY_ID_USUARIO = String.format(
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_USUARIO
+    );
+
+    private static final String SELECT_BY_CREDENTIALS = String.format(
+        "SELECT * FROM %s"
+        + " WHERE %s = ?"
+        + " AND %s = ?",
+        TABLE, CORREO_ELECTRONICO, CONTRASENA
     );
 
     private static final String INSERT_USUARIO = String.format(
@@ -45,16 +50,27 @@ public class UsuarioController implements FromResultSet<Usuario> {
         TABLE, CORREO_ELECTRONICO, CONTRASENA, TELEFONO, POBLACION, DIRECCION, ID_USUARIO
     );
 
-    public static List<Usuario> getAll() {
-        return DBConn.executeQueryIntoList(SELECT_ALL, new UsuarioController());
-    }
-
     @GetMapping("/getById/{idUsuario}")
     public static Optional<Usuario> getById(@PathVariable int idUsuario) {
         return DBConn.executeQueryWithParamsSingleValue(
             SELECT_BY_ID_USUARIO,
             new Object[][] {
                 {1, idUsuario}
+            },
+            new UsuarioController()
+        );
+    }
+
+    @GetMapping("/getByCredentials")
+    public static Optional<Usuario> getByCredentials(
+        @RequestParam String email,
+        @RequestParam String password
+    ) {
+        return DBConn.executeQueryWithParamsSingleValue(
+            SELECT_BY_CREDENTIALS,
+            new Object[][] {
+                {1, email},
+                {2, password}
             },
             new UsuarioController()
         );

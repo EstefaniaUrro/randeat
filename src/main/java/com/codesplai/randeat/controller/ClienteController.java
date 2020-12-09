@@ -2,7 +2,6 @@ package com.codesplai.randeat.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
@@ -29,12 +28,12 @@ public class ClienteController implements FromResultSet<Cliente> {
     private static final String NOMBRE_COMPLETO = "nombre_completo";
     private static final String CODIGO_POSTAL_ID_CODIGO_POSTAL = "codigo_postal_id_codigo_postal";
 
-    private static final String SELECT_ALL = String.format(
-        "SELECT * FROM %s", TABLE
-    );
-
     private static final String SELECT_BY_ID_CLIENTE = String.format(
         "SELECT * FROM %s WHERE %s = ?", TABLE, ID_CLIENTE
+    );
+
+    private static final String SELECT_BY_ID_USUARIO = String.format(
+        "SELECT * FROM %s WHERE %s = ?", TABLE, USUARIO_ID_USUARIO
     );
 
     private static final String INSERT = String.format(
@@ -47,10 +46,6 @@ public class ClienteController implements FromResultSet<Cliente> {
         TABLE, USUARIO_ID_USUARIO,NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL, ID_CLIENTE
     );
 
-    public static List<Cliente> getAll() {
-        return DBConn.executeQueryIntoList(SELECT_ALL, new ClienteController());
-    }
-
     @GetMapping("/getById/{idCliente}")
     public static Optional<Cliente> getById(
         @PathVariable int idCliente
@@ -59,6 +54,19 @@ public class ClienteController implements FromResultSet<Cliente> {
             SELECT_BY_ID_CLIENTE,
             new Object[][] {
                 {1, idCliente}
+            },
+            new ClienteController()
+        );
+    }
+
+    @GetMapping("/getByIdUsuario/{idUsuario}")
+    public static Optional<Cliente> getByIdUsuario(
+        @PathVariable int idUsuario
+    ) {
+        return DBConn.executeQueryWithParamsSingleValue(
+            SELECT_BY_ID_USUARIO,
+            new Object[][] {
+                {1, idUsuario}
             },
             new ClienteController()
         );

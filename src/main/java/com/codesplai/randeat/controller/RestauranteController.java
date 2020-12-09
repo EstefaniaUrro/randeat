@@ -47,16 +47,6 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         TABLE, ACTIVO, ID_CODIGO_POSTAL
     );
 
-    private static final String INSERT = String.format(
-        "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, 0)",
-        TABLE, ID_USUARIO, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO
-    );
-
-    private static final String UPDATE = String.format(
-        "UPDATE %s SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? WHERE %s = ?",
-        TABLE, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO, ID_RESTAURANTE
-    );
-
     // Restaurantes activos (1) en un código postal concreto (2), con un tipo entrega (3) y un tipo cocina (4) determinados, .
     private static final String SELECT_FILTER = String.format(
         "SELECT DISTINCT r.* FROM %s r"
@@ -83,6 +73,20 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         RestauranteTipoEntregaController.ID_TIPO_ENTREGA,
         
         RestauranteTipoCocinaController.ID_TIPO_COCINA
+    );
+
+    private static final String SELECT_BY_ID_USUARIO = String.format(
+        "SELECT * FROM %s WHERE %s = ?", TABLE, ID_USUARIO
+    );
+
+    private static final String INSERT = String.format(
+        "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, 0)",
+        TABLE, ID_USUARIO, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO
+    );
+
+    private static final String UPDATE = String.format(
+        "UPDATE %s SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? WHERE %s = ?",
+        TABLE, CIF, IBAN, NOMBRE_RESTAURANTE, NOMBRE_PROPIETARIO, ID_CODIGO_POSTAL, ACTIVO, ID_RESTAURANTE
     );
 
     @GetMapping("/getActivos")
@@ -138,6 +142,19 @@ public class RestauranteController implements FromResultSet<Restaurante> {
                 {1, idCodigoPostal},
                 {2, idTipoEntrega},
                 {3, idTipoCocina}
+            },
+            new RestauranteController()
+        );
+    }
+
+    @GetMapping("/getByIdUsuario/{idUsuario}")
+    public static Optional<Restaurante> getByIdUsuario(
+        @PathVariable int idUsuario
+    ) {
+        return DBConn.executeQueryWithParamsSingleValue(
+            SELECT_BY_ID_USUARIO,
+            new Object[][] {
+                {1, idUsuario}
             },
             new RestauranteController()
         );
