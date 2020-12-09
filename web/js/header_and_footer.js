@@ -35,6 +35,14 @@ const footerHTML = `
 </footer>
 `;
 
+// const footerSmallHTML = `
+// <footer class="page-footer font-small blue-grey lighten-5 mt-auto">
+//     <div class="footer-copyright text-center text-black-50 py-3">
+//         © 2020 Copyright: RandEat
+//     </div>
+// </footer>
+// `;
+
 function createHeaderRestaurante(usuario, restaurante) {
 	return `
 	<div class="container">
@@ -66,8 +74,14 @@ function createHeaderRestaurante(usuario, restaurante) {
                             <a class="dropdown-item" href="restaurante.html"><i class="fas fa-user-plus"></i> Mi
                                 cuenta</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
-                                Sesión</a>
+                            <a
+                                class="dropdown-item"
+                                href="javascript:void();"
+                                onclick="logOut();"
+                            >
+                                <i class="fas fa-sign-out-alt"></i>
+                                Cerrar sesión
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -130,8 +144,14 @@ function createHeaderCliente(usuario, cliente) {
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="cliente.html"><i class="fas fa-user-plus"></i> Mi cuenta</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="index.html"><i class="fas fa-sign-out-alt"></i> Cerrar
-								Sesión</a>
+                            <a
+                                class="dropdown-item"
+                                href="javascript:void();"
+                                onclick="logOut();"
+                            >
+                                <i class="fas fa-sign-out-alt"></i>
+                                Cerrar sesión
+                            </a>
 						</div>
 					</li>
 				</ul>
@@ -240,6 +260,11 @@ const footerBigHTML = `
     </footer>
     <!-- Footer -->
 `;
+
+function logOut() {
+    localStorage.clear();
+    window.location.href = "index.html";
+}
 
 document.addEventListener('DOMContentLoaded', function (event) {
 	let usuario = JSON.parse(localStorage.getItem("usuario"));

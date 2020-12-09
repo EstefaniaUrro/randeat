@@ -2,6 +2,10 @@ const validateUrl = "http://localhost:8080/usuario/getByCredentials";
 const restauranteUrl = "http://localhost:8080/restaurante/getByIdUsuario";
 const clienteUrl = "http://localhost:8080/cliente/getByIdUsuario";
 
+function goToMainPage() {
+	window.location.href = "index.html";
+}
+
 function performLogin() {
 	localStorage.clear();
 
@@ -46,10 +50,13 @@ function performLogin() {
 									alert("tampoco es un cliente? algo va mal");
 								} else {
 									alert("es un cliente!!!!! guardando datos");
+
 									localStorage.setItem(
 										"cliente",
 										JSON.stringify(jsonCliente)
 									);
+
+									goToMainPage();
 								}
 							})
 							.catch(err => {
@@ -62,6 +69,8 @@ function performLogin() {
 								"restaurante",
 								JSON.stringify(jsonRestaurante)
 							);
+
+							goToMainPage();
 						}
 					})
 					.catch(err => {
