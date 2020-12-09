@@ -88,6 +88,40 @@
             </tbody>
         </table>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Información adicional del pedido</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Comentario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center"><span id="cliente"></span></td>
+                                <td class="text-center"><span id="direccion"></span></td>
+                                <td class="text-center"><span id="comentario"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="page-footer font-small blue-grey lighten-5 mt-auto">
         <!-- Copyright -->
@@ -114,10 +148,6 @@
                             </a>
                         </span>
                     </p>
-
-                    <div class="group">
-
-                    </div>
                 </div>
             </div>
             © 2020 Copyright: RandEat
@@ -129,6 +159,20 @@
         document.addEventListener('DOMContentLoaded', function (event) {
             loadPedidos();
         });
+
+        async function loadClientesMap() {
+            const response = await fetch(
+                "http://localhost:8080/cliente/getById/1"
+            );
+            const json = await response.json();
+
+            let map = new Map();
+
+            await json.map(cliente => {
+                map.set(cliente.idCliente, cliente
+                );
+            });
+        }
 
         async function loadPaquetes() {
             const response = await fetch(
@@ -233,11 +277,21 @@
                             ));
                             tr.appendChild(tdFecha);
 
-                            let tdInfo = document.createElement("button")
-                            tdInfo.setAttribute("class", "btn-info");
-                            tdInfo.textContent("+");
+                            let tdInfo = document.createElement("button");
+                            tdInfo.type = "button";
+                            tdInfo.classList.add("btn-primary");
+                            tdInfo.setAttribute("data-toggle", "modal");
+                            tdInfo.setAttribute("data-target", "#exampleModal");
+                            tdInfo.textContent = "+";
                             tr.appendChild(tdInfo);
-                            
+
+                            let tdCliente = pedido.clienteIdCliente;
+                            document.getElementById("cliente").innerText = tdCliente;
+                            let tdDireccion = pedido.direccionEnvio;
+                            document.getElementById("direccion").innerText = tdDireccion;
+                            let tdComentario = pedido.comentario;
+                            document.getElementById("comentario").innerText = tdComentario;
+
                             tbody.appendChild(tr);
                         });
                     });

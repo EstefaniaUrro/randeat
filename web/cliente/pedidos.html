@@ -84,18 +84,35 @@
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title">Modal with Dynamic Content</h4>
+                    <h5 class="modal-title" id="exampleModalLabel">Información adicional del pedido</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Comentario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center"><span id="cliente"></span></td>
+                                <td class="text-center"><span id="direccion"></span></td>
+                                <td class="text-center"><span id="comentario"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -141,50 +158,114 @@
                 loadPedidos();
             });
 
-            function loadPedidos() {
-                let pedidos = [
-                    ["1", "Mediano y Grande", "Chino", "50€", "01-12-2020"],
-                    ["2", "Mediano", "Italiano", "25€", "01-10-2020"]
-                ];
+            async function loadTipoEntregaMap() {
+                const response = await fetch(
+                    "http://localhost:8080/tipoEntrega/getAll"
+                );
+                const json = await response.json();
 
-                let tbody = document.getElementsByTagName("tbody")[0];
+                let map = new Map();
 
-                pedidos.forEach(function (item, index) {
-                    let tr = document.createElement("tr");
-
-                    let thIdPedido = document.createElement("th");
-                    thIdPedido.setAttribute("scope", "row");
-                    thIdPedido.appendChild(document.createTextNode(item[0]));
-                    tr.appendChild(thIdPedido);
-
-                    let tdPaquete = document.createElement("td");
-                    tdPaquete.appendChild(document.createTextNode(item[1]));
-                    tr.appendChild(tdPaquete);
-
-                    let tdTipoCocina = document.createElement("td");
-                    tdTipoCocina.appendChild(document.createTextNode(item[2]));
-                    tr.appendChild(tdTipoCocina);
-
-                    let tdTipoEntrega = document.createElement("td");
-                    tdTipoEntrega.appendChild(document.createTextNode(item[3]));
-                    tr.appendChild(tdTipoEntrega);
-
-                    let tdAceptado = document.createElement("td");
-                    tdAceptado.appendChild(document.createTextNode(item[4]));
-                    tr.appendChild(tdAceptado);
-
-                    let tdInfo = document.createElement("button");
-                    tdInfo.classList.add("enviar");
-                    tdInfo.setAttribute("data-toggle", "modal");
-                    tdInfo.setAttribute("data-target", "exampleModal");
-                    tdInfo.setAttribute("id", "myBtn");
-                    tdInfo.textContent = "+";
-                    tr.appendChild(tdInfo);
-
-                    tbody.appendChild(tr);
-
-
+                await json.map(tipoEntrega => {
+                    map.set(
+                        tipoEntrega.idTipoEntrega,
+                        tipoEntrega
+                    )
                 });
+
+                return map;
+            }
+
+            async function loadTipoCocinaMap() {
+                const response = await fetch(
+                    "http://localhost:8080/tipoCocina/getAll"
+                );
+                const json = await response.json();
+
+                let map = new Map();
+
+                await json.map(tipoCocina => {
+                    map.set(
+                        tipoCocina.idTipoCocina,
+                        tipoCocina
+                    )
+                });
+
+                return map;
+            }
+            function loadPedidos() {
+                fetch("http://localhost:8080/pedido/getByIdCliente/1")
+                    .then(resp => resp.json())
+                    .then(pedidos => {
+                        const tipoEntregaMap = loadTipoEntregaMap().then(asd => { return asd });
+                        Promise.all([
+                            loadTipoEntregaMap(),
+                            loadTipoCocinaMap()
+                        ]).then(values => {
+                            let tipoEntregaMap = values[0];
+                            let tipoCocinaMap = values[1];
+
+                            pedidos.map(function (pedido) {
+                                console.log(pedido);
+                                let tbody = document.getElementsByTagName("tbody")[0];
+
+                                let tr = document.createElement("tr");
+
+                                let thIdPedido = document.createElement("th");
+                                thIdPedido.setAttribute("scope", "row");
+                                thIdPedido.appendChild(document.createTextNode(pedido.idPedido));
+                                tr.appendChild(thIdPedido);
+
+                                let tdPaquete = document.createElement("td");
+                                tdPaquete.appendChild(document.createTextNode(
+                                    // paquetes.get(pedido.paqueteIdPaquete).nombre
+                                    "Grande x2, Mediano x3, Pequeño x6"
+                                ));
+                                tr.appendChild(tdPaquete);
+
+                                let tdTipoCocina = document.createElement("td");
+                                tdTipoCocina.appendChild(document.createTextNode(
+                                    tipoCocinaMap
+                                        .get(pedido.tipoCocinaIdTipoCocina)
+                                        .nombre
+                                ));
+                                tr.appendChild(tdTipoCocina);
+
+                                let tdTipoEntrega = document.createElement("td");
+                                tdTipoEntrega.appendChild(document.createTextNode(
+                                    tipoEntregaMap
+                                        .get(pedido.tipoEntregaIdTipoEntrega)
+                                        .nombre
+                                ));
+                                tr.appendChild(tdTipoEntrega);
+
+                                let tdFecha = document.createElement("td");
+                                tdFecha.appendChild(document.createTextNode(
+                                    pedido.fecha
+                                ));
+                                tr.appendChild(tdFecha);
+
+                                let tdInfo = document.createElement("button");
+                                tdInfo.type = "button";
+                                tdInfo.classList.add("btn-primary");
+                                tdInfo.setAttribute("data-toggle", "modal");
+                                tdInfo.setAttribute("data-target", "#exampleModal");
+                                tdInfo.textContent = "+";
+                                tr.appendChild(tdInfo);
+                                tbody.appendChild(tr);
+
+                                let tdCliente = pedido.clienteIdCliente;
+                                document.getElementById("cliente").innerText = tdCliente;
+                                let tdDireccion = pedido.direccionEnvio;
+                                document.getElementById("direccion").innerText = tdDireccion;
+                                let tdComentario = pedido.comentario;
+                                document.getElementById("comentario").innerText = tdComentario;
+
+                            });
+                        });
+                    })
+                    ;
+
             }
         </script>
 </body>
