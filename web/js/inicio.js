@@ -34,39 +34,40 @@ function performLogin() {
 
 				// Mirar si es Cliente o Restaurante.
 				fetch(`${restauranteUrl}/${jsonUsuario.idUsuario}`)
-				.then(response => response.json())
-				.then(jsonRestaurante => {
-					if (jsonRestaurante === null) {
-						alert("no es un restaurante, voy a ver si es un cliente");
+					.then(response => response.json())
+					.then(jsonRestaurante => {
+						if (jsonRestaurante === null) {
+							alert("no es un restaurante, voy a ver si es un cliente");
 
-						fetch(`${clienteUrl}/${jsonUsuario.idUsuario}`)
-						.then(response => response.json())
-						.then(jsonCliente => {
-							if (jsonCliente === null) {
-								alert("tampoco es un cliente? algo va mal");
-							} else {
-								alert("es un cliente!!!!! guardando datos");
-								localStorage.setItem(
-									"cliente",
-									JSON.stringify(jsonCliente)
-								);
-							}
-						})
-						.catch(err => {
-							console.log("Error en fetch de cliente: ", err);
-						});
-					} else {
-						alert("es un restaurante!!! guardando datos");
+							fetch(`${clienteUrl}/${jsonUsuario.idUsuario}`)
+							.then(response => response.json())
+							.then(jsonCliente => {
+								if (jsonCliente === null) {
+									alert("tampoco es un cliente? algo va mal");
+								} else {
+									alert("es un cliente!!!!! guardando datos");
+									localStorage.setItem(
+										"cliente",
+										JSON.stringify(jsonCliente)
+									);
+								}
+							})
+							.catch(err => {
+								console.log("Error en fetch de cliente: ", err);
+							});
+						} else {
+							alert("es un restaurante!!! guardando datos");
 
-						localStorage.setItem(
-							"restaurante",
-							JSON.stringify(jsonRestaurante)
-						);
-					}
-				})
-				.catch(err => {
-					console.log("Error en fetch de restaurante: ", err)
-				});
+							localStorage.setItem(
+								"restaurante",
+								JSON.stringify(jsonRestaurante)
+							);
+						}
+					})
+					.catch(err => {
+						console.log("Error en fetch de restaurante: ", err)
+					})
+				;
 			}
 		})
 		.catch(err => {
