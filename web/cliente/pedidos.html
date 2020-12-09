@@ -82,7 +82,8 @@
             </tbody>
         </table>
     </div>
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -91,7 +92,7 @@
                     <h4 class="modal-title">Modal with Dynamic Content</h4>
                 </div>
                 <div class="modal-body">
-    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -173,17 +174,16 @@
                     tr.appendChild(tdAceptado);
 
                     let tdInfo = document.createElement("button");
-                    tdInfo.classList.add("btn");
-                    tdInfo.classList.add("btn-info");
-                    tdInfo.textContent ="+";
-                    tdInfo.setAttribute("data-toggle","modal");
-                    tdInfo.setAttribute("data-target","myModal");
-
+                    tdInfo.classList.add("enviar");
+                    tdInfo.setAttribute("data-toggle", "modal");
+                    tdInfo.setAttribute("data-target", "exampleModal");
+                    tdInfo.setAttribute("id", "myBtn");
+                    tdInfo.textContent = "+";
                     tr.appendChild(tdInfo);
 
                     tbody.appendChild(tr);
 
-                
+
                 });
             }
         </script>
