@@ -49,12 +49,11 @@
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="dirección">Dirección</label>
-                    <input type="text" class="form-control" id="dirección" value="Carrer de Vidre, 7">
+                    <input type="text" class="form-control" id="direccion" value="Carrer de Vidre, 7">
                 </div>
                 <div class="form-group col col-12 col-md-6">
                     <label for="postal">Código Postal</label>
                     <select id="select-codigo-postal" class="form-control">
-                        <option value="" disable hidden></option>
                     </select>
                 </div>
             </div>
@@ -62,11 +61,11 @@
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="phone-number">Teléfono</label>
-                    <input type="text" pattern="^[0-9]{9}$" class="form-control" id="phone-number" value="645793250">
+                    <input type="text" pattern="^[0-9]{9}$" class="form-control" id="telefono" value="645793250">
                 </div>
                 <div class="form-group col col-12 col-md-6">
-                    <label for="Ciudad">Ciudad</label>
-                    <input type="text" class="form-control" id="ciudad" value="Barcelona">
+                    <label for="Ciudad">Población</label>
+                    <input type="text" class="form-control" id="poblacion" value="Barcelona">
                 </div>
             </div>
             <div class="row">
@@ -83,6 +82,29 @@
 
     <script src="./js/header_and_footer.js"></script>
     <script src="./cliente/cliente.js"></script>
+    <script>
+        /* document.addEventListener('DOMContentLoaded', function (event) {
+             loadTarjeta();
+         });
+
+         function loadTarjeta() {
+             fetch("http://localhost:8080/tarjeta/getById/1")
+                 .then(response => response.json())
+                 .then(json => {
+                     json.map(tarjeta => {
+                         console.log(tarjeta);
+                         document.getElementById("tarjeta").value = tarjeta.numero;
+                     });
+                 })
+                 .catch(asd => {
+                     console.log("catch!!");
+                 })
+                 ;
+         }*/
+
+
+
+    </script>
 </body>
 
 </html>

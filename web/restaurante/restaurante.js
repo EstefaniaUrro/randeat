@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function (event) {
-
     cargarOpcionesPaquete();
     createDeliveryOptions();
     getUlByIdAndApplyClasses("visibility-options");
@@ -96,5 +95,3 @@ function createDeliveryOptions() {
         ul.appendChild(createLiOptions(item[0], item[1]));
     });
 }
-
-
