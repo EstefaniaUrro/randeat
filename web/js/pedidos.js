@@ -1,4 +1,4 @@
-async function loadPaquetes() {
+async function loadPaquetesMap() {
 	const response = await fetch(
 		"http://localhost:8080/paquete/getAll"
 	);
@@ -38,6 +38,28 @@ function createIdElementMap(json, idAttributeName) {
 	return map;
 }
 
+function setPedidoPaquetesString(idPedido, tdPaquete, paquetesMap) {
+	fetch(
+		`http://localhost:8080/pedidoPaquete/getByIdPedido/${idPedido}`
+	).then(response => response.json())
+	.then(json => {
+		let paquetesPedidoString = "";
+
+		json.map(pedidoPaquete => {
+			let piece = `${pedidoPaquete.cantidad}x ${paquetesMap.get(pedidoPaquete.idPaquete).nombre}`;
+	
+			console.log("piece: ", piece);
+			paquetesPedidoString += piece + ", ";
+	
+			console.log("paquetesPedidoString: ", paquetesPedidoString);
+		});
+	
+		paquetesPedidoString = paquetesPedidoString.substring(0, paquetesPedidoString.length - 2);
+
+		tdPaquete.appendChild(document.createTextNode(paquetesPedidoString));
+	});
+}
+
 async function loadPedidosJson() {
 	let url = "";
 
@@ -63,16 +85,18 @@ function loadPedidos() {
 	Promise.all([
 		loadPedidosJson(),
 		loadTipoEntregaMap(),
-		loadTipoCocinaMap()
+		loadTipoCocinaMap(),
+		loadPaquetesMap()
 	]).then(values => {
 		let pedidosJson = values[0];
-		console.log(pedidosJson);
 		let tipoEntregaMap = values[1];
 		let tipoCocinaMap = values[2];
+		let paquetesMap = values[3];
 
 		let tbody = document.getElementsByTagName("tbody")[0];
 
 		pedidosJson.map(pedido => {
+			console.log("procesando paquetepedido: ", pedido);
 			let tr = document.createElement("tr");
 
 			let thIdPedido = document.createElement("th");
@@ -83,9 +107,9 @@ function loadPedidos() {
 			tr.appendChild(thIdPedido);
 	
 			let tdPaquete = document.createElement("td");
-			tdPaquete.appendChild(document.createTextNode(
-				"TODO"
-			));
+
+			setPedidoPaquetesString(pedido.idPedido, tdPaquete, paquetesMap);
+
 			tr.appendChild(tdPaquete);
 	
 			let tdTipoCocina = document.createElement("td");

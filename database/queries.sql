@@ -181,7 +181,9 @@ SELECT pedido.id_pedido, cliente.nombre_completo AS 'nombre_cliente', restaurant
     INNER JOIN usuario usuario_restaurante ON usuario_restaurante.id_usuario = restaurante.usuario_id_usuario
 ;
 
-INSERT INTO pedido_paquete VALUES (1, 5);
+INSERT INTO pedido_paquete VALUES (1, 5, 5);
+INSERT INTO pedido_paquete VALUES (1, 3, 3);
+INSERT INTO pedido_paquete VALUES (1, 2, 2);
 
 SELECT * FROM pedido;
 SELECT LAST_INSERT_ID();
