@@ -1,47 +1,36 @@
 const footerHTML = `
-<footer class="page-footer font-small blue-grey lighten-5 mt-auto">
-
-	<div class="footer-copyright text-center text-black-50 py-3 ">
-		<div class="col-12 col-md-12 col-lg-10 text-center text-md-center" style="margin: 0 auto;">
-			<div class="container">
-				<p class="row">
-					<span class="col-12 col-md-3"><i class="fas fa-home mr-3"></i>Barcelona, BCN 08003, ES</span>
-					<span class="col-12 col-md-3"><i class="fas fa-envelope mr-3"></i>randeat@randeat.com</span>
-					<span class="col-12 col-md-3"><i class="fas fa-phone mr-3"></i>+ 34 634 567 89</span>
-					<span class="col-1 col-md-1" style="margin: 0 auto;">
-						<a class="fb-ic" style="text-decoration: none;">
-							<i class="fab fa-facebook-f white-text mr-4"> </i>
-						</a>
-					</span>
-					<span class="col-1 col-md-1" style="margin: 0 auto;">
-						<a class="tw-ic" style="text-decoration: none;">
-							<i class="fab fa-twitter white-text mr-4"> </i>
-						</a>
-					</span>
-					<span class="col-1 col-md-1" style="margin: 0 auto;">
-						<a class="ins-ic" style="text-decoration: none;">
-							<i class="fab fa-instagram white-text"> </i>
-						</a>
-					</span>
-				</p>
-
-				<div class="group">
-
-				</div>
-			</div>
-		</div>
+<footer class="page-footer font-small mt-auto text-center py-3">
+    <div class="col-12 col-lg-10 mx-auto">
+        <div class="row">
+            <span class="col-12 col-md-4 col-lg-4">
+                <i class="fas fa-home mr-3"></i>Barcelona, 08003, España
+            </span>
+            <span class="col-12 col-md-4 col-lg-4">
+                <i class="fas fa-envelope mr-3"></i>randeat@randeat.com
+            </span>
+            <span class="col-12 col-md-4 col-lg-4">
+                <i class="fas fa-phone mr-3"></i>+ 34 634 567 89
+            </span>
+        </div>
+        <div class="row my-3 my-md-2">
+            <div class="col-4 d-flex justify-content-around mx-auto">
+                <a class="fb-ic" style="text-decoration: none;">
+                    <i class="fab fa-facebook-f white-text mr-4"> </i>
+                </a>
+                <a class="tw-ic" style="text-decoration: none;">
+                    <i class="fab fa-twitter white-text mr-4"> </i>
+                </a>
+                <a class="ins-ic" style="text-decoration: none;">
+                    <i class="fab fa-instagram white-text"> </i>
+                </a>
+            </div>
+        </div>
+    </div>
+	<div class="footer-copyright">
 		© 2020 Copyright: RandEat
 	</div>
 </footer>
 `;
-
-// const footerSmallHTML = `
-// <footer class="page-footer font-small blue-grey lighten-5 mt-auto">
-//     <div class="footer-copyright text-center text-black-50 py-3">
-//         © 2020 Copyright: RandEat
-//     </div>
-// </footer>
-// `;
 
 function createHeaderRestaurante(usuario, restaurante) {
 	return `
@@ -172,40 +161,13 @@ const footerBigHTML = `
             <div class="row mt-3 dark-grey-text">
 
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
-
-                    <!-- Content -->
-                    <h6 class="text-uppercase font-weight-bold">RandEat</h6>
-                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
-                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                        consectetur
-                        adipisicing elit.</p>
-
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-                    <!-- Links -->
-                    <h6 class="text-uppercase font-weight-bold">Tipos de comida</h6>
-                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
-                    <p>Turca</p>
-                    <p>Hambuerguesa</p>
-                    <p>Italiana</p>
-                    <p>China</p>
-
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
+                <div class="col-12 col-md-6 mx-auto mb-4">
 
                     <!-- Links -->
                     <h6 class="text-uppercase font-weight-bold">Cuenta</h6>
                     <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
                     <p>
-                        <a class="dark-grey-text" href="restaurante/restaurante.html">Iniciar Sesión/Registrate</a>
+                        <a class="dark-grey-text" href="./inicio.html">Iniciar sesión o regístrate como cliente</a>
                     </p>
                     <p>
                         <a class="dark-grey-text" href="registro.html">Únete como restaurante</a>
@@ -214,18 +176,18 @@ const footerBigHTML = `
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <div class="col-12 col-md-6 mx-auto mb-md-0 mb-4">
 
                     <!-- Links -->
                     <h6 class="text-uppercase font-weight-bold">Contactanos</h6>
                     <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 100%;">
                     <p>
-                        <i class="fas fa-home mr-3"></i> Barcelona, BCN 08003, ES</p>
+                        <i class="fas fa-home mr-3"></i> Barcelona, 08003, España</p>
                     <p>
                         <i class="fas fa-envelope mr-3"></i> randeat@randeat.com</p>
                     <p>
                         <i class="fas fa-phone mr-3"></i> + 34 634 567 89</p>
-                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+                    <div class="col-8 d-flex justify-content-around mx-auto">
 
                         <!-- Facebook -->
                         <a class="fb-ic">
