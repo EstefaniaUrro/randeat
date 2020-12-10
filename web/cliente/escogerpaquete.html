@@ -109,6 +109,7 @@
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete pequeño</h4>
                     </div>
                     <div class="card-body card-center">
+                        <p><span id="peque">15.99</span>€</p>
                         <p style="text-align: center;">Uno o dos entrantes </p>
                         <div style="text-align: center;">
                             <button id="resta2"
@@ -126,6 +127,7 @@
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete mediano</h4>
                     </div>
                     <div class="card-body card-center">
+                        <p><span id="mediano">5.55</span>€</p>
                         <p style="text-align: center;">Un plato principal</p>
                         <div style="text-align: center;">
                             <button id="resta1"
@@ -143,6 +145,7 @@
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete grande</h4>
                     </div>
                     <div class="card-body card-center">
+                        <p><span id="grande">30</span>€</p>
                         <p style="text-align: center;">Un entrante y un plato principal</p>
                         <div style="text-align: center;">
                             <button id="resta"
@@ -193,7 +196,7 @@
                                 <tr>
                                     <td>Paquete pequeño</td>
                                     <td class="text-center"><span id="cantidadPeque">0</span></td>
-                                    <td class="text-center"><span id="precioPeque">4.99</span>€</td>
+                                    <td class="text-center"><span id="precioPeque">0</span>€</td>
                                     <td class="text-center"><span id="subtotalPeque">0</span>€</td>
                                 </tr>
 
@@ -262,9 +265,12 @@
             var paqueteGrande = document.getElementById("paquetegrande").value;
             document.getElementById("cantidadGrande").innerText = paqueteGrande;
 
-            var precioPeque = document.getElementById("precioPeque").innerText;
-            var precioMediano = document.getElementById("precioMediano").innerText;
-            var precioGrande = document.getElementById("precioGrande").innerText;
+            var precioPeque = document.getElementById("peque").innerText;
+            document.getElementById("precioPeque").innerText = precioPeque;
+            var precioMediano = document.getElementById("mediano").innerText;
+            document.getElementById("precioMediano").innerText = precioMediano;
+            var precioGrande = document.getElementById("grande").innerText;
+            document.getElementById("precioGrande").innerText = precioGrande;
 
             var subtotalPeque = paquetePeque * precioPeque;
             var subtotalMediano = paqueteMediano * precioMediano;

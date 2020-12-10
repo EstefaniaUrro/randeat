@@ -94,6 +94,7 @@ fetch(urlCoste)
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete pequeño</h4>
                     </div>
                     <div class="card-body card-center">
+                    <p><span id="grande">${data[2].coste}</span>€</p>
                         <p style="text-align: center;">${data[2].coste} €</p>
                         <p style="text-align: center;">Uno o dos entrantes </p>
                         <div style="text-align: center;">
