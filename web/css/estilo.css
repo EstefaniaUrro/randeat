@@ -153,7 +153,6 @@ footer{
     margin-left: 0px !important;
 }
 
-  /* Slider */
 
 footer i {
     color: rgba(0, 0, 0, 0.5);
@@ -162,7 +161,19 @@ footer i {
 footer a i {
     font-size: 24px;
 }
-
+/* Slider */
+#slide_restaurantes{
+    text-align:center;
+    padding: 20px;
+  }
+  .slick-slide {
+      margin: 0px 20px;
+  }
+  
+  .slick-slide img {
+      width: 100%;
+  }
+  
   .slick-slider
   {
       position: relative;
