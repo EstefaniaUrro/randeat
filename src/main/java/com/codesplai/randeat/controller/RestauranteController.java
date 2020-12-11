@@ -3,17 +3,20 @@ package com.codesplai.randeat.controller;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.controller.wrapper.UsuarioRestauranteWrapper;
 import com.codesplai.randeat.modelo.Restaurante;
+import com.codesplai.randeat.modelo.Usuario;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -160,25 +163,40 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
-    @PostMapping("/add")
+    @GetMapping("/add/{jsonString}")
     public static Optional<Integer> add(
-        @RequestBody UsuarioRestauranteWrapper usuarioRestaurante
-    ) {
+        @PathVariable String jsonString
+    ) throws ParseException {
+        Map<String, Object> form = new JSONParser(jsonString).parseObject();
+
         // Doy de alta el Usuario. Si todo ha ido bien, tendré el idUsuario que
         // necesito para dar de alta el Restaurante.
-        int idUsuario = UsuarioController.add(
-            usuarioRestaurante.usuario
-        ).get();
+        Usuario usuario = new Usuario(
+            0,
+            (String) form.get("correoElectronico"),
+            (String) form.get("contrasena"),
+            (String) form.get("telefono"),
+            // TODO
+            // (String) form.get("poblacion"),
+            "Barcelona",
+            (String) form.get("direccion")
+        );
+
+        int idUsuario = UsuarioController
+            .add(usuario)
+            .get()
+        ;
 
         return DBConn.executeInsert(
             INSERT,
             new Object[][] {
                 {1, idUsuario},
-                {2, usuarioRestaurante.restaurante.getCif()},
-                {3, usuarioRestaurante.restaurante.getIban()},
-                {4, usuarioRestaurante.restaurante.getNombreRestaurante()},
-                {5, usuarioRestaurante.restaurante.getNombrePropietario()},
-                {6, usuarioRestaurante.restaurante.getCodigoPostalIdCodigoPostal()}
+                {2, (String) form.get("cif")},
+                {3, (String) form.get("iban")},
+                {4, (String) form.get("nombreRestaurante")},
+                {5, (String) form.get("nombrePropietario")},
+                // TODO idCodigoPostal
+                {6, 1}
             }
         );
     }

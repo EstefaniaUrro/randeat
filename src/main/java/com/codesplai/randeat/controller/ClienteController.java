@@ -81,35 +81,30 @@ public class ClienteController implements FromResultSet<Cliente> {
     ) throws ParseException {
         Map<String, Object> form = new JSONParser(jsonString).parseObject();
 
+        // Doy de alta el Usuario. Si todo ha ido bien, tendré el idUsuario que
+        // necesito para dar de alta el Cliente.
         Usuario usuario = new Usuario(
             0,
             (String) form.get("correoElectronico"),
             (String) form.get("contrasena"),
             (String) form.get("telefono"),
+            // TODO
             "Barcelona",
             (String) form.get("direccion")
         );
 
-        // Doy de alta el Usuario. Si todo ha ido bien, tendré el idUsuario que
-        // necesito para dar de alta el Cliente.
         int idUsuario = UsuarioController
             .add(usuario)
             .get()
         ;
 
-        Cliente cliente = new Cliente(
-            0,
-            0,
-            (String) form.get("nombreCompleto"),
-            1
-        );
-
         return DBConn.executeInsert(
             INSERT,
             new Object[][] {
                  {1, idUsuario},
-                 {2, cliente.getNombreCompleto()},
-                 {3, cliente.getCodigoPostalIdCodigoPostal()}
+                 {2, (String) form.get("nombreCompleto")},
+                 // TODO idCodigoPostal
+                 {3, 1}
             }
         );
     }

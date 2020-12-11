@@ -57,66 +57,93 @@
 				1</label>
 			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Paso 2</label>
 			<div class="login-form">
-				<form method="POST" action="">
+				<form name="registro-restaurante">
 					<div class="sign-in-htm">
+
 						<div class="group">
-							<label for="nombre" class="label">Nombre del restaurante</label>
-							<input id="nombre" type="text" class="input">
+							<label for="nombre-restaurante" class="label">
+								Nombre del restaurante
+							</label>
+							<input id="nombre-restaurante" type="text" class="input">
 						</div>
+
 						<div class="group">
 							<label for="cif" class="label">CIF</label>
 							<input id="cif" type="number" class="input">
 						</div>
+
 						<div class="group">
-							<label for="postal" class="label">Código postal</label>
-							<select name="postal" id="postal" class="input">
+							<label for="iban" class="label">IBAN</label>
+							<input id="iban" type="number" class="input">
+						</div>
+
+						<div class="group">
+							<label for="codigo-postal" class="label">
+								Código postal
+							</label>
+							<select name="codigo-postal" id="postal" class="input">
 								<option value="postal" disable hidden>Por favor seleccina</option>
 							</select>
 						</div>
+
 						<div class="group">
-							<label for="direccion" class="label">Dirección del restaurante</label>
+							<label for="direccion" class="label">
+								Dirección del restaurante
+							</label>
 							<input id="direccion" type="text" class="input">
 						</div>
+
 						<div class="group">
-							<label for="cocina" class="label">Tipo de cocina</label>
-							<select name="cocina" id="cocina" class="input">
+							<label for="tipo-cocina" class="label">
+								Tipo de cocina
+							</label>
+							<select name="tipo-cocina" id="tipo-cocina" class="input">
 								<option value="seleciona" disable hidden>Por favor seleciona</option>
 							</select>
 						</div>
+
 						<div class="group">
-							<label for="domicilio" class="label">¿Tienes servicio a domicilio?</label>
-							<select name="domicilio" id="domicilio" class="input">
+							<label for="tipos-entrega" class="label">
+								Tipos de entrega
+							</label>
+							<select name="tipos-entrega" id="tipo-entrega" class="input">
 								<option value="seleciona" disable hidden>Por favor seleciona</option>
-								<option value="opcion1">Envio y recogida</option>
-								<option value="opcion2">Solo recogida</option>
-								<option value="opcion3">Solo envio a domicilio</option>
+								<option value="opcion1">Envío y recogida</option>
+								<option value="opcion2">Sólo recogida</option>
+								<option value="opcion3">Sólo envío a domicilio</option>
 							</select>
 						</div>
 					</div>
 
 					<div class="sign-up-htm">
 						<div class="group">
-							<label for="nombre" class="label">Nombre completo del propietario</label>
-							<input id="nombre" type="text" class="input">
+							<label for="nombre-propietario" class="label">
+								Nombre completo del propietario
+							</label>
+							<input id="nombre-propietario" type="text" class="input">
 						</div>
 						<div class="group">
-							<label for="pass" class="label">Contraseña</label>
-							<input id="pass" type="password" class="input" data-type="password">
+							<label for="contrasena1" class="label">
+								Contraseña
+							</label>
+							<input id="contrasena1" type="password" class="input" data-type="password">
 						</div>
 						<div class="group">
-							<label for="pass" class="label">Correo Electronico del restaurante</label>
-							<input id="pass" type="email" class="input">
+							<label for="email" class="label">
+								Correo electrónico
+							</label>
+							<input id="email" type="email" class="input">
 						</div>
 						<div class="group">
-							<label for="pass" class="label">Teléfono del restaurante</label>
-							<input id="pass" type="number" class="input">
+							<label for="telefono" class="label">Teléfono</label>
+							<input id="telefono" type="number" class="input">
 						</div>
 						<div class="group">
-							<label for="Ciudad" class="label">Ciudad</label>
-							<input id="diudad" type="text" class="input">
+							<label for="población" class="label">Población</label>
+							<input id="población" type="text" class="input">
 						</div>
 						<div class="group">
-							<input type="submit" class="button" value="Crear cuenta">
+							<input type="button" class="button" value="Crear cuenta" onclick="javascript:performRegistroRestaurante();">
 						</div>
 					</div>
 				</form>
@@ -125,6 +152,8 @@
 	</div>
 	<br>
 	<br>
+
+	<script src="./js/inicio.js"></script>
 </body>
 
 </html>

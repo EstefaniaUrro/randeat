@@ -97,23 +97,26 @@ function performLogin() {
 	}
 }
 
-function performRegistro() {
+function performRegistroCliente() {
 	let form = document.forms["register"];
 
+	let email = form["email"].value;
+	let password = form["contrasena1"].value;
+
 	let responseBody = `
-	{
-		"idUsuario": 0,
-		"correoElectronico": "${form["email"].value}",
-		"contrasena": "${form["contrasena1"].value}",
-		"telefono": "${form["telefono"].value}",
-		"poblacion": "Barcelona",
-		"direccion": "${form["direccion"].value}",
-		"idCliente": 0,
-		"usuarioIdUsuario": 0,
-		"nombreCompleto": "${form["nombre"].value}",
-		"codigoPostalIdCodigoPostal": 1
-	}
-`;
+		{
+			"idUsuario": 0,
+			"correoElectronico": "${email}",
+			"contrasena": "${password}",
+			"telefono": "${form["telefono"].value}",
+			"poblacion": "Barcelona",
+			"direccion": "${form["direccion"].value}",
+			"idCliente": 0,
+			"usuarioIdUsuario": 0,
+			"nombreCompleto": "${form["nombre"].value}",
+			"codigoPostalIdCodigoPostal": 1
+		}
+	`;
 
 	console.log(JSON.parse(responseBody));
 
@@ -135,13 +138,19 @@ function performRegistro() {
 
 			alert("usuario+cliente registrado correctamente");
 
-			fetchUsuario(form["email"].value, form["contrasena1"].value)
+			fetchUsuario(email, password)
 				.then(jsonUsuario => {
-					localStorage.setItem("usuario", JSON.stringify(jsonUsuario));
+					localStorage.setItem(
+						"usuario",
+						JSON.stringify(jsonUsuario)
+					);
 
 					fetchClienteByIdUsuario(jsonUsuario.idUsuario)
 						.then(jsonCliente => {
-							localStorage.setItem("cliente", JSON.stringify(jsonCliente));
+							localStorage.setItem(
+								"cliente",
+								JSON.stringify(jsonCliente)
+							);
 
 							goToMainPage();
 						})
@@ -160,5 +169,81 @@ function performRegistro() {
 			alert("Error durante el proceso de registro, revisa los datos y vuelve a intentarlo.");
 		})
 	;
+}
 
+function performRegistroRestaurante() {
+	let form = document.forms["registro-restaurante"];
+
+	let email = form["email"].value;
+	let password = form["contrasena1"].value;
+
+	// TODO codigo postal tipo entrega tipo cocina población
+	let responseBody = `
+		{
+			"correoElectronico": "${email}",
+			"contrasena": "${password}",
+			"telefono": "${form["telefono"].value}",
+			"poblacion": "Barcelona",
+
+			"nombreRestaurante": "${form["nombre-restaurante"].value}",
+			"cif": "${form["cif"].value}",
+			"iban": "${form["iban"].value}",
+			"codigoPostalIdCodigoPostal": 1,
+			"direccion": "${form["direccion"].value}",
+			"nombrePropietario": "${form["nombre-propietario"].value}"
+		}
+	`;
+
+	console.log(JSON.parse(responseBody));
+
+	const url = `http://localhost:8080/restaurante/add/${responseBody}`;
+
+	const options = {
+		"method": "GET",
+		// "body": responseBody,
+		"headers": {
+			"Content-Type": "application/json",
+			"Access-Control-Allow-Origin": "*"
+		}
+	};
+
+	fetch(url, options)
+		.then(response => response.json())
+		.then(json => {
+			console.log(json);
+
+			alert("usuario+restaurante registrado correctamente");
+
+			fetchUsuario(email, password)
+				.then(jsonUsuario => {
+					localStorage.setItem(
+						"usuario",
+						JSON.stringify(jsonUsuario)
+					);
+
+					fetchRestauranteByIdUsuario(jsonUsuario.idUsuario)
+						.then(jsonRestaurante => {
+							console.log("then restaurante: ", jsonRestaurante);
+							localStorage.setItem(
+								"restaurante",
+								JSON.stringify(jsonRestaurante)
+							);
+
+							goToMainPage();
+						})
+						.catch(err => {
+							alert("error fetch restaurante registrado");
+						})
+					;
+				})
+				.catch(err => {
+					alert("error fetch usuario registrado");
+				})
+			;
+		})
+		.catch(err => {
+			console.log("err: ", err);
+			alert("Error durante el proceso de registro, revisa los datos y vuelve a intentarlo.");
+		})
+	;
 }
