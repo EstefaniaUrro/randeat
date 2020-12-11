@@ -13,8 +13,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<link rel="stylesheet" type="text/css" href="css/inicio-registro.css">
+	<link rel="stylesheet" type="text/css" href="./css/inicio-registro.css">
+	<link rel="stylesheet" type="text/css" href="./css/estilo.css">
 
 
 	<!-- jQuery and JS bundle w/ Popper.js -->
@@ -30,26 +30,7 @@
 </head>
 
 <body>
-	<!-- Nav -->
-	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="index.html">
-				<img src="img/logo.png" width="130" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<i class="fas fa-bars" style="color: #ffa600;"></i>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="index.html"><i class="fas fa-info"></i> Información</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</div>
-	<!-- Nav -->
+	<div id="header"></div>
 
 	<div class="login-wrap">
 		<div class="login-html">
@@ -81,23 +62,23 @@
 							<label for="codigo-postal" class="label">
 								Código postal
 							</label>
-							<select name="codigo-postal" id="postal" class="input">
+							<select name="codigo-postal" id="codigo-postal" class="input">
 								<option value="postal" disable hidden>Por favor seleccina</option>
 							</select>
 						</div>
 
 						<div class="group">
 							<label for="direccion" class="label">
-								Dirección del restaurante
+								Dirección
 							</label>
 							<input id="direccion" type="text" class="input">
 						</div>
 
 						<div class="group">
-							<label for="tipo-cocina" class="label">
-								Tipo de cocina
+							<label for="tipos-cocina" class="label">
+								Tipos de cocina
 							</label>
-							<select name="tipo-cocina" id="tipo-cocina" class="input">
+							<select name="tipos-cocina" id="tipos-cocina" class="input">
 								<option value="seleciona" disable hidden>Por favor seleciona</option>
 							</select>
 						</div>
@@ -106,11 +87,8 @@
 							<label for="tipos-entrega" class="label">
 								Tipos de entrega
 							</label>
-							<select name="tipos-entrega" id="tipo-entrega" class="input">
+							<select name="tipos-entrega" id="tipos-entrega" class="input">
 								<option value="seleciona" disable hidden>Por favor seleciona</option>
-								<option value="opcion1">Envío y recogida</option>
-								<option value="opcion2">Sólo recogida</option>
-								<option value="opcion3">Sólo envío a domicilio</option>
 							</select>
 						</div>
 					</div>
@@ -138,10 +116,14 @@
 							<label for="telefono" class="label">Teléfono</label>
 							<input id="telefono" type="number" class="input">
 						</div>
+
 						<div class="group">
-							<label for="población" class="label">Población</label>
-							<input id="población" type="text" class="input">
+							<label for="poblacion" class="label">
+								Población
+							</label>
+							<input id="poblacion" type="text" class="input" value="Barcelona" disabled>
 						</div>
+
 						<div class="group">
 							<input type="button" class="button" value="Crear cuenta" onclick="javascript:performRegistroRestaurante();">
 						</div>
@@ -153,7 +135,11 @@
 	<br>
 	<br>
 
-	<script src="./js/inicio.js"></script>
+	<div id="footer"></div>
+
+	<script src="./js/header_and_footer.js"></script>
+	<script src="./js/inicio_registro.js"></script>
+	<script src="./js/registro_restaurante.js"></script>
 </body>
 
 </html>

@@ -21,15 +21,34 @@ async function fetchRestauranteByIdUsuario(idUsuario) {
 	return await response.json();
 }
 
+async function fetchCodigosPostales() {
+	const r = await fetch("http://localhost:8080/codigoPostal/getAll");
+	return await r.json();
+}
+
+
+function showRestaurantForm() {
+	let restaurantForms = document.getElementsByClassName("restaurant-form");
+
+	for (let i = 0; i < restaurantForms.length; i += 1) {
+		let restaurantForm = restaurantForms.item(i);
+
+		restaurantForm.getElementsByClassName("restaurant-input")[0].toggleAttribute("required");
+
+		restaurantForm.classList.toggle("d-none");
+	}
+}
+
+
 function performLogin() {
 	localStorage.clear();
 
 	let form = document.forms["login"];
 
-	let email = form["email"].value;
+	let email = form.email.value;
 	console.log("email: ", email);
 
-	let password = form["password"].value;
+	let password = form.password.value;
 	console.log("password: ", password);
 
 	if (email === "" || password === "") {
@@ -97,30 +116,19 @@ function performLogin() {
 	}
 }
 
-function performRegistroCliente() {
-	let form = document.forms["register"];
 
-	let email = form["email"].value;
-	let password = form["contrasena1"].value;
+function performRegistroCliente(form, jsonString) {
+	let email = form.email.value;
+	let password = form.contrasena1.value;
 
-	let responseBody = `
-		{
-			"idUsuario": 0,
-			"correoElectronico": "${email}",
-			"contrasena": "${password}",
-			"telefono": "${form["telefono"].value}",
-			"poblacion": "Barcelona",
-			"direccion": "${form["direccion"].value}",
-			"idCliente": 0,
-			"usuarioIdUsuario": 0,
-			"nombreCompleto": "${form["nombre"].value}",
-			"codigoPostalIdCodigoPostal": 1
+	jsonString += `
+			"nombreCompleto": "${form["nombre"].value}"
 		}
 	`;
 
-	console.log(JSON.parse(responseBody));
+	console.log(JSON.parse(jsonString));
 
-	const url = `http://localhost:8080/cliente/add/${responseBody}`;
+	const url = `http://localhost:8080/cliente/add/${jsonString}`;
 
 	const options = {
 		"method": "GET",
@@ -171,32 +179,22 @@ function performRegistroCliente() {
 	;
 }
 
-function performRegistroRestaurante() {
-	let form = document.forms["registro-restaurante"];
-
-	let email = form["email"].value;
-	let password = form["contrasena1"].value;
+function performRegistroRestaurante(form, jsonString) {
+	let email = form.email.value;
+	let password = form.contrasena1.value;
 
 	// TODO codigo postal tipo entrega tipo cocina población
-	let responseBody = `
-		{
-			"correoElectronico": "${email}",
-			"contrasena": "${password}",
-			"telefono": "${form["telefono"].value}",
-			"poblacion": "Barcelona",
-
-			"nombreRestaurante": "${form["nombre-restaurante"].value}",
+	jsonString += `
+			"nombreRestaurante": "${form["nombre"].value}",
 			"cif": "${form["cif"].value}",
 			"iban": "${form["iban"].value}",
-			"codigoPostalIdCodigoPostal": 1,
-			"direccion": "${form["direccion"].value}",
 			"nombrePropietario": "${form["nombre-propietario"].value}"
 		}
 	`;
 
-	console.log(JSON.parse(responseBody));
+	console.log(JSON.parse(jsonString));
 
-	const url = `http://localhost:8080/restaurante/add/${responseBody}`;
+	const url = `http://localhost:8080/restaurante/add/${jsonString}`;
 
 	const options = {
 		"method": "GET",
@@ -247,3 +245,58 @@ function performRegistroRestaurante() {
 		})
 	;
 }
+
+function performRegistro() {
+	console.log(document.forms);
+	console.log(document.forms["registro"]);
+	console.log(document.forms["registro"].email.value);
+	let form = document.forms["registro"];
+
+	let email = form.email.value;
+	let password = form.contrasena1.value;
+
+	let restauranteCheckbox = form["restaurante"];
+
+	let jsonString  = `
+		{
+			"correoElectronico": "${email}",
+			"contrasena": "${password}",
+			"telefono": "${form["telefono"].value}",
+			"poblacion": "${form["poblacion"].value}",
+			"direccion": "${form["direccion"].value}",
+			"idCodigoPostal": ${form["codigo-postal"].value},
+	`;
+
+	if (restauranteCheckbox.checked) {
+		alert('checked');
+
+		performRegistroRestaurante(form, jsonString);
+	} else {
+		alert('else');
+
+		performRegistroCliente(form, jsonString);
+	}
+}
+
+
+document.addEventListener('DOMContentLoaded', function (event) {
+	// TODO
+	// document.getElementById("restaurante").checked = false;
+
+	let restauranteCheckbox = document.getElementById("restaurante");
+	if (restauranteCheckbox !== null) {
+		restauranteCheckbox.checked = false;
+	}
+	
+	fetchCodigosPostales().then(json => {
+		let codigoPostalSelect = document.getElementById("codigo-postal");
+	
+		json.map(codigoPostal => {
+			let option = document.createElement("option");
+			option.value = codigoPostal.idCodigoPostal;
+			option.innerHTML = codigoPostal.numero;
+	
+			codigoPostalSelect.appendChild(option);
+		});
+	});
+});
