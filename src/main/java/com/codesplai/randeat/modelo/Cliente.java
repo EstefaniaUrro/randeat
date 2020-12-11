@@ -6,11 +6,12 @@ public class Cliente {
     private String nombreCompleto;
     private int codigoPostalIdCodigoPostal;
 
-    public Cliente() {
-
-    }
-
-    public Cliente(int idCliente, int usuarioIdUsuario, String nombreCompleto, int codigoPostalIdCodigoPostal) {
+    public Cliente(
+        int idCliente,
+        int usuarioIdUsuario,
+        String nombreCompleto,
+        int codigoPostalIdCodigoPostal
+    ) {
         this.idCliente = idCliente;
         this.usuarioIdUsuario = usuarioIdUsuario;
         this.nombreCompleto = nombreCompleto;
@@ -40,6 +41,7 @@ public class Cliente {
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
     }
+
     public int getCodigoPostalIdCodigoPostal() {
         return this.codigoPostalIdCodigoPostal;
     }

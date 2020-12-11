@@ -8,10 +8,6 @@ public class Usuario {
     private String poblacion;
     private String direccion;
 
-    public Usuario() {
-
-    }
-
     public Usuario(
         int idUsuario,
         String correoElectronico,

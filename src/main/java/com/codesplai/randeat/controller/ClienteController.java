@@ -2,17 +2,20 @@ package com.codesplai.randeat.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.controller.wrapper.UsuarioClienteWrapper;
 import com.codesplai.randeat.modelo.Cliente;
+import com.codesplai.randeat.modelo.Usuario;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +46,7 @@ public class ClienteController implements FromResultSet<Cliente> {
 
     private static final String UPDATE = String.format(
         "UPDATE %s set %s=?, %s=?, %s=? WHERE %s=?",
-        TABLE, USUARIO_ID_USUARIO,NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL, ID_CLIENTE
+        TABLE, USUARIO_ID_USUARIO, NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL, ID_CLIENTE
     );
 
     @GetMapping("/getById/{idCliente}")
@@ -72,22 +75,41 @@ public class ClienteController implements FromResultSet<Cliente> {
         );
     }
 
-    @PostMapping("/add")
+    @GetMapping("/add/{jsonString}")
     public static Optional<Integer> add(
-        @RequestBody UsuarioClienteWrapper usuarioCliente
-    ) {
+        @PathVariable String jsonString
+    ) throws ParseException {
+        Map<String, Object> form = new JSONParser(jsonString).parseObject();
+
+        Usuario usuario = new Usuario(
+            0,
+            (String) form.get("correoElectronico"),
+            (String) form.get("contrasena"),
+            (String) form.get("telefono"),
+            "Barcelona",
+            (String) form.get("direccion")
+        );
+
         // Doy de alta el Usuario. Si todo ha ido bien, tendré el idUsuario que
         // necesito para dar de alta el Cliente.
-        int idUsuario = UsuarioController.add(
-            usuarioCliente.usuario
-        ).get();
+        int idUsuario = UsuarioController
+            .add(usuario)
+            .get()
+        ;
+
+        Cliente cliente = new Cliente(
+            0,
+            0,
+            (String) form.get("nombreCompleto"),
+            1
+        );
 
         return DBConn.executeInsert(
             INSERT,
             new Object[][] {
                  {1, idUsuario},
-                 {2, usuarioCliente.cliente.getNombreCompleto()},
-                 {3, usuarioCliente.cliente.getCodigoPostalIdCodigoPostal()}
+                 {2, cliente.getNombreCompleto()},
+                 {3, cliente.getCodigoPostalIdCodigoPostal()}
             }
         );
     }
