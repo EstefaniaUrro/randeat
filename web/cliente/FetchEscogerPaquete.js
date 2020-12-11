@@ -1,5 +1,5 @@
 const url = 'http://localhost:8080/restaurante/getInFilter?idCodigoPostal=1&idTipoCocina=1&idTipoEntrega=1'
-const urlCoste = 'http://localhost:8080/restaurantePaquete/getByIdRestaurante/4'
+
 
 //seguimos trabajando en ello
 /*fetch(urlPrecio)
@@ -7,10 +7,12 @@ const urlCoste = 'http://localhost:8080/restaurantePaquete/getByIdRestaurante/4'
 .then(data => {
     let restaurantePrecio = data.coste;
 */
+let ordenRestaurante = Math.floor(Math.random()*(2-0)+0)
+
 fetch(url)
 .then(response => response.json())
 .then(data => {
-  let ordenRestaurante = Math.floor(Math.random()*(2-0)+0)
+  
   let restaurante = document.getElementById("restaurante")
   restaurante.innerHTML += `
            
@@ -39,6 +41,8 @@ fetch(url)
   console.log(data)
 })
 .catch(err => console.log(err));
+
+const urlCoste = 'http://localhost:8080/restaurantePaquete/getByIdRestaurante/'+ ordenRestaurante+1;
 
 fetch(urlCoste)
             .then(response => response.json())
@@ -94,7 +98,6 @@ fetch(urlCoste)
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete pequeño</h4>
                     </div>
                     <div class="card-body card-center">
-                    <p><span id="grande">${data[2].coste}</span>€</p>
                         <p style="text-align: center;">${data[2].coste} €</p>
                         <p style="text-align: center;">Uno o dos entrantes </p>
                         <div style="text-align: center;">
@@ -144,24 +147,24 @@ fetch(urlCoste)
                                 <tr>
                                     <td>Paquete grande</td>
                                     <td>1</td>
-                                    <td>15€</td>
+                                    <td>${data[2].coste}</td>
                                 </tr>
                                 <tr>
                                     <td>Paquete mediano</td>
                                     <td>0</td>
-                                    <td>10€</td>
+                                    <td>${data[1].coste}</td>
                                 </tr>
                                 <tr>
                                     <td>Paquete pequeño</td>
                                     <td>3</td>
-                                    <td>5€</td>
+                                    <td>${data[0].coste}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Precio Total</th>
                                     <th></th>
-                                    <th colspan="2">30€</th>
+                                    <th colspan="2">${data[0].coste + data[1].coste + data[2].coste}</th>
                                 </tr>
                                 </tfood>
                         </table>
