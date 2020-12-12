@@ -88,8 +88,7 @@ public class ClienteController implements FromResultSet<Cliente> {
             (String) form.get("correoElectronico"),
             (String) form.get("contrasena"),
             (String) form.get("telefono"),
-            // TODO
-            "Barcelona",
+            (String) form.get("poblacion"),
             (String) form.get("direccion")
         );
 
@@ -103,8 +102,7 @@ public class ClienteController implements FromResultSet<Cliente> {
             new Object[][] {
                  {1, idUsuario},
                  {2, (String) form.get("nombreCompleto")},
-                 // TODO idCodigoPostal
-                 {3, 1}
+                 {3, (Integer) form.get("idCodigoPostal")}
             }
         );
     }

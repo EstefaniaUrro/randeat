@@ -176,9 +176,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
             (String) form.get("correoElectronico"),
             (String) form.get("contrasena"),
             (String) form.get("telefono"),
-            // TODO
-            // (String) form.get("poblacion"),
-            "Barcelona",
+            (String) form.get("poblacion"),
             (String) form.get("direccion")
         );
 
@@ -195,8 +193,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
                 {3, (String) form.get("iban")},
                 {4, (String) form.get("nombreRestaurante")},
                 {5, (String) form.get("nombrePropietario")},
-                // TODO idCodigoPostal
-                {6, 1}
+                {6, (Integer) form.get("idCodigoPostal")}
             }
         );
     }

@@ -137,6 +137,11 @@ nav{
         height: 425px;
     position: relative;
 }
+@media (max-width: 500px) {
+    .carousel-item img{
+        height: 225px;
+    }
+}
 #rest{
     background-color: white;
 }

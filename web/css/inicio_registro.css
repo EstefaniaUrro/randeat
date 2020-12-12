@@ -1,0 +1,12 @@
+button {
+	background-color: orange !important;
+}
+
+.tab-pane.active:hover {
+	background-color: unset;
+}
+
+.form-control:focus {
+	border-color: rgb(255, 166, 0) !important;
+	box-shadow: 0 0 0 0.2rem rgba(255, 166, 0, 0.651) !important;
+}
