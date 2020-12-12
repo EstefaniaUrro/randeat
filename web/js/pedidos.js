@@ -42,22 +42,22 @@ function setPedidoPaquetesString(idPedido, tdPaquete, paquetesMap) {
 	fetch(
 		`http://localhost:8080/pedidoPaquete/getByIdPedido/${idPedido}`
 	).then(response => response.json())
-	.then(json => {
-		let paquetesPedidoString = "";
+		.then(json => {
+			let paquetesPedidoString = "";
 
-		json.map(pedidoPaquete => {
-			let piece = `${pedidoPaquete.cantidad}x ${paquetesMap.get(pedidoPaquete.idPaquete).nombre}`;
-	
-			console.log("piece: ", piece);
-			paquetesPedidoString += piece + ", ";
-	
-			console.log("paquetesPedidoString: ", paquetesPedidoString);
+			json.map(pedidoPaquete => {
+				let piece = `${pedidoPaquete.cantidad} x ${paquetesMap.get(pedidoPaquete.idPedido).nombre}`;
+
+				console.log("piece: ", piece);
+				paquetesPedidoString += piece + ", ";
+
+				console.log("paquetesPedidoString: ", paquetesPedidoString);
+			});
+
+			paquetesPedidoString = paquetesPedidoString.substring(0, paquetesPedidoString.length - 2);
+
+			tdPaquete.appendChild(document.createTextNode(paquetesPedidoString));
 		});
-	
-		paquetesPedidoString = paquetesPedidoString.substring(0, paquetesPedidoString.length - 2);
-
-		tdPaquete.appendChild(document.createTextNode(paquetesPedidoString));
-	});
 }
 
 async function loadPedidosJson() {
@@ -105,13 +105,13 @@ function loadPedidos() {
 				pedido.idPedido
 			));
 			tr.appendChild(thIdPedido);
-	
+
 			let tdPaquete = document.createElement("td");
 
 			setPedidoPaquetesString(pedido.idPedido, tdPaquete, paquetesMap);
 
 			tr.appendChild(tdPaquete);
-	
+
 			let tdTipoCocina = document.createElement("td");
 			tdTipoCocina.appendChild(document.createTextNode(
 				tipoCocinaMap
@@ -119,7 +119,7 @@ function loadPedidos() {
 					.nombre
 			));
 			tr.appendChild(tdTipoCocina);
-	
+
 			let tdTipoEntrega = document.createElement("td");
 			tdTipoEntrega.appendChild(document.createTextNode(
 				tipoEntregaMap
@@ -127,19 +127,45 @@ function loadPedidos() {
 					.nombre
 			));
 			tr.appendChild(tdTipoEntrega);
-	
+
 			// TODO Formateo manualmente la fecha para eliminar los segundos y reemplazar la T que separa la fecha del tiempo por un espacio.
 			let fecha = pedido.fecha
 				.replace("T", " ")
 				.substring(0, pedido.fecha.length - 3)
-			;
+				;
 			let tdFecha = document.createElement("td");
 			tdFecha.appendChild(document.createTextNode(
 				fecha
 			));
 			tr.appendChild(tdFecha);
-	
+
+			let tdInfo = document.createElement("button");
+			tdInfo.type = "button";
+			tdInfo.id = pedido.idPedido;
+			tdInfo.classList.add("btn-primary");
+			tdInfo.setAttribute("data-toggle", "modal");
+			let cliente = JSON.parse(localStorage.getItem("cliente"));
+			if (cliente !== null) {
+				tdInfo.setAttribute("data-target", "#modalCliente");
+			}
+			let restaurante = JSON.parse(localStorage.getItem("restaurante"));
+			if (restaurante !== null) {
+				tdInfo.setAttribute("data-target", "#modalRestaurante");
+			}
+			tdInfo.textContent = "+";
+			tr.appendChild(tdInfo);
 			tbody.appendChild(tr);
+
+			if (cliente !== null) {
+
+				document.getElementById("restaurante").innerText = pedido.restauranteIdRestaurante;
+				document.getElementById("direccion").innerText = pedido.direccionEnvio;
+				document.getElementById("comentario").innerText = pedido.comentario;
+			} if (restaurante !== null) {
+				document.getElementById("cliente").innerText = pedido.clienteIdCliente;
+				document.getElementById("direccionEnvio").innerText = pedido.direccionEnvio;
+				document.getElementById("comentarioCliente").innerText = pedido.comentario;
+			}
 		});
 	});
 }
