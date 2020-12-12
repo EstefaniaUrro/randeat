@@ -41,23 +41,26 @@ function createIdElementMap(json, idAttributeName) {
 function setPedidoPaquetesString(idPedido, tdPaquete, paquetesMap) {
 	fetch(
 		`http://localhost:8080/pedidoPaquete/getByIdPedido/${idPedido}`
-	).then(response => response.json())
-		.then(json => {
-			let paquetesPedidoString = "";
+	).then(
+		response => response.json()
+	).then(json => {
+		let paquetesPedidoString = "";
 
-			json.map(pedidoPaquete => {
-				let piece = `${pedidoPaquete.cantidad} x ${paquetesMap.get(pedidoPaquete.idPedido).nombre}`;
+		console.log("paquetesmap", paquetesMap);
 
-				console.log("piece: ", piece);
-				paquetesPedidoString += piece + ", ";
+		json.map(pedidoPaquete => {
+			let piece = `${pedidoPaquete.cantidad} x ${paquetesMap.get(pedidoPaquete.idPaquete).nombre}`;
 
-				console.log("paquetesPedidoString: ", paquetesPedidoString);
-			});
+			console.log("piece: ", piece);
+			paquetesPedidoString += piece + ", ";
 
-			paquetesPedidoString = paquetesPedidoString.substring(0, paquetesPedidoString.length - 2);
-
-			tdPaquete.appendChild(document.createTextNode(paquetesPedidoString));
+			console.log("paquetesPedidoString: ", paquetesPedidoString);
 		});
+
+		paquetesPedidoString = paquetesPedidoString.substring(0, paquetesPedidoString.length - 2);
+
+		tdPaquete.appendChild(document.createTextNode(paquetesPedidoString));
+	});
 }
 
 async function loadPedidosJson() {
