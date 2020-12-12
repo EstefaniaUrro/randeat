@@ -257,6 +257,8 @@ function performRegistro() {
 
 	let restauranteCheckbox = form["restaurante"];
 
+	console.log("idcopo", form["codigo-postal"].value);
+
 	let jsonString  = `
 		{
 			"correoElectronico": "${email}",
@@ -264,7 +266,7 @@ function performRegistro() {
 			"telefono": "${form["telefono"].value}",
 			"poblacion": "${form["poblacion"].value}",
 			"direccion": "${form["direccion"].value}",
-			"idCodigoPostal": ${form["codigo-postal"].value},
+			"idCodigoPostal": "${form["codigo-postal"].value}",
 	`;
 
 	if (restauranteCheckbox.checked) {

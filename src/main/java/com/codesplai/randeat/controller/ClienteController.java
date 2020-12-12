@@ -102,7 +102,7 @@ public class ClienteController implements FromResultSet<Cliente> {
             new Object[][] {
                  {1, idUsuario},
                  {2, (String) form.get("nombreCompleto")},
-                 {3, (Integer) form.get("idCodigoPostal")}
+                 {3, Integer.parseInt((String) form.get("idCodigoPostal"))}
             }
         );
     }

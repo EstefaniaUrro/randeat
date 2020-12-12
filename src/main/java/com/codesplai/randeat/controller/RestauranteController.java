@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
-import com.codesplai.randeat.controller.wrapper.UsuarioRestauranteWrapper;
 import com.codesplai.randeat.modelo.Restaurante;
 import com.codesplai.randeat.modelo.Usuario;
 
@@ -17,8 +16,6 @@ import org.apache.tomcat.util.json.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -193,7 +190,7 @@ public class RestauranteController implements FromResultSet<Restaurante> {
                 {3, (String) form.get("iban")},
                 {4, (String) form.get("nombreRestaurante")},
                 {5, (String) form.get("nombrePropietario")},
-                {6, (Integer) form.get("idCodigoPostal")}
+                {6, Integer.parseInt((String) form.get("idCodigoPostal"))}
             }
         );
     }
