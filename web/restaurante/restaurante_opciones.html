@@ -41,7 +41,9 @@
     <div class="container">
         <form id="restaurante-opciones">
             <h3>Tipo de cocina</h3>
-            <h6>Seleccione los tipos de cocina que tiene el restaurante</h6>
+            <p class="header-description">
+                Seleccione los tipos de cocina que tiene el restaurante
+            </p>
             <div class="col-md-8 mx-auto">
                 <select id="tipos-cocina" class="form-control w-100" multiple
                     title="No ha seleccinado nada">
@@ -51,50 +53,39 @@
             <div class="separator"></div>
 
             <h3>Paquetes</h3>
-            <h6>Seleccione los paquetes que ofreces en el restaurante</h6>
+            <p class="header-description">
+                Seleccione los paquetes que ofreces en el restaurante
+            </p>
             <ul id="package-options"></ul>
 
             <div class="separator"></div>
 
-            <!--<h3>Bebidas</h3>
-            <h6>Seleccione las bebidas que ofreces en el restaurante</h6>
-            <div class="col-md-8 offset-md-2">
-                <select class="selectpicker form-control" multiple data-selected-text-format="count > 3" data-size="4"
-                    title="No ha seleccinado nada" data-count-selected-text="{0} bebidas seleccinadas">
-                    <option>Coca-Cola</option>
-                    <option>Fanta naranja</option>
-                    <option>Fanta limón</option>
-                    <option>Pepsi</option>
-                    <option>7up</option>
-                    <option>Agua</option>
-                    <option>Agua de coco</option>
-                </select>
-            </div>
-            <div class="separator"></div>-->
-
             <h3>Modalidades de entrega</h3>
-            <h6>Seleccione las modalidades de entrega o envío del restaurante</h6>
+            <p class="header-description">
+                Seleccione las modalidades de entrega o envío del restaurante
+            </p>
             <ul class="container" id="delivery-options"></ul>
             <select id="tiposEntrega" multiple value="" hidden></select>
             
             <div class="separator"></div>
 
             <h3>Actividad</h3>
-            <h6>Active o Inactive el restaurante para se visualizado o no por los clientes</h6>
+            <p class="header-description">
+                Active el restaurante para que sea visible y acepte todos los pedidos.
+            </p>
             <ul class="container col-md-8" id="visibility-options">
-                <li id="visible" class="list-group-item list-group-item-action"
+                <li id="activo" class="list-group-item list-group-item-action"
                     onclick="javascript:toggleVisibilityOption(this);">
                     Restaurante activo
                 </li>
-                <li id="no-visible" class="list-group-item list-group-item-action red"
+                <li id="no-activo" class="list-group-item list-group-item-action"
                     onclick="javascript:toggleVisibilityOption(this);">
                     Restaurante inactivo
                 </li>
             </ul>
 
-            <div class="group offset-md-4">
-                <input type="reset" class="btn btn-danger col-12 col-md-3" id="cancelar" style="margin-bottom: 10px;">
-                <button type="button" class="btn btn-primary col-12 col-md-3 enviar" onclick="javascript:save()">Guardar</button>
+            <div class="group text-center mt-4">
+                <button type="button" class="btn btn-primary col-12 col-md-3 enviar" onclick="javascript:save();">Guardar</button>
             </div>
         </form>
     </div>

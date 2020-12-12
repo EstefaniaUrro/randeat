@@ -48,19 +48,32 @@ ul.list-group {
     padding-left: 10px !important;
     padding-right: 10px !important;
 }
+.list-group-item {
+    border-bottom: 1px solid rgb(100, 100, 100) !important;
+}
+.list-group-item:last-child {
+    border-bottom: unset !important;
+}
 
 ul.list-group *:hover {
     cursor: pointer;
 }
 
+/* Tipos entrega y paquetes en opciones restaurante */
 .selected {
     background-color: #ffaa30 !important;
     border-color: #ffaa30 !important;
+
 }
 .selected:hover{
     background-color:#ffa600;
     border-color: #ffa600;
 }
+
+.header-description {
+    text-align: center;
+}
+
 .active:hover{
     background-color:#ffa600;
     border-color: #ffa600;

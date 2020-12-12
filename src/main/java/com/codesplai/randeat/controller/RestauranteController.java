@@ -195,26 +195,52 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         );
     }
 
-    @PutMapping("/update")
     public static boolean update(
-        @RequestBody UsuarioRestauranteWrapper usuarioRestaurante
+        Restaurante restaurante
     ) {
-        UsuarioController.update(usuarioRestaurante.usuario);
-        
         DBConn.executeUpdateOrDelete(
             UPDATE,
             new Object[][] {
-                {1, usuarioRestaurante.restaurante.getCif()},
-                {2, usuarioRestaurante.restaurante.getIban()},
-                {3, usuarioRestaurante.restaurante.getNombreRestaurante()},
-                {4, usuarioRestaurante.restaurante.getNombrePropietario()},
-                {5, usuarioRestaurante.restaurante.getCodigoPostalIdCodigoPostal()},
-                {6, usuarioRestaurante.restaurante.isActivo()},
-                {7, usuarioRestaurante.restaurante.getIdRestaurante()}
+                {1, restaurante.getCif()},
+                {2, restaurante.getIban()},
+                {3, restaurante.getNombreRestaurante()},
+                {4, restaurante.getNombrePropietario()},
+                {5, restaurante.getCodigoPostalIdCodigoPostal()},
+                {6, restaurante.isActivo()},
+                {7, restaurante.getIdRestaurante()}
             }
         );
 
         return true;
+    }
+
+    @GetMapping("/setRestauranteOpciones/{jsonString}")
+    public static boolean setRestauranteOpciones(
+        @PathVariable String jsonString
+    ) throws ParseException {
+        Map<String, Object> form = new JSONParser(jsonString).parseObject();
+
+        boolean activo = (boolean) form.get("activo");
+        int idRestaurante = (int) form.get("idRestaurante");
+
+        RestauranteController.setActivo(idRestaurante, activo);
+
+        int[] idsTipoCocina = (int[]) form.get("idsTipoCocina");
+        System.out.println("idsTipoCocina:");
+        System.out.println(idsTipoCocina);
+
+        return true;
+    }
+
+    private static void setActivo(int idRestaurante, boolean activo) {
+        Restaurante restaurante = RestauranteController
+            .getById(idRestaurante)
+            .get()
+        ;
+
+        restaurante.setActivo(activo);
+
+        RestauranteController.update(restaurante);
     }
 
     @Override

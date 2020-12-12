@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', function (event) {
-    let idRestaurante = JSON.parse(
+    let restaurante = JSON.parse(
         localStorage.getItem("restaurante")
-    ).idRestaurante;
+    );
 
-    loadTiposCocina(idRestaurante);
-    loadRestaurantePaquetes(idRestaurante);
-    loadTiposEntrega(idRestaurante);
+    loadTiposCocina(restaurante.idRestaurante);
+    loadRestaurantePaquetes(restaurante.idRestaurante);
+    loadTiposEntrega(restaurante.idRestaurante);
     getUlByIdAndApplyClasses("visibility-options");
+    loadActivo(restaurante.activo);
 
 });
 function selectLiOption(element) {
@@ -14,16 +15,29 @@ function selectLiOption(element) {
 }
 
 function toggleVisibilityOption(element) {
-    if (element.id === "visible" && !element.classList.contains("green")) {
-        document.getElementById("no-visible").classList.remove("red");
+    if (element.id === "activo" && !element.classList.contains("green")) {
+        document.getElementById("no-activo").classList.remove("red");
         element.classList.add("green");
-    } else if (element.id === "no-visible" && !element.classList.contains("red")) {
-        document.getElementById("visible").classList.remove("green");
+    } else if (element.id === "no-activo" && !element.classList.contains("red")) {
+        document.getElementById("activo").classList.remove("green");
         element.classList.add("red");
     }
 }
 
 function createLiOption(id, name, description) {
+    // let li = document.createRange().createContextualFragment(`
+    //     <li class="list-group-item list-group-item-action" value="${id}">
+    //         <span>
+    //             <b>${name}</b>
+    //         </span>
+
+    //         <br/>
+
+    //         <span class="option-description">
+    //             ${description}
+    //         </span>
+    //     </li>
+    // `);
     let li = document.createElement("li");
     li.classList.add("list-group-item");
     li.classList.add("list-group-item-action");
@@ -41,45 +55,29 @@ function createLiOption(id, name, description) {
         javascript: selectLiOption(this);
     });
 
+
+    console.log("li.lii:", li);
     return li;
 }
 
 function createPaqueteLi(paquete) {
-    let li = document.createElement("li");
-    li.classList.add("list-group-item");
-    li.classList.add("list-group-item-action");
-    li.id = paquete.idPaquete;
+    let li = document.createRange().createContextualFragment(`
+        <li class="list-group-item d-flex justify-content-between">
+            <div>
+                <span>
+                    <b>${paquete.nombre}</b>
+                </span>
 
-    let nameSpan = document.createElement("span");
-    nameSpan.innerHTML = `<b>${paquete.nombre}</b>`;
-    li.appendChild(nameSpan);
-    li.appendChild(document.createElement("br"));
+                <br/>
 
-    let descriptionSpan = document.createElement("span");
-    descriptionSpan.classList.add("option-description");
-    descriptionSpan.innerHTML = paquete.descripcion;
-    li.appendChild(descriptionSpan);
-    
-    let input = document.createElement("input");
-    input.id = `precio-${paquete.idPaquete}`;
-    input.classList.add("form-control");
-    input.classList.add("col-12");
-    input.classList.add("col-md-4");
-    input.classList.add("d-none");
-    input.type = 'number';
-    input.placeholder = "Precio";
-    // input.innerHTML = precio;
-    li.appendChild(input);
-
-    li.addEventListener("click", function () {
-        javascript: selectLiOption(this);
-
-        input.classList.toggle("d-none");
-
-        if (input.classList.contains("d-none")) {
-            input.value = "";
-        }
-    });
+                <span class="option-description">
+                    ${paquete.descripcion}
+                </span>
+            </div>
+            
+                <input id="precio-${paquete.idPaquete}" type="number" step="0.01" class="precio-paquete form-control col-12 col-md-4" placeholder="Precio" idPaquete="${paquete.idPaquete}">
+        </li>
+    `);
 
     return li;
 }
@@ -147,8 +145,6 @@ function loadRestaurantePaquetes(idRestaurante) {
                     `precio-${restaurantePaquete.paqueteIdPaquete}`
                 );
                 inputPrecio.value = restaurantePaquete.coste;
-                inputPrecio.classList.remove("d-none");
-                inputPrecio.parentElement.classList.add("selected");
             });
         });
     })
@@ -236,43 +232,28 @@ function loadTiposCocina(idRestaurante) {
 
 
     });
+}
 
-    // fetch(
-    //     "http://localhost:8080/tipoCocina/getAll"
-    // ).then(response => response.json())
-    // .then(tiposCocina => {
-    //     tiposCocina.map(tipoCocina => {
-    //         console.log("tipococina", tipoCocina);
-    //         let option = document.createElement("option");
-    //         option.setAttribute("value", tipoCocina.idTipoCocina);
-    //         option.appendChild(document.createTextNode(tipoCocina.nombre));
-    //         // option.innerHTML = tipoCocina.nombre;
-
-    //         // console.log(select.selectedOptions);
-            
-    //         select.appendChild(option);
-    //     });
-
-    //     fetch(
-    //         `http://localhost:8080/restauranteTipoCocina/getIdsTipoCocinaByIdRestaurante/${idRestaurante}`
-    //     ).then(response => response.json())
-    //     .then(restauranteTiposCocina => {
-    //         console.log("restico", restauranteTiposCocina);
-    //         console.log("select", select);
-    //         $(select).val(restauranteTiposCocina);
-    //         $(select).selectpicker();
-    //         document.getElementsByClassName("bootstrap-select")[0].classList.remove("invisible");
-    //     });
-    // });
+function loadActivo(isActivo) {
+    if (isActivo) {
+        document.getElementById("activo").classList.add("green");
+    } else {
+        document.getElementById("no-activo").classList.add("red");
+    }
 }
 
 function save() {
+    let idRestaurante = JSON.parse(
+        localStorage.getItem("restaurante")
+    ).idRestaurante;
+
     let form = document.getElementById("restaurante-opciones");
 
     /* Tipos de cocina seleccionados */
 
-    let tiposCocina = Array.from(form
-        .tiposCocina
+    let tiposCocina = Array.from(
+        // form.tiposCocina
+        document.getElementById("tipos-cocina")
         .selectedOptions
     ).map(e => e.value);
     console.log(tiposCocina);
@@ -281,6 +262,23 @@ function save() {
         alert("Selecciona algún tipo de cocina");
         return;
     }
+
+    /* Precio de los paquetes */
+
+    let idPaquetePrecio = {};
+    let inputsPecioPaquete = document.getElementsByClassName("precio-paquete");
+
+    for (let input of inputsPecioPaquete) {
+        let value = input.value;
+        if (value == "") {
+            alert("Establece un precio para todos los paquetes.");
+            return;
+        }
+
+        idPaquetePrecio[input.getAttribute("idPaquete")] = Number.parseFloat(value);
+    }
+
+    console.log("idpapre", idPaquetePrecio);
 
     /* Tipos de entrega seleccionados */
 
@@ -302,7 +300,32 @@ function save() {
         return;
     }
 
-    let jsonString = `{
+    let activo = false;
+    if (document.getElementById("activo").classList.contains("green")) {
+        activo = true;
+    }
 
+    let jsonString = `{
+        "idRestaurante": "${idRestaurante}",
+        "idsTipoCocina": ${JSON.stringify(tiposCocina)},
+        "idPaquetePrecio": ${JSON.stringify(idPaquetePrecio)},
+        "idsTipoEntrega": ${JSON.stringify(tiposEntrega)},
+        "activo": ${activo}
     }`;
+
+    console.log("save json", JSON.parse(jsonString));
+
+    const url = `http://localhost:8080/restaurante/setRestauranteOpciones/${jsonString}`;
+    const options = {
+		"method": "GET",
+		// "body": responseBody,
+		"headers": {
+			"Content-Type": "application/json",
+			"Access-Control-Allow-Origin": "*"
+		}
+    };
+    
+    fetch(url, options).then(r => r.json())
+    .then(t => {console.log("bien");})
+    .catch(c => {console.log("nope");});
 }
