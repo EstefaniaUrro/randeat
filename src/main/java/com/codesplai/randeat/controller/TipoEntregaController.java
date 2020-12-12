@@ -22,6 +22,7 @@ public class TipoEntregaController implements FromResultSet<TipoEntrega> {
     private static final String TABLE = "tipo_entrega";
     private static final String ID_TIPO_ENTREGA = "id_tipo_entrega";
     private static final String NOMBRE = "nombre";
+    private static final String DESCRIPCION = "descripcion";
 
     private static final String SELECT_ALL = String.format(
         "SELECT * FROM %s", TABLE
@@ -56,7 +57,8 @@ public class TipoEntregaController implements FromResultSet<TipoEntrega> {
     public TipoEntrega fromResultSet(ResultSet resultSet) throws SQLException {
         return new TipoEntrega(
             resultSet.getInt(ID_TIPO_ENTREGA),
-            resultSet.getString(NOMBRE)
+            resultSet.getString(NOMBRE),
+            resultSet.getString(DESCRIPCION)
         );
     }
 }

@@ -3,14 +3,12 @@ package com.codesplai.randeat.modelo;
 public class TipoEntrega {
     private int idTipoEntrega;
     private String nombre;
+    private String descripcion;
 
-    public TipoEntrega() {
-
-    }
-
-    public TipoEntrega(int idTipoEntrega, String nombre) {
+    public TipoEntrega(int idTipoEntrega, String nombre, String descripcion) {
         this.idTipoEntrega = idTipoEntrega;
         this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public int getIdTipoEntrega() {
@@ -27,5 +25,13 @@ public class TipoEntrega {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

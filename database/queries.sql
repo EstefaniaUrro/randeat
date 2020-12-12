@@ -34,14 +34,12 @@ INSERT INTO codigo_postal (numero) VALUES ('08005');
 INSERT INTO codigo_postal (numero) VALUES ('08014');
 INSERT INTO codigo_postal (numero) VALUES ('08028');
 
-INSERT INTO paquete VALUES (1, 'Entrante');
-INSERT INTO paquete VALUES (2, 'Primer plato');
-INSERT INTO paquete VALUES (3, 'Segundo plato');
-INSERT INTO paquete VALUES (4, 'Postre');
-INSERT INTO paquete VALUES (5, 'Menú');
+INSERT INTO paquete VALUES (1, 'Pequeño', 'Un entrante');
+INSERT INTO paquete VALUES (2, 'Mediano', 'Un plato principal');
+INSERT INTO paquete VALUES (3, 'Grande', 'Un entrante y un plato principal');
 
-INSERT INTO tipo_entrega VALUES (1, 'Enviar');
-INSERT INTO tipo_entrega VALUES (2, 'Recoger');
+INSERT INTO tipo_entrega VALUES (1, 'Enviar', 'Los clientes reciben la comida a su domicilio');
+INSERT INTO tipo_entrega VALUES (2, 'Recoger', 'Los clientes vienen a recoger la comida');
 
 INSERT INTO bebida (nombre) VALUES ("Coca-Cola");
 INSERT INTO bebida (nombre) VALUES ("Fanta naranja");
@@ -181,9 +179,9 @@ SELECT pedido.id_pedido, cliente.nombre_completo AS 'nombre_cliente', restaurant
     INNER JOIN usuario usuario_restaurante ON usuario_restaurante.id_usuario = restaurante.usuario_id_usuario
 ;
 
-INSERT INTO pedido_paquete VALUES (1, 5, 5);
-INSERT INTO pedido_paquete VALUES (1, 3, 3);
+INSERT INTO pedido_paquete VALUES (1, 1, 1);
 INSERT INTO pedido_paquete VALUES (1, 2, 2);
+INSERT INTO pedido_paquete VALUES (1, 3, 3);
 
 SELECT * FROM pedido;
 SELECT LAST_INSERT_ID();

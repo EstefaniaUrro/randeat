@@ -23,6 +23,7 @@ public class PaqueteController implements FromResultSet<Paquete> {
     static final String TABLE = "paquete";
     static final String ID_PAQUETE = "id_paquete";
     static final String NOMBRE = "nombre";
+    static final String DESCRIPCION = "descripcion";
 
     private static final String SELECT_ALL = String.format(
         "SELECT * FROM %s", TABLE
@@ -57,7 +58,8 @@ public class PaqueteController implements FromResultSet<Paquete> {
     public Paquete fromResultSet(ResultSet resultSet) throws SQLException {
         return new Paquete(
             resultSet.getInt(ID_PAQUETE),
-            resultSet.getString(NOMBRE)
+            resultSet.getString(NOMBRE),
+            resultSet.getString(DESCRIPCION)
         );
     }
 }
