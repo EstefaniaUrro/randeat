@@ -5,6 +5,15 @@ import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@CrossOrigin
+@RequestMapping("restauranteTipoEntrega")
 public class RestauranteTipoEntregaController {
     static final String TABLE = "restaurante_tipo_entrega";
     static final String ID_RESTAURANTE = "restaurante_id_restaurante";
@@ -31,8 +40,9 @@ public class RestauranteTipoEntregaController {
         TABLE, ID_RESTAURANTE, ID_TIPO_ENTREGA
     );
 
+    @GetMapping("/getIdsTipoEntregaByIdRestaurante/{idRestaurante}")
     public static List<Integer> getIdsTipoEntregaByIdRestaurante(
-        int idRestaurante
+        @PathVariable int idRestaurante
     ) {
         return DBConn.executeQueryGetIntIds(
             SELECT_BY_ID_RESTAURANTE,
