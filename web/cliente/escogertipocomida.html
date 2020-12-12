@@ -9,6 +9,15 @@
 
     <base href="./..">
 
+    <script>
+        let idCodigoPostal = localStorage.getItem("idCodigoPostal");
+        let idTipoEntrega = localStorage.getItem("idTipoEntrega");
+
+        if (idCodigoPostal === null || idTipoEntrega === null) {
+            window.location.href = "index.html";
+        }
+    </script>
+
     <script src="./js/check_cliente_present.js"></script>
 
     <!-- CSS -->
