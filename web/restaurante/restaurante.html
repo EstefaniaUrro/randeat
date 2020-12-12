@@ -85,11 +85,10 @@
                     <label for="iban">IBAN</label>
                     <input type="text" class="form-control" id="iban" value="ES 1597565233">
                 </div>
-                <div class="form-group col col-12 col-md-6">
+                <!--<div class="form-group col col-12 col-md-6">
                     <label for="imagen">Imagen del restaurante</label>
                     <input type="file" class="form-control" id="imagen" accept="image/png, image/jpeg">
-                </div>
-
+                </div>-->
             </div>
 
             <button type="submit" class="btn btn-primary col-md-3 enviar">Guardar cambios</button>
@@ -132,8 +131,9 @@
         }
 
         async function loadRestaurante() {
+            let restaurante = JSON.parse(localStorage.getItem("restaurante"));
             const response = await fetch(
-                "http://localhost:8080/restaurante/getById/1"
+                `http://localhost:8080/restaurante/getById/${restaurante.idRestaurante}`
             );
             const json = await response.json();
 
@@ -146,8 +146,9 @@
             document.getElementById("select-codigoPostal").value = map.codigoPostalIdCodigoPostal;
         }
         async function loadUsuario() {
+            let restaurante = JSON.parse(localStorage.getItem("restaurante"));
             const response = await fetch(
-                "http://localhost:8080/usuario/getById/2"
+                `http://localhost:8080/usuario/getById/${restaurante.idRestaurante}`
             );
             const json = await response.json();
 
