@@ -100,7 +100,8 @@ public class UsuarioController implements FromResultSet<Usuario> {
                  {2, usuario.getContrasena()},
                  {3, usuario.getTelefono()},
                  {4, usuario.getPoblacion()},
-                 {5, usuario.getDireccion()}
+                 {5, usuario.getDireccion()},
+                 {6, usuario.getIdUsuario()}
              }
         );     
     }
