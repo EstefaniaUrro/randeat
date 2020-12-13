@@ -38,31 +38,31 @@
 				1</label>
 			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Paso 2</label>
 			<div class="login-form">
-				<form name="registro-restaurante">
+				<form id="registro" name="registro" onsubmit="javascript:performRegistro(); return false;" action="#">
 					<div class="sign-in-htm">
 
 						<div class="group">
-							<label for="nombre-restaurante" class="label">
+							<label for="nombre" class="label">
 								Nombre del restaurante
 							</label>
-							<input id="nombre-restaurante" type="text" class="input">
+							<input id="nombre" name="nombre" type="text" class="input" required>
 						</div>
 
 						<div class="group">
 							<label for="cif" class="label">CIF</label>
-							<input id="cif" type="number" class="input">
+							<input id="cif" name="cif" type="number" class="input" required>
 						</div>
 
 						<div class="group">
 							<label for="iban" class="label">IBAN</label>
-							<input id="iban" type="number" class="input">
+							<input id="iban" name="iban" type="number" class="input" required>
 						</div>
 
 						<div class="group">
 							<label for="codigo-postal" class="label">
 								Código postal
 							</label>
-							<select name="codigo-postal" id="codigo-postal" class="input">
+							<select name="codigo-postal" id="codigo-postal" class="input" required>
 								<option value="postal" disable hidden>Por favor seleccina</option>
 							</select>
 						</div>
@@ -71,25 +71,7 @@
 							<label for="direccion" class="label">
 								Dirección
 							</label>
-							<input id="direccion" type="text" class="input">
-						</div>
-
-						<div class="group">
-							<label for="tipos-cocina" class="label">
-								Tipos de cocina
-							</label>
-							<select name="tipos-cocina" id="tipos-cocina" class="input">
-								<option value="seleciona" disable hidden>Por favor seleciona</option>
-							</select>
-						</div>
-
-						<div class="group">
-							<label for="tipos-entrega" class="label">
-								Tipos de entrega
-							</label>
-							<select name="tipos-entrega" id="tipos-entrega" class="input">
-								<option value="seleciona" disable hidden>Por favor seleciona</option>
-							</select>
+							<input id="direccion" name="direccion" type="text" class="input" required>
 						</div>
 					</div>
 
@@ -98,35 +80,41 @@
 							<label for="nombre-propietario" class="label">
 								Nombre completo del propietario
 							</label>
-							<input id="nombre-propietario" type="text" class="input">
+							<input id="nombre-propietario" name="nombre-propietario" type="text" class="input" required>
 						</div>
 						<div class="group">
 							<label for="contrasena1" class="label">
 								Contraseña
 							</label>
-							<input id="contrasena1" type="password" class="input" data-type="password">
+							<input id="contrasena1" name="contrasena1" type="password" class="input" data-type="password" required>
 						</div>
 						<div class="group">
 							<label for="email" class="label">
 								Correo electrónico
 							</label>
-							<input id="email" type="email" class="input">
+							<input id="email" name="email" type="email" class="input" required>
 						</div>
 						<div class="group">
 							<label for="telefono" class="label">Teléfono</label>
-							<input id="telefono" type="number" class="input">
+							<input id="telefono" name="telefono" type="number" class="input" required>
 						</div>
 
 						<div class="group">
 							<label for="poblacion" class="label">
 								Población
 							</label>
-							<input id="poblacion" type="text" class="input" value="Barcelona" disabled>
+							<input id="poblacion" name="poblacion" type="text" class="input" value="Barcelona" disabled required>
+						</div>
+						
+						<div>
+							<input type="checkbox" id="restaurante" name="restaurante" checked/>
+						</div>
+						<div class="group">
+							<button type="submit" class="button">
+								Crear cuenta
+							</button>
 						</div>
 
-						<div class="group">
-							<input type="button" class="button" value="Crear cuenta" onclick="javascript:performRegistroRestaurante();">
-						</div>
 					</div>
 				</form>
 			</div>
@@ -138,8 +126,8 @@
 	<div id="footer"></div>
 
 	<script src="./js/header_and_footer.js"></script>
+	<script src="./js/fill_select_codigo_postal.js"></script>
 	<script src="./js/inicio_registro.js"></script>
-	<script src="./js/registro_restaurante.js"></script>
 </body>
 
 </html>

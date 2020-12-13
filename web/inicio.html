@@ -37,7 +37,7 @@
 			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Regístrate</label>
 			<div class="login-form">
 				<div class="sign-in-htm">
-					<form name="login">
+					<form id="login" name="login" onsubmit="javascript:performLogin(); return false;" action="#">
 						<div class="group">
 							<label for="email" class="label">
 								Correo electrónico
@@ -49,7 +49,9 @@
 							<input id="password" type="password" class="input" data-type="password">
 						</div>
 						<div class="group">
-							<input type="button" class="button" value="Inicia Sesión" onclick="javascript:performLogin()">
+							<button type="submit" class="button">
+								Inicia sesión
+							</button>
 						</div>
 						<div class="hr"></div>
 						<div class="foot-lnk">
@@ -58,57 +60,58 @@
 					</form>
 				</div>
 				<div class="sign-up-htm">
-					<form name="register">
+					<form id="registro" name="registro" onsubmit="javascript:performRegistro(); return false;" action="#">
 
 						<div class="group">
 							<label for="nombre" class="label">Nombre</label>
-							<input id="nombre" type="text" class="input">
+							<input id="nombre" name="nombre" type="text" class="input">
 						</div>
 
 						<div class="group">
 							<label for="contrasena1" class="label">Contraseña</label>
-							<input id="contrasena1" type="password" class="input" data-type="password">
+							<input id="contrasena1" name="contrasena1" type="password" class="input" data-type="password">
 						</div>
 
 						<div class="group">
 							<label for="contrasena2" class="label">Repite contraseña</label>
-							<input id="contrasena2" type="password" class="input" data-type="password">
+							<input id="contrasena2" name="contrasena2" type="password" class="input" data-type="password">
 						</div>
 
 						<div class="group">
-							<label for="email" class="label"
-							>Correo electronico
+							<label for="email" class="label">
+								Correo electronico
 						</label>
-							<input id="email" type="email" class="input">
+							<input id="email" name="email" type="email" class="input">
 						</div>
 
 						<div class="group">
 							<label for="poblacion" class="label">
 								Población
 							</label>
-							<input id="poblacion" type="text" class="input" value="Barcelona" disabled>
+							<input id="poblacion" name="poblacion" type="text" class="input" value="Barcelona" disabled>
 						</div>
 
 						<div class="group">
 							<label for="direccion" class="label">Dirección</label>
-							<input id="direccion" type="text" class="input">
+							<input id="direccion" name="direccion" type="text" class="input">
 						</div>
 
 						<div class="group">
 							<label for="codigo-postal" class="label">
 								Código postal
 							</label>
-							<select id="codigo-postal" class="input"></select>
+							<select id="codigo-postal" name="codigo-postal" class="input"></select>
 						</div>
 
 						<div class="group">
 							<label for="telefono" class="label">Teléfono</label>
-							<input id="telefono" type="number" class="input">
+							<input id="telefono" name="telefono" type="number" class="input">
 						</div>
 
 						<div class="group">
-							<!-- <button class="button btn" onclick="javascript:performRegistroCliente();">Crear cuenta</button> -->
-							<input type="button" class="button" value="Crear cuenta" onclick="javascript:performRegistroCliente();">
+							<button type="submit" class="button">
+								Crear cuenta
+							</button>
 						</div>
 					</form>
 				</div>
@@ -122,6 +125,7 @@
 	<div id="footer"></div>
 
 	<script src="./js/header_and_footer.js"></script>
+	<script src="./js/fill_select_codigo_postal.js"></script>
 	<script src="./js/inicio_registro.js"></script>
 </body>
 
