@@ -97,7 +97,20 @@ function loadPedidos() {
 		let paquetesMap = values[3];
 
 		let tbody = document.getElementsByTagName("tbody")[0];
-
+		console.log(document.getElementsByTagName("tbody")[0]);
+		for (let i = 0; i < pedidosJson.length;) {
+			let cliente = JSON.parse(localStorage.getItem("cliente"));
+			if (cliente !== null) {
+				$("#tbodyModalCliente").append(`<tr><td>` + pedidosJson[i].idPedido + `</td><td>` + pedidosJson[i].direccionEnvio + `</td>
+		<td>` + pedidosJson[i].comentario + `</td></tr>`);
+			}
+			let restaurante = JSON.parse(localStorage.getItem("restaurante"));
+			if (restaurante !== null) {
+				$("#tbodyModalRestaurante").append(`<tr><td>` + pedidosJson[i].clienteIdCliente + `</td><td>` + pedidosJson[i].direccionEnvio + `</td>
+			<td>` + pedidosJson[i].comentario + `</td></tr>`);
+			}
+			i++;
+		}
 		pedidosJson.map(pedido => {
 			console.log("procesando paquetepedido: ", pedido);
 			let tr = document.createElement("tr");
@@ -159,16 +172,7 @@ function loadPedidos() {
 			tr.appendChild(tdInfo);
 			tbody.appendChild(tr);
 
-			if (cliente !== null) {
 
-				document.getElementById("restaurante").innerText = pedido.restauranteIdRestaurante;
-				document.getElementById("direccion").innerText = pedido.direccionEnvio;
-				document.getElementById("comentario").innerText = pedido.comentario;
-			} if (restaurante !== null) {
-				document.getElementById("cliente").innerText = pedido.clienteIdCliente;
-				document.getElementById("direccionEnvio").innerText = pedido.direccionEnvio;
-				document.getElementById("comentarioCliente").innerText = pedido.comentario;
-			}
 		});
 	});
 }
