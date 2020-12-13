@@ -38,21 +38,21 @@
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="cif">NIF</label>
-                    <input type="text" class="form-control" id="Nif" value="Y589852">
+                    <input type="text" class="form-control" id="Nif">
                 </div>
                 <div class="form-group col col-12 col-md-6">
                     <label for="name">Nombre del restaurante</label>
-                    <input type="text" class="form-control" id="nombre" value="RanEat">
+                    <input type="text" class="form-control" id="nombre">
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="dirección">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" value="Rambla">
+                    <input type="text" class="form-control" id="direccion">
                 </div>
                 <div class="form-group col col-12 col-md-6">
-                    <label for="postal">Código Postal</label>
+                    <label for="postal">Código postal</label>
                     <select id="codigo-postal" class="form-control">
                     </select>
                 </div>
@@ -61,29 +61,28 @@
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                        value="randeat@randeat.com">
+                    <input type="email" class="form-control" id="email">
                 </div>
                 <div class="form-group col col-12 col-md-6">
                     <label for="phone-number">Teléfono</label>
-                    <input type="text" pattern="^[0-9]{9}$" class="form-control" id="telefono" value="623475960">
+                    <input type="text" pattern="^[0-9]{9}$" class="form-control" id="telefono">
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
-                    <label for="nombrePropietario">Nombre del Propietario</label>
-                    <input type="nombrePropietario" class="form-control" id="nombrePropietario" value="RandEat">
+                    <label for="nombrePropietario">Nombre del propietario</label>
+                    <input type="nombrePropietario" class="form-control" id="nombrePropietario">
                 </div>
                 <div class="form-group col col-12 col-md-6">
                     <label for="Ciudad">Población</label>
-                    <input type="text" class="form-control" id="poblacion" value="Barcelona">
+                    <input type="text" class="form-control" id="poblacion">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="iban">IBAN</label>
-                    <input type="text" class="form-control" id="iban" value="ES 1597565233">
+                    <input type="text" class="form-control" id="iban">
                 </div>
                 <!--<div class="form-group col col-12 col-md-6">
                     <label for="imagen">Imagen del restaurante</label>
@@ -111,13 +110,14 @@
             );
             const json = await response.json();
 
+            
             let map = json;
             console.log(map);
             document.getElementById("Nif").value = map.cif;
             document.getElementById("nombre").value = map.nombreRestaurante;
             document.getElementById("nombrePropietario").value = map.nombrePropietario;
             document.getElementById("iban").value = map.iban;
-            document.getElementById("codigo-postal").value = map.codigoPostalIdCodigoPostal;
+            fillSelectCodigoPostal(map.codigoPostalIdCodigoPostal);
         }
         async function loadUsuario() {
             let restaurante = JSON.parse(localStorage.getItem("restaurante"));
@@ -132,10 +132,7 @@
             document.getElementById("direccion").value = map.direccion;
             document.getElementById("poblacion").value = map.poblacion;
             document.getElementById("telefono").value = map.telefono;
-
         }
-
-
     </script>
 </body>
 

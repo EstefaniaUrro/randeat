@@ -3,7 +3,7 @@ async function fetchCodigosPostales() {
 	return await r.json();
 }
 
-document.addEventListener('DOMContentLoaded', function (event) {
+function fillSelectCodigoPostal(idCodigoPostal) {
 	fetchCodigosPostales().then(json => {
 		let codigoPostalSelect = document.getElementById("codigo-postal");
 	
@@ -11,8 +11,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
 			let option = document.createElement("option");
 			option.value = codigoPostal.idCodigoPostal;
 			option.innerHTML = codigoPostal.numero;
+
+			if (idCodigoPostal !== null && idCodigoPostal == codigoPostal.idCodigoPostal) {
+				option.selected = true;
+			}
 	
 			codigoPostalSelect.appendChild(option);
 		});
 	});
-});
+}

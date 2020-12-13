@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
     loadTiposEntrega(restaurante.idRestaurante);
     getUlByIdAndApplyClasses("visibility-options");
     loadActivo(restaurante.activo);
-
 });
+
 function selectLiOption(element) {
     element.classList.toggle("selected");
 }
