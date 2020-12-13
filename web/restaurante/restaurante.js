@@ -62,8 +62,8 @@ function createLiOption(id, name, description) {
 
 function createPaqueteLi(paquete) {
     let li = document.createRange().createContextualFragment(`
-        <li class="list-group-item d-flex justify-content-between">
-            <div>
+        <li class="row list-group-item d-flex justify-content-between">
+            <div class="col-8">
                 <span>
                     <b>${paquete.nombre}</b>
                 </span>
@@ -75,7 +75,9 @@ function createPaqueteLi(paquete) {
                 </span>
             </div>
             
-                <input id="precio-${paquete.idPaquete}" type="number" step="0.01" class="precio-paquete form-control col-12 col-md-4" placeholder="Precio" idPaquete="${paquete.idPaquete}">
+            <div class="col-4">
+                <input id="precio-${paquete.idPaquete}" type="number" min="0" step="0.01" class="precio-paquete form-control" placeholder="Precio" idPaquete="${paquete.idPaquete}">
+            </div>
         </li>
     `);
 
