@@ -93,7 +93,7 @@ INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, pobla
 
 INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	1,
-    2,
+    3,
     'cif campeador',
     'ES 1231231231231',
     'Cocido Gatileño',
@@ -101,9 +101,19 @@ INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_r
     1,
     0
 );
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	4,
+	'pizzas@melissa.com',
+    'melissa',
+    '888889888',
+    'Barcelona',
+    'Carrer Marina 23'
+);
+
 INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	2,
-    2,
+    4,
     'laksjdlaksjd',
     'ES 343434343434',
     'Natillas Pro',
@@ -111,9 +121,19 @@ INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_r
     2,
     0
 );
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	5,
+	'lkj@lkj.lkj',
+    'lkj',
+    '888889888',
+    'Barcelona',
+    'Carrer Marina 23'
+);
+
 INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	3,
-    2,
+    5,
     'lkj12lk3jl',
     'ES 909090909090',
     'Pizzas Melissa',
