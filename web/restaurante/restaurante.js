@@ -340,6 +340,8 @@ function save() {
             response => response.json()
         ).then(json => {
             localStorage.setItem("restaurante", JSON.stringify(json));
+
+            alert("Datos guardados correctamente");
         });
     }).catch(c => {
         console.log("nope");

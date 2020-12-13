@@ -186,19 +186,22 @@
                     response => response.json()
                 ).then(json => {
                     localStorage.setItem("restaurante", JSON.stringify(json));
+
+                    fetch(
+                        `http://localhost:8080/usuario/getById/${idUsuario}`
+                    ).then(
+                        response => response.json()
+                    ).then(json => {
+                        localStorage.setItem("usuario", JSON.stringify(json));
+
+                        alert("Datos guardados correctamente")
+                    }).catch(err => {
+                        console.error(err);
+                    });
                 }).catch(err => {
                     console.error(err);
                 });
                 
-                fetch(
-                    `http://localhost:8080/usuario/getById/${idUsuario}`
-                ).then(
-                    response => response.json()
-                ).then(json => {
-                    localStorage.setItem("usuario", JSON.stringify(json));
-                }).catch(err => {
-                    console.error(err);
-                });
             }).catch(err => {
                 console.error(err);
             });

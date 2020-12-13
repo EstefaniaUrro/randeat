@@ -29,7 +29,6 @@ function loadClienteInfo() {
 }
 
 function save() {
-	alert("asd");
 	let form = document.getElementsByTagName("form")[0];
 	let idUsuario = JSON.parse(localStorage.getItem("usuario")).idUsuario;
 	let idCliente = JSON.parse(localStorage.getItem("cliente")).idCliente;
@@ -46,10 +45,8 @@ function save() {
 		"tarjeta": "${form.tarjeta.value}",
 		"contrasena": "${form.contrasena.value}"
 	}`;
-	alert("asd");
 
 	console.log(jsonString);
-	alert("asd");
 
 	let url = "http://localhost:8080/cliente/update";
 	let options = {
@@ -74,16 +71,19 @@ function save() {
         ).then(
             response => response.json()
         ).then(json => {
-            localStorage.setItem("cliente", JSON.stringify(json));
+			localStorage.setItem("cliente", JSON.stringify(json));
+
+			fetch(
+				`http://localhost:8080/usuario/getById/${idUsuario}`
+			).then(
+				response => response.json()
+			).then(json => {
+				localStorage.setItem("usuario", JSON.stringify(json));
+
+				alert("Datos guardados correctamente");
+			});
 		});
 		
-		fetch(
-            `http://localhost:8080/usuario/getById/${idUsuario}`
-        ).then(
-            response => response.json()
-        ).then(json => {
-            localStorage.setItem("usuario", JSON.stringify(json));
-        });
 	}).catch(err => {
 		console.error(err);
 	});
