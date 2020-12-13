@@ -48,6 +48,7 @@ function performLogin() {
 
 	if (email === "" || password === "") {
 		alert("Introduce todos los datos, por favor");
+		return;
 	} else {
 		fetchUsuario(email, password).then(jsonUsuario => {
 			if (jsonUsuario === null) {
@@ -280,7 +281,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
 	// TODO
 	// document.getElementById("restaurante").checked = false;
 
+	fillSelectCodigoPostal(null);
+
 	let restauranteCheckbox = document.getElementById("restaurante");
+	// Check para que no pete la pantalla de login/registro original.
 	if (restauranteCheckbox !== null) {
 		restauranteCheckbox.checked = false;
 	}
