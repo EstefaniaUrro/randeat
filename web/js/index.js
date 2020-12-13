@@ -7,6 +7,11 @@ function chooseTipoCocinaDomicilio() {
 }
 
 function chooseTipoCocina(idTipoEntrega) {
+	if (localStorage.getItem("restaurante") !== null) {
+		alert("Inicia sesión como cliente para hacer pedidos.");
+		return;
+	}
+	
 	let idCodigoPostal = document.getElementById("codigo-postal").value;
 
 	if (idCodigoPostal === "none") {
