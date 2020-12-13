@@ -1,7 +1,10 @@
 package com.codesplai.randeat.controller;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,6 +19,8 @@ import org.apache.tomcat.util.json.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -214,20 +219,76 @@ public class RestauranteController implements FromResultSet<Restaurante> {
         return true;
     }
 
-    @GetMapping("/setRestauranteOpciones/{jsonString}")
+    @PostMapping("/setRestauranteOpciones")
     public static boolean setRestauranteOpciones(
-        @PathVariable String jsonString
+        @RequestBody String jsonString
     ) throws ParseException {
         Map<String, Object> form = new JSONParser(jsonString).parseObject();
 
         boolean activo = (boolean) form.get("activo");
-        int idRestaurante = (int) form.get("idRestaurante");
+        System.out.println("restaurante activo will be:");
+        System.out.println(activo);
+        int idRestaurante = Integer.parseInt((String) form.get("idRestaurante"));
 
         RestauranteController.setActivo(idRestaurante, activo);
 
-        int[] idsTipoCocina = (int[]) form.get("idsTipoCocina");
-        System.out.println("idsTipoCocina:");
-        System.out.println(idsTipoCocina);
+        // Elimino todos los tipos cocina, así me quedo sólo con los seleccionados.
+        RestauranteTipoCocinaController.removeByIdRestaurante(idRestaurante);
+
+        ArrayList<Object> idsTipoCocina = new JSONParser(
+            form.get("idsTipoCocina").toString()
+        ).parseArray();
+
+        for (Object idTipoCocina : idsTipoCocina) {
+            RestauranteTipoCocinaController
+                .addRestauranteTipoCocina(
+                    idRestaurante,
+                    ((BigInteger) idTipoCocina).intValue()
+                )
+            ;
+        }
+
+        // Elimino todos los tipos entrega, así me quedo sólo con los seleccionados.
+        RestauranteTipoEntregaController.removeByIdRestaurante(idRestaurante);
+
+        ArrayList<Object> idsTipoEntrega = new JSONParser(
+            form.get("idsTipoEntrega").toString()
+        ).parseArray();
+
+        for (Object idTipoEntrega : idsTipoEntrega) {
+            RestauranteTipoEntregaController
+                .addRestauranteTipoEntrega(
+                    idRestaurante,
+                    ((BigInteger) idTipoEntrega).intValue()
+                )
+            ;
+        }
+
+        // Elimino todos los tipos entrega, así me quedo sólo con los seleccionados.
+        RestaurantePaqueteController.removeByIdRestaurante(idRestaurante);
+
+        String idPaquetePrecioString = form.get("idPaquetePrecio").toString();
+        Map<String, Double> idPaquetePrecioMap = new HashMap<>();
+        String[] idPaquetePrecioPair = idPaquetePrecioString
+            .substring(1, idPaquetePrecioString.length()-1)
+            .split(", ")
+        ;
+
+        for (String pair : idPaquetePrecioPair) {
+            String[] split = pair.split("=");
+            idPaquetePrecioMap.put(
+                split[0],
+                Double.parseDouble(split[1])
+            );
+        }
+
+        for (Map.Entry<String, Double> i : idPaquetePrecioMap.entrySet()) {
+            RestaurantePaqueteController.add(
+                idRestaurante,
+                Integer.parseInt(i.getKey()),
+                i.getValue()
+            );
+        }
 
         return true;
     }

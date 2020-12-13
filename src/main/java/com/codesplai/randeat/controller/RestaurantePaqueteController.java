@@ -53,6 +53,10 @@ public class RestaurantePaqueteController implements FromResultSet<RestaurantePa
         COSTE
     );
 
+    private static final String DELETE_BY_ID_RESTAURANTE = String.format(
+        "DELETE FROM %s WHERE %s = ?", TABLE, ID_RESTAURANTE
+    );
+
     @GetMapping("/getByIdRestaurante/{idRestaurante}")
     public static List<RestaurantePaquete> getByIdRestaurante(
         @PathVariable int idRestaurante
@@ -78,6 +82,15 @@ public class RestaurantePaqueteController implements FromResultSet<RestaurantePa
                 {1, idRestaurante},
                 {2, idPaquete},
                 {3, coste},
+            }
+        );
+    }
+
+    public static boolean removeByIdRestaurante(int idRestaurante) {
+        return DBConn.executeUpdateOrDelete(
+            DELETE_BY_ID_RESTAURANTE,
+            new Object[][] {
+                {1, idRestaurante}
             }
         );
     }

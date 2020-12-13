@@ -41,6 +41,10 @@ public class RestauranteTipoCocinaController {
         TABLE, ID_RESTAURANTE, ID_TIPO_COCINA
     );
 
+    private static final String DELETE_BY_ID_RESTAURANTE = String.format(
+        "DELETE FROM %s WHERE %s = ?", TABLE, ID_RESTAURANTE
+    );
+
     public static List<Integer> getIdsRestauranteByIdTipoCocina(
         int idTipoCocina
     ) {
@@ -72,6 +76,15 @@ public class RestauranteTipoCocinaController {
             new Object[][] {
                 {1, idRestaurante},
                 {2, idTipoCocina}
+            }
+        );
+    }
+
+    public static boolean removeByIdRestaurante(int idRestaurante) {
+        return DBConn.executeUpdateOrDelete(
+            DELETE_BY_ID_RESTAURANTE,
+            new Object[][] {
+                {1, idRestaurante}
             }
         );
     }

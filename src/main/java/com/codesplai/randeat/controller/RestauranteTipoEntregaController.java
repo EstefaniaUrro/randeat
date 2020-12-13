@@ -40,6 +40,10 @@ public class RestauranteTipoEntregaController {
         TABLE, ID_RESTAURANTE, ID_TIPO_ENTREGA
     );
 
+    private static final String DELETE_BY_ID_RESTAURANTE = String.format(
+        "DELETE FROM %s WHERE %s = ?", TABLE, ID_RESTAURANTE
+    );
+
     @GetMapping("/getIdsTipoEntregaByIdRestaurante/{idRestaurante}")
     public static List<Integer> getIdsTipoEntregaByIdRestaurante(
         @PathVariable int idRestaurante
@@ -71,6 +75,15 @@ public class RestauranteTipoEntregaController {
             new Object[][] {
                 {1, idRestaurante},
                 {2, idTipoEntrega}
+            }
+        );
+    }
+
+    public static boolean removeByIdRestaurante(int idRestaurante) {
+        return DBConn.executeUpdateOrDelete(
+            DELETE_BY_ID_RESTAURANTE,
+            new Object[][] {
+                {1, idRestaurante}
             }
         );
     }

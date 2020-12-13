@@ -315,17 +315,33 @@ function save() {
 
     console.log("save json", JSON.parse(jsonString));
 
-    const url = `http://localhost:8080/restaurante/setRestauranteOpciones/${jsonString}`;
+    // const url = `http://localhost:8080/restaurante/setRestauranteOpciones/${jsonString}`;
+    const url = "http://localhost:8080/restaurante/setRestauranteOpciones";
     const options = {
-		"method": "GET",
-		// "body": responseBody,
+		"method": "POST",
+		"body": jsonString,
 		"headers": {
 			"Content-Type": "application/json",
 			"Access-Control-Allow-Origin": "*"
 		}
     };
     
-    fetch(url, options).then(r => r.json())
-    .then(t => {console.log("bien");})
-    .catch(c => {console.log("nope");});
+    fetch(
+        url, options
+    ).then(
+        r => r.json()
+    ).then(t => {
+        console.log("bien");
+
+        /* Si todo ha ido bien, actualizo el restaurante almacenado en localStorage. */
+        fetch(
+            `http://localhost:8080/restaurante/getById/${idRestaurante}`
+        ).then(
+            response => response.json()
+        ).then(json => {
+            localStorage.setItem("restaurante", JSON.stringify(json));
+        });
+    }).catch(c => {
+        console.log("nope");
+    });
 }
