@@ -1,29 +1,16 @@
 document.addEventListener('DOMContentLoaded', function (event) {
-	loadNombreCliente();
-	loadUsuario();
+	loadClienteInfo();
 });
 
-async function loadNombreCliente() {
-	const response = await fetch(
-		"http://localhost:8080/cliente/getById/1"
-	);
-	const json = await response.json();
+function loadClienteInfo() {
+	let usuario = JSON.parse(localStorage.getItem("usuario"));
+	let cliente = JSON.parse(localStorage.getItem("cliente"));
 
-	let map = json;
-	console.log(map);
-	document.getElementById("nombre").value = map.nombreCompleto;
-	document.getElementById("codigo-postal").value = map.codigoPostalIdCodigoPostal;
-}
-async function loadUsuario() {
-	const response = await fetch(
-		"http://localhost:8080/usuario/getById/1"
-	);
-	const json = await response.json();
+	document.getElementById("nombre").value = cliente.nombreCompleto;
+	document.getElementById("email").value = usuario.correoElectronico;
+	document.getElementById("telefono").value = usuario.telefono;
+	document.getElementById("poblacion").value = usuario.poblacion;
+	document.getElementById("direccion").value = usuario.direccion;
 
-	let map = json;
-	console.log(map);
-	document.getElementById("email").value = map.correoElectronico;
-	document.getElementById("telefono").value = map.telefono;
-	document.getElementById("direccion").value = map.direccion;
-	document.getElementById("poblacion").value = map.poblacion;
+	fillSelectCodigoPostal(cliente.codigoPostalIdCodigoPostal);
 }
