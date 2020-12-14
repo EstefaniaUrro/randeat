@@ -6,6 +6,15 @@ function goToMainPage() {
 	window.location.href = "index.html";
 }
 
+function errorRegistroClearLocalStorage(err) {
+	console.error(err);
+
+	alert(err);
+	localStorage.clear();
+
+	alert("Error durante el proceso de registro, vuelve a intentarlo");
+}
+
 async function fetchUsuario(email, password) {
 	const response = await fetch(`${usuarioUrl}?email=${email}&password=${password}`);
 	return await response.json();
@@ -62,20 +71,20 @@ function performLogin() {
 
 				console.log(localStorage);
 
-				alert("Usuario logueado correctamente, voy a ver si es un cliente o un restaurante");
+				console.log("Usuario logueado correctamente, voy a ver si es un cliente o un restaurante");
 
 				// Mirar si es Cliente o Restaurante.
 				fetchRestauranteByIdUsuario(jsonUsuario.idUsuario)
 					.then(jsonRestaurante => {
 						if (jsonRestaurante === null) {
-							alert("no es un restaurante, voy a ver si es un cliente");
+							console.log("no es un restaurante, voy a ver si es un cliente");
 
 							fetchClienteByIdUsuario(jsonUsuario.idUsuario)
 								.then(jsonCliente => {
 									if (jsonCliente === null) {
-										alert("tampoco es un cliente? algo va mal");
+										console.log("tampoco es un cliente? algo va mal");
 									} else {
-										alert("es un cliente!!!!! guardando datos");
+										console.log("es un cliente!!!!! guardando datos");
 
 										localStorage.setItem(
 											"cliente",
@@ -90,7 +99,7 @@ function performLogin() {
 								})
 							;
 						} else {
-							alert("es un restaurante!!! guardando datos");
+							console.log("es un restaurante!!! guardando datos");
 
 							localStorage.setItem(
 								"restaurante",
@@ -140,7 +149,7 @@ function performRegistroCliente(form, jsonString) {
 		.then(json => {
 			console.log(json);
 
-			alert("usuario+cliente registrado correctamente");
+			console.log("usuario+cliente registrado correctamente");
 
 			fetchUsuario(email, password)
 				.then(jsonUsuario => {
@@ -159,19 +168,17 @@ function performRegistroCliente(form, jsonString) {
 							goToMainPage();
 						})
 						.catch(err => {
-							alert("error fetch cliente registrado");
+							errorRegistroClearLocalStorage(err);
 						})
 					;
 				})
 				.catch(err => {
-					console.log("err", err);
-					alert("error fetch usuario registrado");
+					errorRegistroClearLocalStorage(err);
 				})
 			;
 		})
 		.catch(err => {
-			console.log("err: ", err);
-			alert("Error durante el proceso de registro, revisa los datos y vuelve a intentarlo.");
+			errorRegistroClearLocalStorage(err);
 		})
 	;
 }
@@ -207,7 +214,7 @@ function performRegistroRestaurante(form, jsonString) {
 		.then(json => {
 			console.log(json);
 
-			alert("usuario+restaurante registrado correctamente");
+			console.log("usuario+restaurante registrado correctamente");
 
 			fetchUsuario(email, password)
 				.then(jsonUsuario => {
@@ -227,18 +234,17 @@ function performRegistroRestaurante(form, jsonString) {
 							goToMainPage();
 						})
 						.catch(err => {
-							alert("error fetch restaurante registrado");
+							errorRegistroClearLocalStorage(err);
 						})
 					;
 				})
 				.catch(err => {
-					alert("error fetch usuario registrado");
+					errorRegistroClearLocalStorage(err);
 				})
 			;
 		})
 		.catch(err => {
-			console.log("err: ", err);
-			alert("Error durante el proceso de registro, revisa los datos y vuelve a intentarlo.");
+			errorRegistroClearLocalStorage(err);
 		})
 	;
 }
@@ -267,12 +273,8 @@ function performRegistro() {
 	`;
 
 	if (restauranteCheckbox !== undefined && restauranteCheckbox.checked) {
-		alert('checked');
-
 		performRegistroRestaurante(form, jsonString);
 	} else {
-		alert('else');
-
 		performRegistroCliente(form, jsonString);
 	}
 }
