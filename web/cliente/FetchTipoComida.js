@@ -1,23 +1,22 @@
 function chooseTipoCocina(idTipoCocina) {
-	let infoPedido = JSON.parse(localStorage.getItem("infoPedido"));
-	infoPedido.idTipoCocina = idTipoCocina;
-
-	localStorage.setItem("infoPedido", JSON.stringify(infoPedido));
-
+	localStorage.setItem("idTipoCocina", idTipoCocina);
 	window.location.href = "./cliente/escogerpaquete.html";
 }
-
 function fetchTipoCocinaFilter(idCodigoPostal, idTipoEntrega) {
     const url = "http://localhost:8080/tipoCocina/getInFilter?"
         + `idCodigoPostal=${idCodigoPostal}`
         + `&idTipoEntrega=${idTipoEntrega}`    
     ;
+
+    console.log(url);
     
     //crea las diferentes tarjetas de tipoCocina en el HTML
     fetch(url)
         .then(response => response.json())
         .then(json => {
-            let tipoCocinaDiv = document.getElementById("tipoCocina")
+            let tipoCocinaDiv = document.getElementById("tipoCocina");
+
+            console.log("json", json);
 
             json.map(tipoCocina => {
                 tipoCocinaDiv.innerHTML += `
@@ -35,7 +34,8 @@ function fetchTipoCocinaFilter(idCodigoPostal, idTipoEntrega) {
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
-    let infoPedido = JSON.parse(localStorage.getItem("infoPedido"));
+    let idCodigoPostal = localStorage.getItem("idCodigoPostal");
+    let idTipoEntrega = localStorage.getItem("idTipoEntrega");
 
-	fetchTipoCocinaFilter(infoPedido.idCodigoPostal, infoPedido.idTipoEntrega);
+	fetchTipoCocinaFilter(idCodigoPostal, idTipoEntrega);
 });

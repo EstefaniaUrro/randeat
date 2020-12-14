@@ -5,11 +5,26 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RandEat</title>
+    <title>Escoge paquete</title>
     <link rel="icon" href="./img/favicon.ico" />
 
     <!-- Para que el header pueda sacar las fotos de web/img en todas las páginas -->
     <base href="./..">
+
+    <script>
+        /* Si no se ha proporcionado la informaciónn necesaria, volver a la página principal. */
+        let idCodigoPostal = localStorage.getItem("idCodigoPostal");
+        let idTipoEntrega = localStorage.getItem("idTipoEntrega");
+        let idTipoCocina = localStorage.getItem("idTipoCocina");
+
+        if (
+            idCodigoPostal === null
+            || idTipoEntrega === null
+            || idTipoCocina === null
+        ) {
+            window.location.href = "index.html";
+        }
+    </script>
 
     <script src="./js/check_cliente_present.js"></script>
 
@@ -26,6 +41,7 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <script src = "./cliente/FetchEscogerPaquete.js"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -41,16 +57,16 @@
             <div class="card col-md-4" style="background-color: rgba(243, 243, 243, 0.616);">
                 <div class="card-title card-center">
                     <br>
-                    <h4 style="text-align: center;">Nombre del restaurante</h4>
+                    <h4 style="text-align: center;" id ="restaurante"></h4>
                 </div>
                 <div class="text-center">
-                    <img class="card-img-top" src="../img/lasmuns.png" alt="Card image cap"
-                        style="width: 200px; height: 200px;">
+                    <img id="restauranteImg" class="card-img-top" alt="Card image cap"
+                    style="width: 200px; height: 200px;">
                 </div>
                 <div class="card-body">
                     <hr>
                     <div class="text-center">
-                        <a href="escogerpaquete.html"><button class="btn btn-outline-secondary enviar"
+                        <a href="./cliente/escogerpaquete.html"><button class="btn btn-outline-secondary enviar"
                                 type="button">Cambiar de restaurante</button></a>
                     </div>
                     <hr>
@@ -74,7 +90,7 @@
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete pequeño</h4>
                     </div>
                     <div class="card-body card-center">
-                        <p><span id="peque">15.99</span>€</p>
+                        <p style="text-align: center;"><span id="peque"></span>€</p>
                         <p style="text-align: center;">Uno o dos entrantes </p>
                         <div style="text-align: center;">
                             <button id="resta2"
@@ -92,7 +108,7 @@
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete mediano</h4>
                     </div>
                     <div class="card-body card-center">
-                        <p><span id="mediano">5.55</span>€</p>
+                        <p style="text-align: center;"><span id="mediano"></span>€</p>
                         <p style="text-align: center;">Un plato principal</p>
                         <div style="text-align: center;">
                             <button id="resta1"
@@ -110,7 +126,7 @@
                         <h4 style="text-align: center; color : rgb(233, 164, 35)">Paquete grande</h4>
                     </div>
                     <div class="card-body card-center">
-                        <p><span id="grande">30</span>€</p>
+                        <p style="text-align: center;"><span id="grande"></span>€</p>
                         <p style="text-align: center;">Un entrante y un plato principal</p>
                         <div style="text-align: center;">
                             <button id="resta"

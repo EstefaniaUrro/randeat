@@ -11,12 +11,12 @@
 
     <script>
         /* Si no se ha proporcionado la información necesaria, volver a la página principal. */
-        let infoPedido = JSON.parse(localStorage.getItem("infoPedido"));
+        let idCodigoPostal = localStorage.getItem("idCodigoPostal");
+        let idTipoEntrega = localStorage.getItem("idTipoEntrega");
 
         if (
-            infoPedido === null
-            || infoPedido.idCodigoPostal === undefined
-            || infoPedido.idTipoEntrega === undefined
+            idCodigoPostal === null
+            || idTipoEntrega === null
         ) {
             window.location.href = "index.html";
         }
