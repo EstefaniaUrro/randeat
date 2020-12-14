@@ -160,16 +160,18 @@ function loadPedidos() {
 			));
 			tr.appendChild(tdFecha);
 
-			let tdInfo = document.createElement("button");
-			tdInfo.type = "button";
-			tdInfo.addEventListener("click", function () {
-				nombre(tdInfo, pedido.idPedido);
+			let tdInfo = document.createElement("td");
+			tdInfo.classList.add("text-center");
+
+			let button = document.createElement("button");
+			button.type = "button";
+			button.textContent = "+";
+			button.classList.add("button-info");
+			button.addEventListener("click", function () {
+				nombre(button, pedido.idPedido);
 			});
 
-			tdInfo.classList.add("btn-primary");
-			tdInfo.setAttribute("data-toggle", "modal");
-
-			tdInfo.textContent = "+";
+			tdInfo.appendChild(button);
 			tr.appendChild(tdInfo);
 			tbody.appendChild(tr);
 
@@ -185,7 +187,9 @@ function nombre(button, pedido) {
 	).then(pedido => {
 		let cliente = JSON.parse(localStorage.getItem("cliente"));
 		if (cliente !== null) {
-			button.setAttribute("data-target", "#modalCliente");
+			$('#tbodyModalCliente').empty();
+			$("#modalCliente").modal("show");
+
 			fetch(
 				`http://localhost:8080/restaurante/getById/${pedido.restauranteIdRestaurante}`
 			).then(
@@ -194,11 +198,12 @@ function nombre(button, pedido) {
 				$("#tbodyModalCliente").append(`<tr><td>` + restaurante.nombreRestaurante + `</td><td>` + pedido.direccionEnvio + `</td>
 			<td>` + pedido.comentario + `</td></tr>`);
 			});
-			$('#tbodyModalCliente').empty()
 		}
 		let restaurante = JSON.parse(localStorage.getItem("restaurante"));
 		if (restaurante !== null) {
-			button.setAttribute("data-target", "#modalRestaurante");
+			$('#tbodyModalRestaurante').empty();
+			$("#modalRestaurante").modal("show");
+
 			fetch(
 				`http://localhost:8080/cliente/getById/${pedido.clienteIdCliente}`
 			).then(
@@ -207,7 +212,6 @@ function nombre(button, pedido) {
 				$("#tbodyModalRestaurante").append(`<tr><td>` + cliente.nombreCompleto + `</td><td>` + pedido.direccionEnvio + `</td>
 			<td>` + pedido.comentario + `</td></tr>`);
 			});
-			$('#tbodyModalRestaurante').empty()
 		}
 	});
 }
