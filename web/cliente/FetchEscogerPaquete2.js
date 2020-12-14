@@ -50,23 +50,3 @@ function loadRestaurantes() {
 }
 
 loadRestaurantes();
-
-/*
-fetch(url)
-.then(response => response.json())
-.then(data => {
-  let ordenRestaurante = Math.floor(Math.random()*(2-0)+0);
-  let restaurante = document.getElementById("restaurante")
-  restaurante.innerHTML +=`
-  <h4 style="text-align: center;">${data[ordenRestaurante].nombreRestaurante}</h4>
-  `
-  console.log(data);
-
-  restaurante.innerHTML +=`
-  <img class="card-img-top" src="./img/${data[ordenRestaurante].nombreRestaurante}.jpg" alt="Card image cap" style="width: 200px; height: 200px;">
-  `
-
-  console.log(data);
-})
-.catch(err => console.log(err));
-*/
