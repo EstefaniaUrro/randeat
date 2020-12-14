@@ -33,27 +33,27 @@
     <br>
     <div class="container">
         <h2>Cuenta</h2>
-        <form>
+        <form action="#" onsubmit="save(); return false;">
 
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
-                    <label for="cif">NIF</label>
-                    <input type="text" class="form-control" id="Nif">
+                    <label for="nif">NIF</label>
+                    <input type="text" class="form-control" id="nif" name="nif" required>
                 </div>
                 <div class="form-group col col-12 col-md-6">
                     <label for="name">Nombre del restaurante</label>
-                    <input type="text" class="form-control" id="nombre">
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="dirección">Dirección</label>
-                    <input type="text" class="form-control" id="direccion">
+                    <input type="text" class="form-control" id="direccion" name="direccion" required>
                 </div>
                 <div class="form-group col col-12 col-md-6">
                     <label for="postal">Código postal</label>
-                    <select id="codigo-postal" class="form-control">
+                    <select id="codigo-postal" name="codigoPostal" class="form-control" required>
                     </select>
                 </div>
             </div>
@@ -61,28 +61,32 @@
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email">
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group col col-12 col-md-6">
                     <label for="phone-number">Teléfono</label>
-                    <input type="text" pattern="^[0-9]{9}$" class="form-control" id="telefono">
+                    <input type="text" pattern="^[0-9]{9}$" class="form-control" id="telefono" name="telefono" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="nombrePropietario">Nombre del propietario</label>
-                    <input type="nombrePropietario" class="form-control" id="nombrePropietario">
+                    <input type="nombrePropietario" class="form-control" id="nombrePropietario" name="nombrePropietario" required>
                 </div>
                 <div class="form-group col col-12 col-md-6">
-                    <label for="Ciudad">Población</label>
-                    <input type="text" class="form-control" id="poblacion">
+                    <label for="poblacion">Población</label>
+                    <input type="text" class="form-control" id="poblacion" name="poblacion" disabled required>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col col-12 col-md-6">
                     <label for="iban">IBAN</label>
-                    <input type="text" class="form-control" id="iban">
+                    <input type="text" class="form-control" id="iban" required>
+                </div>
+                <div class="form-group col col-12 col-md-6">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" class="form-control" id="contrasena" name="contrasena" required>
                 </div>
                 <!--<div class="form-group col col-12 col-md-6">
                     <label for="imagen">Imagen del restaurante</label>
@@ -113,16 +117,17 @@
             
             let map = json;
             console.log(map);
-            document.getElementById("Nif").value = map.cif;
+            document.getElementById("nif").value = map.cif;
             document.getElementById("nombre").value = map.nombreRestaurante;
             document.getElementById("nombrePropietario").value = map.nombrePropietario;
             document.getElementById("iban").value = map.iban;
             fillSelectCodigoPostal(map.codigoPostalIdCodigoPostal);
         }
+
         async function loadUsuario() {
-            let restaurante = JSON.parse(localStorage.getItem("restaurante"));
+            let usuario = JSON.parse(localStorage.getItem("usuario"));
             const response = await fetch(
-                `http://localhost:8080/usuario/getById/${restaurante.idRestaurante}`
+                `http://localhost:8080/usuario/getById/${usuario.idUsuario}`
             );
             const json = await response.json();
 
@@ -132,6 +137,74 @@
             document.getElementById("direccion").value = map.direccion;
             document.getElementById("poblacion").value = map.poblacion;
             document.getElementById("telefono").value = map.telefono;
+            document.getElementById("contrasena").value = map.contrasena;
+        }
+
+        function save() {
+            let form = document.getElementsByTagName("form")[0];
+            let idUsuario = JSON.parse(localStorage.getItem("usuario")).idUsuario;
+            let idRestaurante = JSON.parse(localStorage.getItem("restaurante")).idRestaurante;
+
+            let jsonString = `{
+                "idUsuario": ${idUsuario},
+                "idRestaurante": ${idRestaurante},
+                "nif": "${form.nif.value}",
+                "nombre": "${form.nombre.value}",
+                "direccion": "${form.direccion.value}",
+                "idCodigoPostal": "${form.codigoPostal.value}",
+                "correoElectronico": "${form.email.value}",
+                "telefono": "${form.telefono.value}",
+                "nombrePropietario": "${form.nombrePropietario.value}",
+                "poblacion": "${form.poblacion.value}",
+                "iban": "${form.iban.value}",
+                "contrasena": "${form.contrasena.value}"
+            }`;
+
+            console.log(jsonString);
+
+            let url = "http://localhost:8080/restaurante/update";
+            let options = {
+                "method": "POST",
+                "body": jsonString,
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            };
+
+            fetch(
+                url, options
+            ).then(
+                response => response.json()
+            ).then(ok => {
+                console.log(ok);
+
+                // Actualizo el restaurante y usuario almacenados en localStorage.
+                fetch(
+                    `http://localhost:8080/restaurante/getById/${idRestaurante}`
+                ).then(
+                    response => response.json()
+                ).then(json => {
+                    localStorage.setItem("restaurante", JSON.stringify(json));
+
+                    fetch(
+                        `http://localhost:8080/usuario/getById/${idUsuario}`
+                    ).then(
+                        response => response.json()
+                    ).then(json => {
+                        localStorage.setItem("usuario", JSON.stringify(json));
+
+                        alert("Datos guardados correctamente")
+                    }).catch(err => {
+                        console.error(err);
+                    });
+                }).catch(err => {
+                    console.error(err);
+                });
+                
+            }).catch(err => {
+                console.error(err);
+            });
         }
     </script>
 </body>

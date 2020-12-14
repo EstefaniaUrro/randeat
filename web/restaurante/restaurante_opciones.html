@@ -39,10 +39,10 @@
     <div id="header"></div>
 
     <div class="container">
-        <form id="restaurante-opciones">
+        <form id="restaurante-opciones" action="#" onsubmit="javascript:save(); return false;">
             <h3>Tipo de cocina</h3>
             <p class="header-description">
-                Seleccione los tipos de cocina que tiene el restaurante
+                Seleccione los tipos de cocina que ofrece su restaurante.
             </p>
             <div class="col-md-8 mx-auto">
                 <select id="tipos-cocina" class="form-control w-100" multiple
@@ -54,7 +54,7 @@
 
             <h3>Paquetes</h3>
             <p class="header-description">
-                Seleccione los paquetes que ofreces en el restaurante
+                Establezca un precio para cada paquete.
             </p>
             <ul id="package-options"></ul>
 
@@ -62,7 +62,7 @@
 
             <h3>Modalidades de entrega</h3>
             <p class="header-description">
-                Seleccione las modalidades de entrega o envío del restaurante
+                Seleccione una o más.
             </p>
             <ul class="container" id="delivery-options"></ul>
             <select id="tiposEntrega" multiple value="" hidden></select>
@@ -71,7 +71,7 @@
 
             <h3>Actividad</h3>
             <p class="header-description">
-                Active el restaurante para que sea visible y acepte todos los pedidos.
+                Un restaurante activo acepta todos los pedidos. Póngalo inactivo cuando no tenga comida extra o acabe la jornada laboral.
             </p>
             <ul class="container col-md-8" id="visibility-options">
                 <li id="activo" class="list-group-item list-group-item-action"
@@ -85,7 +85,9 @@
             </ul>
 
             <div class="group text-center mt-4">
-                <button type="button" class="btn btn-primary col-12 col-md-3 enviar" onclick="javascript:save();">Guardar</button>
+                <button type="submit" class="btn btn-primary col-12 col-md-3 enviar">
+                    Guardar
+                </button>
             </div>
         </form>
     </div>

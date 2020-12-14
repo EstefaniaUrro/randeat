@@ -164,6 +164,7 @@ function performRegistroCliente(form, jsonString) {
 					;
 				})
 				.catch(err => {
+					console.log("err", err);
 					alert("error fetch usuario registrado");
 				})
 			;
@@ -265,7 +266,7 @@ function performRegistro() {
 			"idCodigoPostal": "${form["codigo-postal"].value}",
 	`;
 
-	if (restauranteCheckbox.checked) {
+	if (restauranteCheckbox !== undefined && restauranteCheckbox.checked) {
 		alert('checked');
 
 		performRegistroRestaurante(form, jsonString);
@@ -278,14 +279,5 @@ function performRegistro() {
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
-	// TODO
-	// document.getElementById("restaurante").checked = false;
-
 	fillSelectCodigoPostal(null);
-
-	let restauranteCheckbox = document.getElementById("restaurante");
-	// Check para que no pete la pantalla de login/registro original.
-	if (restauranteCheckbox !== null) {
-		restauranteCheckbox.checked = false;
-	}
 });

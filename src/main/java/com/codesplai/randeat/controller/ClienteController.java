@@ -1,5 +1,6 @@
 package com.codesplai.randeat.controller;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
@@ -7,7 +8,6 @@ import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
-import com.codesplai.randeat.controller.wrapper.UsuarioClienteWrapper;
 import com.codesplai.randeat.modelo.Cliente;
 import com.codesplai.randeat.modelo.Usuario;
 
@@ -16,7 +16,7 @@ import org.apache.tomcat.util.json.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,8 +45,11 @@ public class ClienteController implements FromResultSet<Cliente> {
     );
 
     private static final String UPDATE = String.format(
-        "UPDATE %s set %s=?, %s=?, %s=? WHERE %s=?",
-        TABLE, USUARIO_ID_USUARIO, NOMBRE_COMPLETO, CODIGO_POSTAL_ID_CODIGO_POSTAL, ID_CLIENTE
+        "UPDATE %s SET %s = ?, %s=? WHERE %s = ?",
+        TABLE,
+        NOMBRE_COMPLETO,
+        CODIGO_POSTAL_ID_CODIGO_POSTAL,
+        ID_CLIENTE
     );
 
     @GetMapping("/getById/{idCliente}")
@@ -107,19 +110,31 @@ public class ClienteController implements FromResultSet<Cliente> {
         );
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     public static boolean update(
-        @RequestBody UsuarioClienteWrapper usuarioCliente
-    ) {
-        UsuarioController.update(usuarioCliente.usuario);
+        @RequestBody String jsonString
+    ) throws ParseException {
+        Map<String, Object> form = new JSONParser(jsonString).parseObject();
+
+        int idUsuario = ((BigInteger) form.get("idUsuario")).intValue();
+
+        Usuario usuario = new Usuario(
+            idUsuario,
+            (String) form.get("correoElectronico"),
+            (String) form.get("contrasena"),
+            (String) form.get("telefono"),
+            (String) form.get("poblacion"),
+            (String) form.get("direccion")
+        );
+
+        UsuarioController.update(usuario);
 
         DBConn.executeUpdateOrDelete(
             UPDATE,
             new Object[][]{
-                {1, usuarioCliente.cliente.getUsuarioIdUsuario()},
-                {2, usuarioCliente.cliente.getNombreCompleto()},
-                {3, usuarioCliente.cliente.getCodigoPostalIdCodigoPostal()},
-                {4, usuarioCliente.cliente.getIdCliente()}
+                {1, (String) form.get("nombre")},
+                {2, Integer.parseInt((String) form.get("idCodigoPostal"))},
+                {3, ((BigInteger) form.get("idCliente")).intValue()}
         });
 
         return true;

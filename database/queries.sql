@@ -93,7 +93,7 @@ INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, pobla
 
 INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	1,
-    2,
+    3,
     'cif campeador',
     'ES 1231231231231',
     'Cocido Gatileño',
@@ -101,24 +101,44 @@ INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_r
     1,
     0
 );
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	4,
+	'pizzas@melissa.com',
+    'melissa',
+    '888889888',
+    'Barcelona',
+    'Carrer Marina 23'
+);
+
 INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
 	2,
-    2,
-    'laksjdlaksjd',
-    'ES 343434343434',
-    'Natillas Pro',
-    'Natialia',
-    2,
-    0
-);
-INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
-	3,
-    2,
-    'lkj12lk3jl',
+    4,
+    'pzzmlsTODO',
     'ES 909090909090',
     'Pizzas Melissa',
     'Melisa',
     1,
+    0
+);
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	5,
+	'natillas@pro.com',
+    'natillas',
+    '888889888',
+    'Barcelona',
+    'Carrer Marina 23'
+);
+
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
+	3,
+    5,
+    '12312TODO',
+    'ES 343434343434',
+    'Natillas Pro',
+    'Natialia',
+    2,
     0
 );
 
