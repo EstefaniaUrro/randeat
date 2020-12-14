@@ -28,12 +28,39 @@ public class PedidoPaqueteController implements FromResultSet<PedidoPaquete> {
 		TABLE, ID_PEDIDO
 	);
 
+	private static final String INSERT_PEDIDO_PAQUETE = String.format(
+		"INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)",
+		TABLE, ID_PEDIDO, ID_PAQUETE, CANTIDAD
+	);
+
 	@GetMapping("/getByIdPedido/{idPedido}")
 	public static List<PedidoPaquete> getByIdPedido(
 		@PathVariable int idPedido
 	) {
-		return DBConn.executeQueryWithParamsIntoList(SELECT_BY_ID_PEDIDO, new Object[][] { { 1, idPedido } },
-				new PedidoPaqueteController());
+		return DBConn.executeQueryWithParamsIntoList(
+			SELECT_BY_ID_PEDIDO,
+			new Object[][] {
+				{1, idPedido}
+			},
+			new PedidoPaqueteController()
+		);
+	}
+
+	public static boolean addPedidoPaquete(
+		int idPedido,
+		int idPaquete,
+		int cantidad
+	) {
+		DBConn.executeInsert(
+			INSERT_PEDIDO_PAQUETE,
+			new Object[][] {
+				{1, idPedido},
+				{2, idPaquete},
+				{3, cantidad}
+			}
+		);
+
+		return true;
 	}
 
 	@Override

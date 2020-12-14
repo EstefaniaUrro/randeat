@@ -26,7 +26,7 @@ public class PaqueteController implements FromResultSet<Paquete> {
     static final String DESCRIPCION = "descripcion";
 
     private static final String SELECT_ALL = String.format(
-        "SELECT * FROM %s", TABLE
+        "SELECT * FROM %s ORDER BY %s ASC", TABLE, ID_PAQUETE
     );
 
     private static final String SELECT_BY_ID_PAQUETE = String.format(

@@ -5,13 +5,17 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.codesplai.randeat.DBConn;
 import com.codesplai.randeat.FromResultSet;
 import com.codesplai.randeat.modelo.Pedido;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -100,28 +104,57 @@ public class PedidoController implements FromResultSet<Pedido> {
 
     @PostMapping("/add")
     public static Optional<Integer> add(
-        @RequestBody Pedido pedido
-    ) {
-        Optional<String> direccionEnvio = pedido.getDireccionEnvio();
-        String direccionEnvioQuizaNull = direccionEnvio.isEmpty() ?
-            null
-            :
-            direccionEnvio.get()
-        ;
+        @RequestBody String jsonString
+    ) throws ParseException {
+        Map<String, Object> form = new JSONParser(jsonString).parseObject();
 
-        return DBConn.executeInsert(
+        // Optional<String> direccionEnvio = pedido.getDireccionEnvio();
+        // String direccionEnvioQuizaNull = direccionEnvio.isEmpty() ?
+        //     null
+        //     :
+        //     direccionEnvio.get()
+        // ;
+
+        LocalDateTime fecha = LocalDateTime.now();
+
+        int idPedido = DBConn.executeInsert(
             INSERT,
             new Object[][] {
-                {1, pedido.getClienteIdCliente()},
-                {2, pedido.getRestauranteIdRestaurante()},
-                {3, pedido.getTipoCocinaIdTipoCocina()},
-                {4, pedido.getTipoEntregaIdTipoEntrega()},
-                {5, direccionEnvioQuizaNull},
-                {6, pedido.getFecha().toLocalDate()},
-                {7, pedido.getFecha().toLocalTime()},
-                {8, pedido.getComentario()}
+                {1, form.get("idCliente")},
+                {2, form.get("idRestaurante")},
+                {3, form.get("idTipoCocina")},
+                {4, form.get("idTipoEntrega")},
+                {5, form.get("direccionEnvio")},
+                {6, fecha.toLocalDate()},
+                {7, fecha.toLocalTime()},
+                {8, (String) form.get("comentario")}
             }
-        );
+        ).get();
+
+        String pedidoPaquetesString = form.get("pedidoPaquetes").toString();
+        Map<String, Integer> pedidoPaquetesMap = new HashMap<>();
+        String[] pedidoPaquetesPair = pedidoPaquetesString
+            .substring(1, pedidoPaquetesString.length()-1)
+            .split(", ")
+        ;
+
+        for (String pair : pedidoPaquetesPair) {
+            String[] split = pair.split("=");
+            pedidoPaquetesMap.put(
+                split[0],
+                Integer.parseInt(split[1])
+            );
+        }
+
+        for (Map.Entry<String, Integer> i : pedidoPaquetesMap.entrySet()) {
+            PedidoPaqueteController.addPedidoPaquete(
+                idPedido,
+                Integer.parseInt(i.getKey()),
+                i.getValue()
+            );
+        }
+
+        return Optional.of(idPedido);
     }
 
     @Override

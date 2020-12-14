@@ -29,7 +29,8 @@ public class RestaurantePaqueteController implements FromResultSet<RestaurantePa
         "SELECT rp.*, p.%s FROM %s r"
         + " INNER JOIN %s rp ON rp.%s = r.%s"
         + " INNER JOIN %s p ON p.%s = rp.%s"
-        + " WHERE r.%s = ?",
+        + " WHERE r.%s = ?"
+        + " ORDER BY %s ASC",
         PaqueteController.NOMBRE,
         RestauranteController.TABLE,
 
@@ -41,7 +42,9 @@ public class RestaurantePaqueteController implements FromResultSet<RestaurantePa
         PaqueteController.ID_PAQUETE,
         ID_PAQUETE,
 
-        RestauranteController.ID_RESTAURANTE
+        RestauranteController.ID_RESTAURANTE,
+
+        ID_PAQUETE
     );
 
     private static final String INSERT = String.format(
