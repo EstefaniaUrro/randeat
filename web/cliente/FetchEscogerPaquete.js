@@ -32,7 +32,7 @@ function loadRestaurantes() {
             let restaurante = document.getElementById("restaurante");
             restaurante.innerText =data[ordenRestaurante].nombreRestaurante;
             let restauranteImg = document.getElementById("restauranteImg");
-            restauranteImg.src =`./img/${data[ordenRestaurante].nombreRestaurante}.jpg`;
+            restauranteImg.src =`./img/Restaurantes/${data[ordenRestaurante].nombreRestaurante}.jpg`;
             console.log(data);
             const urlCoste = 'http://localhost:8080/restaurantePaquete/getByIdRestaurante/'+ data[ordenRestaurante].idRestaurante;
             fetch(urlCoste)
