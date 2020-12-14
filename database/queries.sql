@@ -33,6 +33,10 @@ ALTER TABLE codigo_postal AUTO_INCREMENT = 1;
 INSERT INTO codigo_postal (numero) VALUES ('08005');
 INSERT INTO codigo_postal (numero) VALUES ('08014');
 INSERT INTO codigo_postal (numero) VALUES ('08028');
+INSERT INTO codigo_postal (numero) VALUES ('08009');
+INSERT INTO codigo_postal (numero) VALUES ('08018');
+INSERT INTO codigo_postal (numero) VALUES ('08013');
+
 
 INSERT INTO paquete VALUES (1, 'Pequeño', 'Un entrante');
 INSERT INTO paquete VALUES (2, 'Mediano', 'Un plato principal');
@@ -99,7 +103,7 @@ INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_r
     'Cocido Gatileño',
     'Señor Michi',
     1,
-    0
+    1
 );
 
 INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
@@ -119,7 +123,7 @@ INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_r
     'Pizzas Melissa',
     'Melisa',
     1,
-    0
+    1
 );
 
 INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
@@ -138,23 +142,154 @@ INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_r
     'ES 343434343434',
     'Natillas Pro',
     'Natialia',
-    2,
-    0
+    1,
+    1
+);
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	6,
+	'estefania@gmail.com',
+    'perretes',
+    '655655655',
+    'Barcelona',
+    'Carrer Martina 82'
+);
+
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
+	4,
+    6,
+    '78912ASUA',
+    'ES 754896374185',
+    'EstefaFood',
+    'Estefania',
+    1,
+    1
+);
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	7,
+	'dave@gmail.com',
+    'davesito',
+    '674167249',
+    'Barcelona',
+    'Carrer Mateu 1'
+);
+
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
+	5,
+    7,
+    '16483NAIX',
+    'ES 843715498753',
+    'Hamburguesa Acción',
+    'David',
+    1,
+    1
+);
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	8,
+	'pancho@gmail.com',
+    'ohcnap',
+    '674268943',
+    'Barcelona',
+    'Carrer Matias 46'
+);
+
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
+	6,
+    8,
+    '69715PAYR',
+    'ES 789654125478',
+    'Pistacchio Pancho',
+    'Pancho',
+    1,
+    1
+);
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	9,
+	'nacho@gmail.com',
+    'nachete',
+    '684135749',
+    'Barcelona',
+    'Carrer Matias 2'
+);
+
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
+	7,
+    9,
+    '93715NAUR',
+    'ES 745813469275',
+    'Taglio Pancho',
+    'Nacho',
+    1,
+    1
+);
+
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	10,
+	'alberto@gmail.com',
+    'luna',
+    '674215938',
+    'Barcelona',
+    'Carrer Marc 92'
+);
+
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
+	8,
+    10,
+    '24687CAID',
+    'ES 356712486246',
+    'Tenedor Alberto',
+    'Alberto',
+    1,
+    1
 );
 
 INSERT INTO tipo_cocina VALUES (1, 'Chino');
 INSERT INTO tipo_cocina VALUES (2, 'Pizza');
+INSERT INTO tipo_cocina VALUES (3, 'Sushi');
+INSERT INTO tipo_cocina VALUES (4, 'Hamburguesa');
+INSERT INTO tipo_cocina VALUES (5, 'Pollo');
+INSERT INTO tipo_cocina VALUES (6, 'Pasta');
+INSERT INTO tipo_cocina VALUES (7, 'Kebab');
+INSERT INTO tipo_cocina VALUES (8, 'Tacos');
 
 INSERT INTO restaurante_tipo_cocina VALUES (1, 1);
-INSERT INTO restaurante_tipo_cocina VALUES (2, 1);
+INSERT INTO restaurante_tipo_cocina VALUES (1, 5);
+INSERT INTO restaurante_tipo_cocina VALUES (2, 4);
 INSERT INTO restaurante_tipo_cocina VALUES (2, 2);
 INSERT INTO restaurante_tipo_cocina VALUES (3, 1);
-INSERT INTO restaurante_tipo_cocina VALUES (3, 2);
+INSERT INTO restaurante_tipo_cocina VALUES (3, 3);
+INSERT INTO restaurante_tipo_cocina VALUES (4, 3);
+INSERT INTO restaurante_tipo_cocina VALUES (4, 5);
+INSERT INTO restaurante_tipo_cocina VALUES (5, 4);
+INSERT INTO restaurante_tipo_cocina VALUES (5, 5);
+INSERT INTO restaurante_tipo_cocina VALUES (6, 7);
+INSERT INTO restaurante_tipo_cocina VALUES (6, 8);
+INSERT INTO restaurante_tipo_cocina VALUES (7, 2);
+INSERT INTO restaurante_tipo_cocina VALUES (7, 6);
+INSERT INTO restaurante_tipo_cocina VALUES (8, 7);
+INSERT INTO restaurante_tipo_cocina VALUES (8, 8);
 
+
+
+INSERT INTO restaurante_tipo_entrega VALUES (1, 1);
 INSERT INTO restaurante_tipo_entrega VALUES (1, 2);
 INSERT INTO restaurante_tipo_entrega VALUES (2, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (2, 2);
 INSERT INTO restaurante_tipo_entrega VALUES (3, 1);
 INSERT INTO restaurante_tipo_entrega VALUES (3, 2);
+INSERT INTO restaurante_tipo_entrega VALUES (4, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (4, 2);
+INSERT INTO restaurante_tipo_entrega VALUES (5, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (5, 2);
+INSERT INTO restaurante_tipo_entrega VALUES (6, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (6, 2);
+INSERT INTO restaurante_tipo_entrega VALUES (7, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (7, 2);
+INSERT INTO restaurante_tipo_entrega VALUES (8, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (8, 2);
 
 INSERT INTO restaurante_paquete VALUES (1, 1, 6.75);
 INSERT INTO restaurante_paquete VALUES (1, 2, 12.75);
@@ -169,24 +304,51 @@ INSERT INTO restaurante_bebida VALUES (3, 4);
 INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, comentario) VALUES (
 	1,
     1,
-    1,
+    2,
     2,
     1,
 	-- direccion_envio porque tipo_entrega_id_tipo_entrega es 1, enviar
     "Calle del hambre, 23, Barcelona, 08009",
-    DATE(NOW()),
-    TIME(NOW()),
+    "2020/12/16",
+    13:35:49,
     'Crudo porfavor'
 );
+
 INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, fecha_date, fecha_time, comentario) VALUES (
 	2,
     1,
     2,
+    2,
+    2,
+    "2020/12/16",
+    13:43:15,
+    'hehe :P'
+);
+
+INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, comentario) VALUES (
+	3,
     1,
     2,
-    DATE(NOW()),
-    TIME(NOW()),
-    'hehe :P'
+    4,
+    1,
+	-- direccion_envio porque tipo_entrega_id_tipo_entrega es 1, enviar
+    "Calle del JavaScript, 6, Barcelona, 08009",
+    "2020/12/16",
+    13:57:02,
+    'Extra de salsa'
+);
+
+INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, tipo_cocina_id_tipo_cocina, tipo_entrega_id_tipo_entrega, direccion_envio, fecha_date, fecha_time, comentario) VALUES (
+	4,
+    2,
+    2,
+    2,
+    1,
+	-- direccion_envio porque tipo_entrega_id_tipo_entrega es 1, enviar
+    "Calle HTML, 5, Barcelona, 08009",
+    "2020/12/16",
+    14:02:30,
+    'No mes gusta la mortadela con aceitunas'
 );
 
 -- Listar pedidos con nombres info básica en texto.
