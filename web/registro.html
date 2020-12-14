@@ -50,7 +50,7 @@
 
 						<div class="group">
 							<label for="cif" class="label">NIF</label>
-							<input id="cif" name="cif" type="number" class="input" required>
+							<input id="cif" name="cif" type="text" class="input" pattern="^[0-9]{8}[A-Z]$" required>
 						</div>
 
 						<div class="group">
@@ -63,7 +63,6 @@
 								Código postal
 							</label>
 							<select name="codigo-postal" id="codigo-postal" class="input" required>
-								<option value="postal" disable hidden>Por favor seleccina</option>
 							</select>
 						</div>
 
