@@ -1,32 +1,4 @@
-function loadRestaurante() {
-	let cliente = JSON.parse(localStorage.getItem("cliente"));
-;
-	fetch(
-		`http://localhost:8080/pedido/getByIdCliente/${cliente.idCliente}`
-	).then(
-		response => response.json()
-	).then(ok => {
-		console.log(ok);
-		fetch(
-			`http://localhost:8080/pedido/getById/${ok[0].idPedido}`
-		).then(
-			response => response.json()
-		).then(nombre => {
-			console.log(nombre.restauranteIdRestaurante);
-			fetch(
-				`http://localhost:8080/restaurante/getById/${nombre.restauranteIdRestaurante}`
-			).then(
-				response => response.json()
-			).then(restaurante => {
-				console.log(restaurante.nombreRestaurante);
-				$("#tbodyModalCliente").append(`<tr><td>` + restaurante.nombreRestaurante  + `</td><td>` + nombre.direccionEnvio + `</td>
-				<td>` + nombre.comentario + `</td></tr>`);
-				
-			});
-		});
-	});
-	
-}
+
 
 async function loadPaquetesMap() {
 	const response = await fetch(
@@ -57,7 +29,6 @@ async function loadTipoCocinaMap() {
 
 function createIdElementMap(json, idAttributeName) {
 	let map = new Map();
-	console.log("LISTA", map);
 	json.map(element => {
 		map.set(
 			element[idAttributeName],
@@ -95,7 +66,7 @@ function setPedidoPaquetesString(idPedido, tdPaquete, paquetesMap) {
 
 async function loadPedidosJson() {
 	let url = "";
-	
+
 	let cliente = JSON.parse(localStorage.getItem("cliente"));
 	if (cliente !== null) {
 		url = `http://localhost:8080/pedido/getByIdCliente/${cliente.idCliente}`;
@@ -103,7 +74,7 @@ async function loadPedidosJson() {
 		let restaurante = JSON.parse(localStorage.getItem("restaurante"));
 		if (restaurante !== null) {
 			url = `http://localhost:8080/pedido/getByIdRestaurante/${restaurante.idRestaurante}`;
-		
+
 		} else {
 			alert("Error al determinal el tipo de usuario. Por favor, cierra sesión y vuelve a conectarte.");
 		}
@@ -127,7 +98,7 @@ function loadPedidos() {
 		let tipoEntregaMap = values[1];
 		let tipoCocinaMap = values[2];
 		let paquetesMap = values[3];
-	
+
 		let tbody = document.getElementsByTagName("tbody")[0];
 		for (let i = 0; i < pedidosJson.length;) {
 			let cliente = JSON.parse(localStorage.getItem("cliente"));
@@ -136,10 +107,9 @@ function loadPedidos() {
 				<td>` + pedidosJson[i].comentario + `</td></tr>`);*/
 			}
 			let restaurante = JSON.parse(localStorage.getItem("restaurante"));
-			
+
 			if (restaurante !== null) {
-				$("#tbodyModalRestaurante").append(`<tr><td>` + pedidosJson[i].clienteIdCliente + `</td><td>` + pedidosJson[i].direccionEnvio + `</td>
-			<td>` + pedidosJson[i].comentario + `</td></tr>`);
+
 			}
 			i++;
 		}
@@ -192,19 +162,13 @@ function loadPedidos() {
 
 			let tdInfo = document.createElement("button");
 			tdInfo.type = "button";
-			tdInfo.addEventListener("click", function (){
-				nombre(pedido.idPedido);
-			})
+			tdInfo.addEventListener("click", function () {
+				nombre(tdInfo, pedido.idPedido);
+			});
+
 			tdInfo.classList.add("btn-primary");
 			tdInfo.setAttribute("data-toggle", "modal");
-			let cliente = JSON.parse(localStorage.getItem("cliente"));
-			if (cliente !== null) {
-				tdInfo.setAttribute("data-target", "#modalCliente");
-			}
-			let restaurante = JSON.parse(localStorage.getItem("restaurante"));
-			if (restaurante !== null) {
-				tdInfo.setAttribute("data-target", "#modalRestaurante");
-			}
+
 			tdInfo.textContent = "+";
 			tr.appendChild(tdInfo);
 			tbody.appendChild(tr);
@@ -213,11 +177,41 @@ function loadPedidos() {
 		});
 	});
 }
-function nombre(pedido){
-	alert("HOLA"+ pedido);
+function nombre(button, pedido) {
+	fetch(
+		`http://localhost:8080/pedido/getById/${pedido}`
+	).then(
+		response => response.json()
+	).then(pedido => {
+		let cliente = JSON.parse(localStorage.getItem("cliente"));
+		if (cliente !== null) {
+			button.setAttribute("data-target", "#modalCliente");
+			fetch(
+				`http://localhost:8080/restaurante/getById/${pedido.restauranteIdRestaurante}`
+			).then(
+				response => response.json()
+			).then(restaurante => {
+				$("#tbodyModalCliente").append(`<tr><td>` + restaurante.nombreRestaurante + `</td><td>` + pedido.direccionEnvio + `</td>
+			<td>` + pedido.comentario + `</td></tr>`);
+			});
+			$('#tbodyModalCliente').empty()
+		}
+		let restaurante = JSON.parse(localStorage.getItem("restaurante"));
+		if (restaurante !== null) {
+			button.setAttribute("data-target", "#modalRestaurante");
+			fetch(
+				`http://localhost:8080/cliente/getById/${pedido.clienteIdCliente}`
+			).then(
+				response => response.json()
+			).then(cliente => {
+				$("#tbodyModalRestaurante").append(`<tr><td>` + cliente.nombreCompleto + `</td><td>` + pedido.direccionEnvio + `</td>
+			<td>` + pedido.comentario + `</td></tr>`);
+			});
+			$('#tbodyModalRestaurante').empty()
+		}
+	});
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
 	loadPedidos();
-	loadRestaurante();
 });
