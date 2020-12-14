@@ -11,6 +11,21 @@
     <!-- Para que el header pueda sacar las fotos de web/img en todas las páginas -->
     <base href="./..">
 
+    <script>
+        /* Si no se ha proporcionado la informaciónn necesaria, volver a la página principal. */
+        let idCodigoPostal = localStorage.getItem("idCodigoPostal");
+        let idTipoEntrega = localStorage.getItem("idTipoEntrega");
+        let idTipoCocina = localStorage.getItem("idTipoCocina");
+
+        if (
+            idCodigoPostal === null
+            || idTipoEntrega === null
+            || idTipoCocina === null
+        ) {
+            window.location.href = "index.html";
+        }
+    </script>
+
     <script src="./js/check_cliente_present.js"></script>
 
     <!-- CSS -->
