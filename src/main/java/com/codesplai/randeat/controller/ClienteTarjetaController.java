@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.codesplai.randeat.DBConn;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin
 public class ClienteTarjetaController {
     static final String TABLE = "cliente_tarjeta";
     static final String ID_CLIENTE = "cliente_id_cliente";
