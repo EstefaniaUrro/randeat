@@ -4,25 +4,26 @@ body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-/* INICIO RESTAURANTE */
-
-.enviar {
+button[type="button"], button[type="submit"] {
     background-color: #ffaa30;
-    border-color: #ffaa30;
     border: none;
-    padding: 10px 20px; 
+    padding: 4px 12px; 
     border-radius: 25px;
-    color:white !important;
+    color: black;
 }
-.enviar a i{
-    color:black;
-}
-.enviar a{
-    text-decoration: none;
-    color:white !important;
-}
-.enviar:hover{
+
+button[type="button"]:hover, button[type="submit"]:hover {
     background-color: #ff8000;
+}
+
+button[data-toggle="dropdown"],
+button[data-toggle="dropdown"]:hover {
+    background-color: unset;
+    border-radius: unset;
+}
+
+.dropdown-item:focus {
+    background-color: unset;
 }
 
 div.separator {
