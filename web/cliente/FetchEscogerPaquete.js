@@ -193,7 +193,7 @@ function realizarPedido(restaurantePaqueteMap) {
 
     $("#exampleModal").modal("show");
 
-    document.getElementById("total").innerText = total;
+    document.getElementById("total").innerText = total.toFixed(2);
 
     let comentario = document.getElementById("comentario").value;
     let idTipoEntrega = localStorage.getItem("idTipoEntrega");
