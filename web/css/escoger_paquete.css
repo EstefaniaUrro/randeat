@@ -15,16 +15,15 @@
 	width: 30px;
 
 	background-color: #ffaa30;
+	border: 1px solid #ffaa30;
 }
 
 .inc-button {
 	border-radius: 0px 10px 10px 0px;
-	margin-left: -6px;
 }
 
 .dec-button {
 	border-radius: 10px 0px 0px 10px;
-	margin-right: -5px;
 }
 
 input.precio-paquete {
@@ -33,12 +32,9 @@ input.precio-paquete {
 	padding: 0px 0px 1px 0px;
 	text-align: center;
 	/* font-size: 20px; */
-}
 
-/* .card .card {
-	background-color: rgba(243, 243, 243, 0.616);
-	border-radius: 10px;
-} */
+	border: 2px solid #ffaa30;
+}
 
 .card-title h4 {
 	text-align: center;
