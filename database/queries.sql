@@ -246,6 +246,26 @@ INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_r
     1
 );
 
+INSERT INTO usuario (id_usuario, correo_electronico, contrasena, telefono, poblacion, direccion) VALUES (
+	11,
+	'perrosmuertos@gmail.com',
+    'gau',
+    '888889988',
+    'Barcelona',
+    'Carrer Marina 24'
+);
+
+INSERT INTO restaurante (id_restaurante, usuario_id_usuario, cif, iban, nombre_restaurante, nombre_propietario, codigo_postal_id_codigo_postal, activo) VALUES (
+	9,
+    11,
+    'cif campeadora',
+    'ES 1231231231241',
+    'BurguerDog',
+    'Señor Wow',
+    1,
+    1
+);
+
 INSERT INTO tipo_cocina VALUES (1, 'Chino');
 INSERT INTO tipo_cocina VALUES (2, 'Pizza');
 INSERT INTO tipo_cocina VALUES (3, 'Sushi');
@@ -271,6 +291,8 @@ INSERT INTO restaurante_tipo_cocina VALUES (7, 2);
 INSERT INTO restaurante_tipo_cocina VALUES (7, 6);
 INSERT INTO restaurante_tipo_cocina VALUES (8, 7);
 INSERT INTO restaurante_tipo_cocina VALUES (8, 8);
+INSERT INTO restaurante_tipo_cocina VALUES (9, 4);
+INSERT INTO restaurante_tipo_cocina VALUES (9, 7);
 
 
 
@@ -290,9 +312,44 @@ INSERT INTO restaurante_tipo_entrega VALUES (7, 1);
 INSERT INTO restaurante_tipo_entrega VALUES (7, 2);
 INSERT INTO restaurante_tipo_entrega VALUES (8, 1);
 INSERT INTO restaurante_tipo_entrega VALUES (8, 2);
+INSERT INTO restaurante_tipo_entrega VALUES (9, 1);
+INSERT INTO restaurante_tipo_entrega VALUES (9, 2);
 
 INSERT INTO restaurante_paquete VALUES (1, 1, 6.75);
 INSERT INTO restaurante_paquete VALUES (1, 2, 12.75);
+INSERT INTO restaurante_paquete VALUES (1, 3, 15.75);
+
+INSERT INTO restaurante_paquete VALUES (2, 1, 5.50);
+INSERT INTO restaurante_paquete VALUES (2, 2, 9.50);
+INSERT INTO restaurante_paquete VALUES (2, 3, 13.50);
+
+INSERT INTO restaurante_paquete VALUES (3, 1, 7.99);
+INSERT INTO restaurante_paquete VALUES (3, 2, 12.99);
+INSERT INTO restaurante_paquete VALUES (3, 3, 17.99);
+
+INSERT INTO restaurante_paquete VALUES (4, 1, 4.25);
+INSERT INTO restaurante_paquete VALUES (4, 2, 8.25);
+INSERT INTO restaurante_paquete VALUES (4, 3, 12.25);
+
+INSERT INTO restaurante_paquete VALUES (5, 1, 6.55);
+INSERT INTO restaurante_paquete VALUES (5, 2, 11.55);
+INSERT INTO restaurante_paquete VALUES (5, 3, 15.55);
+
+INSERT INTO restaurante_paquete VALUES (6, 1, 5.99);
+INSERT INTO restaurante_paquete VALUES (6, 2, 11.99);
+INSERT INTO restaurante_paquete VALUES (6, 3, 14.99);
+
+INSERT INTO restaurante_paquete VALUES (7, 1, 7.77);
+INSERT INTO restaurante_paquete VALUES (7, 2, 17.77);
+INSERT INTO restaurante_paquete VALUES (7, 3, 27.77);
+
+INSERT INTO restaurante_paquete VALUES (8, 1, 8.66);
+INSERT INTO restaurante_paquete VALUES (8, 2, 12.66);
+INSERT INTO restaurante_paquete VALUES (8, 3, 16.66);
+
+INSERT INTO restaurante_paquete VALUES (9, 1, 5.65);
+INSERT INTO restaurante_paquete VALUES (9, 2, 10.65);
+INSERT INTO restaurante_paquete VALUES (9, 3, 13.65);
 
 INSERT INTO restaurante_bebida VALUES (1, 1);
 INSERT INTO restaurante_bebida VALUES (1, 2);
@@ -310,7 +367,7 @@ INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, t
 	-- direccion_envio porque tipo_entrega_id_tipo_entrega es 1, enviar
     "Calle del hambre, 23, Barcelona, 08009",
     "2020/12/16",
-    13:35:49,
+    "13:35:49",
     'Crudo porfavor'
 );
 
@@ -321,7 +378,7 @@ INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, t
     2,
     2,
     "2020/12/16",
-    13:43:15,
+    "13:43:15",
     'hehe :P'
 );
 
@@ -334,7 +391,7 @@ INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, t
 	-- direccion_envio porque tipo_entrega_id_tipo_entrega es 1, enviar
     "Calle del JavaScript, 6, Barcelona, 08009",
     "2020/12/16",
-    13:57:02,
+    "13:57:02",
     'Extra de salsa'
 );
 
@@ -347,7 +404,7 @@ INSERT INTO pedido (id_pedido, cliente_id_cliente, restaurante_id_restaurante, t
 	-- direccion_envio porque tipo_entrega_id_tipo_entrega es 1, enviar
     "Calle HTML, 5, Barcelona, 08009",
     "2020/12/16",
-    14:02:30,
+    "14:02:30",
     'No mes gusta la mortadela con aceitunas'
 );
 
