@@ -195,8 +195,21 @@ function nombre(button, pedido) {
 			).then(
 				response => response.json()
 			).then(restaurante => {
-				$("#tbodyModalCliente").append(`<tr><td>` + restaurante.nombreRestaurante + `</td><td>` + pedido.direccionEnvio + `</td>
-			<td>` + pedido.comentario + `</td></tr>`);
+				fetch(
+					`http://localhost:8080/usuario/getById/${restaurante.usuarioIdUsuario}`
+				).then(
+					response => response.json()
+				).then(usuario => {
+					$("#tbodyModalCliente").append(
+						`<tr><td>` + restaurante.nombreRestaurante
+						+ `</td><td>` + pedido.direccionEnvio
+						+ `</td><td>` + usuario.telefono
+						+ `</td><td>` + usuario.correoElectronico
+						+ `</td><td>` + pedido.comentario
+						+ `</td></tr>`
+					);
+				});
+				
 			});
 		}
 		let restaurante = JSON.parse(localStorage.getItem("restaurante"));
@@ -209,8 +222,20 @@ function nombre(button, pedido) {
 			).then(
 				response => response.json()
 			).then(cliente => {
-				$("#tbodyModalRestaurante").append(`<tr><td>` + cliente.nombreCompleto + `</td><td>` + pedido.direccionEnvio + `</td>
-			<td>` + pedido.comentario + `</td></tr>`);
+				fetch(
+					`http://localhost:8080/usuario/getById/${cliente.usuarioIdUsuario}`
+				).then(
+					response => response.json()
+				).then(usuario => {
+					$("#tbodyModalRestaurante").append(
+						`<tr><td>` + cliente.nombreCompleto
+						+ `</td><td>` + pedido.direccionEnvio
+						+ `</td><td>` + usuario.telefono
+						+ `</td><td>` + usuario.correoElectronico
+						+ `</td><td>` + pedido.comentario
+						+ `</td></tr>`
+					);
+				});
 			});
 		}
 	});
