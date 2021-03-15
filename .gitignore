@@ -49,3 +49,6 @@ Thumbs.db
 *.wmv
 
 .vscode/settings.json
+src/main/java/com/codesplai/randeat/DBConnSettings.java
+pom.xml
+src/main/java/com/codesplai/randeat/DBConnSettings.java
